@@ -1,0 +1,102 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.9' ],
+  DISCOVER => [ '1.3.6.1.4.1.9.9.161.1.2.1.1.2' ],
+  DISCOVER_NAME_OVERRIDE => '%%1.DISCOVER_INDEX_CHR.0%%',
+  ENTITY_ICON => 'slb_sfarm',
+
+  NAME => 'Cisco SLB servers farm',
+  TRACKS => {
+    '1.3.6.1.4.1.9.9.161.1.2.1.1.2' => {
+      track_name => 'slbsfPredictor',
+      text_translator => {
+          1 => 'round robin',
+          2 => 'least connections',
+      }
+    },
+    '1.3.6.1.4.1.9.9.161.1.2.1.1.3' => {
+      track_name => 'slbsfNat',
+      text_translator => {
+          1 => 'no',
+          2 => 'client',
+          3 => 'server',
+          4 => 'client and server',
+      }
+    },
+    '1.3.6.1.4.1.9.9.161.1.2.1.1.4' => {
+      track_name => 'slbsfNoRS',
+      rrd_track_type => 'GAUGE',
+      threshold_too_low => {
+          value => 1,
+          alarm_level => _ST_WARNING,
+          message => "no real servers in server farm",
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.2.1.1.6' => {
+      track_name => 'slbsfRowStatus',
+      text_translator => {
+          1 => 'active',
+          2 => 'not in service',
+          3 => 'not ready',
+          4 => 'create and go',
+          5 => 'create and wait',
+          6 => 'destroy',
+      },
+      text_test => {
+          bad => [
+              { value => 'not in service', alarm_level => _ST_WARNING, message => 'not in service', },
+              { value => 'not ready', alarm_level => _ST_MINOR, message => 'not ready', },
+              { value => 'destroy', alarm_level => _ST_DOWN, message => 'destroy', },
+          ]
+      },
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'real servers',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbsfNoRS',
+               title => 'number of real servers',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+
+  DESC => {
+      'slbsfPredictor' => {
+          order => 3,
+          title => 'load balancing',
+          brief => 1,
+          compute => [['', 'FORMAT::STRING::<b>%s</b>::%%slbsfPredictor%%']],
+      },
+      'slbsfNat' => {
+          order => 4,
+          title => 'NAT',
+          brief => 1,
+          compute => [['', 'FORMAT::STRING::<b>%s</b>::%%slbsfNat%%']],
+      },
+      'slbsfNoRS' => {
+          order => 5,
+          title => 'real servers',
+          brief => 1,
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%slbsfNoRS%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%slbsfNoRS%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'slbsfRowStatus' => {
+          order => 1,
+          title => 'status',
+          brief => 1,
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%slbsfRowStatus%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%slbsfRowStatus%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+  }
+}

@@ -1,0 +1,40 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.10163' ],
+  DISCOVER => [ '1.3.6.1.4.1.10163.1.2.1.3', ],
+  DISCOVER_NAME_OVERRIDE => 'ARS state',
+  ENTITY_ICON => 'remedy',
+
+  NAME => 'ARS server state',
+  TRACKS => {
+    '1.3.6.1.4.1.10163.1.2.1.1' => {
+      track_name => 'name',
+    },
+    '1.3.6.1.4.1.10163.1.2.1.3' => {
+      track_name => 'state',
+      text_test => {
+          bad => [
+              { value => 'down', alarm_level => _ST_DOWN, message => 'server %%state%%', },
+          ]
+      },
+      text_translator => {
+         1 => 'up',
+         2 => 'down',
+      }
+    },
+  },
+
+  DESC => { 
+      'name' => {
+          order => 1,
+          title => 'server name',
+          brief => 1, 
+      },
+      'state' => {
+          order => 2,
+          title => 'server state',
+          brief => 1, 
+      },
+  }
+}
+
+

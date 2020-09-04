@@ -1,0 +1,27 @@
+
+# edit this
+
+OSLogin=akkada
+OSGroup=akkada
+ApacheLogin=nobody
+ApacheGroup=nobody
+BackupDir=/akkada_backup
+MYSQL=/usr/bin/mysql
+MYSQLDUMP=/usr/bin/mysqldump
+
+# do not change below this line
+
+if [ ! "$AKKADA" ]; then
+   echo "env variable AKKADA not defined";
+   exit 1;
+fi
+
+BINS="$MYSQL $MYSQLDUMP"
+
+for i in $BINS; do
+   if [ ! -e $i ]; then
+       echo "file $i not found. check akkada.shell paths";
+       exit 1;
+   fi
+done
+

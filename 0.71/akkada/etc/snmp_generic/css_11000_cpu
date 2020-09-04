@@ -1,0 +1,80 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.2467' ],
+  DISCOVER => [
+    '1.3.6.1.4.1.2467.1.34.17.1.4',
+    '1.3.6.1.4.1.2467.1.34.17.1.8',
+  ],
+  DISCOVER_NAME_OVERRIDE => '%%DISCOVER_NAME%%',
+  ENTITY_ICON => 'cpu',
+
+  NAME => 'CPU',
+  TRACKS => {
+    '1.3.6.1.4.1.2467.1.34.17.1.13' => {
+      track_name => 'current',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 80,
+          alarm_level => _ST_MAJOR,
+          message => "high current utilization",
+      },
+      threshold_medium => {
+          value => 70,
+          alarm_level => _ST_MINOR,
+          message => "medium current utilization",
+      },
+      threshold_too_low => undef,
+    },
+    '1.3.6.1.4.1.2467.1.34.17.1.14' => {
+      track_name => '5_min_avg',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 70,
+          alarm_level => _ST_MAJOR,
+          message => "high last 5 min average utilization",
+      },
+      threshold_medium => {
+          value => 60,
+          alarm_level => _ST_MINOR,
+          message => "medium last 5 min average utilization",
+      },
+    },
+  },
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'utilization',
+       units => '%',
+       tracks => [
+           { 
+               name => 'current',
+               title => 'current',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+           { 
+               title => '5 min avg',
+               name => '5_min_avg',
+               color => 'FFFF33',
+               style => 'LINE1',
+           },
+       ],
+    }
+  ],
+  DESC => { 
+      'current' => {
+          order => 1,
+          title => 'current utilization',
+          brief => 1,
+          compute => [['fm', 'FORMAT::NUMBER.2::%%current%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+      '5_min_avg' => {
+          order => 2,
+          title => '5 min average utilization',
+          compute => [['fm', 'FORMAT::NUMBER.2::%%5_min_avg%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+  }
+}
+
+

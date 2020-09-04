@@ -1,0 +1,123 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.9' ],
+  DISCOVER => [ '1.3.6.1.4.1.9.9.13.1.2.1.2', ],
+  DISCOVER_NAME_OVERRIDE => '%%DISCOVER_NAME%%',
+  ENTITY_ICON => 'voltage',
+
+  NAME => 'voltage',
+  TRACKS => {
+    '1.3.6.1.4.1.9.9.13.1.2.1.3' => {
+      track_name => 'voltage',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => [['', 'RPN::%%threshold_high%%,0.01,%%threshold_high%%,*,-', ]],
+          alarm_level => _ST_DOWN,
+          message => "high voltage!",
+      },
+      threshold_medium => {
+          value => 0,
+      },
+      threshold_too_low => {
+          value => [['', 'RPN::%%threshold_low%%,0.01,%%threshold_low%%,*,+', ]],
+          alarm_level => _ST_DOWN,
+          message => "low voltage!",
+      },
+      threshold_compute_modulus => 1,
+    },
+    '1.3.6.1.4.1.9.9.13.1.2.1.4' => {
+      track_name => 'threshold_low',
+    },
+    '1.3.6.1.4.1.9.9.13.1.2.1.5' => {
+      track_name => 'threshold_high',
+    },
+    '1.3.6.1.4.1.9.9.13.1.2.1.6' => {
+      track_name => 'last_shutdown',
+    },
+    '1.3.6.1.4.1.9.9.13.1.2.1.7' => {
+      track_name => 'state',
+      text_test => {
+          expected => [
+              {
+                value => 'normal|not present', 
+                alarm_level => _ST_MAJOR, 
+                message => 'voltage sensor status: %%state%%'
+              },
+          ]
+      },
+      text_translator => {
+          1 => 'normal',
+          2 => 'warning',
+          3 => 'critical',
+          4 => 'shutdown',
+          5 => 'not present',
+          6 => 'not functioning',
+      }
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'voltage',
+       units => 'V',
+       tracks => [
+           { 
+               name => 'voltage',
+               title => 'voltage',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    }
+  ],
+  DESC => { 
+      'voltage' => {
+          order => 1,
+          title => 'voltage',
+          brief => 1, 
+          compute => [
+            ['fm','RPN::%%voltage%%,1000,/',],
+            ['fm', 'FORMAT::STRING::%.3f::%%fm%%'],
+            ['fmh','RPN::%%threshold_high%%,1000,/',],
+            ['fml','RPN::%%threshold_low%%,1000,/',],
+            ['fm','PERCDEFL::%%fm%%::%%fml%%::%%fmh%%::1::V'],
+            ['','VALUES::%%fm%%'],
+          ],
+      },
+      'state' => {
+          order => 2,
+          brief => 1, 
+          title => 'state',
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%state%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%state%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'threshold_low' => {
+          order => 3,
+          compute => [ 
+              ['','RPN::%%threshold_low%%,1000,/',],
+              ['','VALUE::%%threshold_low%% V',]
+          ],
+          title => 'emergency shutdown threshold low',
+      },
+      'threshold_high' => {
+          order => 4,
+          compute => [
+              ['','RPN::%%threshold_high%%,1000,/',],
+              ['','VALUE::%%threshold_high%% V',]
+          ],
+          title => 'emergency shutdown threshold high',
+      },
+      'last_shutdown' => {
+          order => 5,
+          compute => [
+              ['','RPN::%%last_shutdown%%,1000,/',],
+              ['','VALUE::%%last_shutdown%% V',]
+          ],
+          title => 'voltage at last emergency shutdown',
+      },
+  }
+}
+
+

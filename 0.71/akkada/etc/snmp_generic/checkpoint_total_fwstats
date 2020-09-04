@@ -1,0 +1,244 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.8072.3.2.10' ],
+  DISCOVER => [ '1.3.6.1.4.1.2620.1.1.1', ],
+  DISCOVER_NAME_OVERRIDE => 'fw summary',
+  ENTITY_ICON => 'fwstats',
+
+  NAME => 'Checkpoint total statistics',
+  TRACKS => {
+    '1.3.6.1.4.1.2620.1.1.1' => {
+      track_name => 'ModuleState',
+    },
+    '1.3.6.1.4.1.2620.1.1.4' => {
+      track_name => 'Accepted',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.5' => {
+      track_name => 'Rejected',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.6' => {
+      track_name => 'Dropped',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.7' => {
+      track_name => 'Logged',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.11' => {
+      track_name => 'Event',
+    },
+    '1.3.6.1.4.1.2620.1.1.21' => {
+      track_name => 'ProdName',
+    },
+    '1.3.6.1.4.1.2620.1.1.22' => {
+      track_name => 'VerMajor',
+    },
+    '1.3.6.1.4.1.2620.1.1.23' => {
+      track_name => 'VerMinor',
+    },
+    '1.3.6.1.4.1.2620.1.1.24' => {
+      track_name => 'KernelBuild',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.1' => {
+      track_name => 'PolicyName', change_detect => 'log',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.2' => {
+      track_name => 'InstallTime', change_detect => 'log',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.3' => {
+      track_name => 'NumConn',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.4' => {
+      track_name => 'PeakNumConn',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.2620.1.5.1' => {
+      track_name => 'haProdName',
+    },
+    '1.3.6.1.4.1.2620.1.5.2' => {
+      track_name => 'haInstalled',
+    },
+    '1.3.6.1.4.1.2620.1.5.3' => {
+      track_name => 'haVerMajor',
+    },
+    '1.3.6.1.4.1.2620.1.5.4' => {
+      track_name => 'haVerMinor',
+    },
+    '1.3.6.1.4.1.2620.1.5.5' => {
+      track_name => 'haStarted',
+    },
+    '1.3.6.1.4.1.2620.1.5.6' => {
+      track_name => 'haState', change_detect => 'log',
+    },
+    '1.3.6.1.4.1.2620.1.5.7' => {
+      track_name => 'haBlockState',
+    },
+    '1.3.6.1.4.1.2620.1.5.8' => {
+      track_name => 'haIdentifier',
+    },
+    '1.3.6.1.4.1.2620.1.5.10' => {
+      track_name => 'haProtoVersion',
+    },
+    '1.3.6.1.4.1.2620.1.5.11' => {
+      track_name => 'haWorkMode',
+    },
+  },
+
+  GRAPHS => [
+    {
+       title => 'accepted packets',
+       units => 'pkts',
+       tracks => [
+           {
+               name => 'Accepted',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'rejected packets',
+       units => 'pkts',
+       tracks => [
+           {
+               name => 'Rejected',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'dropped packets',
+       units => 'pkts',
+       tracks => [
+           {
+               name => 'Dropped',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'logged records',
+       units => 'no.',
+       tracks => [
+           {
+               name => 'Logged',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'number of connections',
+       units => 'no.',
+       tracks => [
+           {
+               name => 'NumConn',
+               title => 'current',
+               color => '00CC33',
+               style => 'LINE1',
+           },
+           {
+               name => 'PeakNumConn',
+               title => 'peak',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    NumConn => { 
+      title => 'number of connections', order => 13, brief => 1, 
+    },
+    PeakNumConn => { 
+      title => 'peak of connections', order => 16, brief => 0, 
+    },
+    hr1 => {order => 18},
+    Accepted => { 
+      title => 'accepted packets', order => 20, brief => 0, 
+      compute => [
+          [ 'ppsi', 'FORMAT::NUMBER.2::%%Accepted%%'],
+          [ '', 'VALUES::%%ppsi%% pps (total: %%Accepted_absolute%% pkts)'],
+      ],
+    },
+    Rejected => { 
+      title => 'rejected packets', order => 30, brief => 0, 
+      compute => [
+          [ 'ppsi', 'FORMAT::NUMBER.2::%%Rejected%%'],
+          [ '', 'VALUES::%%ppsi%% pps (total: %%Rejected_absolute%% pkts)'],
+      ],
+    },
+    Dropped => { 
+      title => 'dropped packets', order => 40, brief => 0, 
+      compute => [
+          [ 'ppsi', 'FORMAT::NUMBER.2::%%Dropped%%'],
+          [ '', 'VALUES::%%ppsi%% pps (total: %%Dropped_absolute%% pkts)'],
+      ],
+    },
+    Logged => { 
+      title => 'logged records', order => 50, brief => 0, 
+      compute => [
+          [ 'ppsi', 'FORMAT::NUMBER.2::%%Logged%%'],
+          [ '', 'VALUES::%%ppsi%% eps (total: %%Logged_absolute%% entries)'],
+      ],
+    },
+    hr2 => {order => 58},
+    Event => { 
+      title => 'last evet', order => 60, brief => 0, 
+    },
+    hr3 => {order => 64},
+    ModuleState => { 
+      title => 'module state', order => 68, brief => 1, 
+    },
+    ProdName => { 
+      title => 'product name', order => 70, brief => 0, 
+    },
+    VerMajor => { 
+      title => 'version', order => 80, brief => 0, 
+      compute => [['', 'VALUES::%%VerMajor%% .%%VerMinor%%' ]],
+    },
+    KernelBuild => { 
+      title => 'kernel build', order => 100, brief => 0, 
+    },
+    PolicyName => { 
+      title => 'policy name', order => 110, brief => 1, 
+    },
+    InstallTime => { 
+      title => 'policy install time', order => 120, brief => 1, 
+    },
+    hr4 => {order => 125},
+    haProdName => { 
+      title => 'HA product name', order => 130, brief => 0, 
+    },
+    haInstalled => { 
+      title => 'HA installed', order => 140, brief => 0, 
+    },
+    haVerMajor => { 
+      title => 'HA version', order => 150, brief => 0, 
+      compute => [['', 'VALUES::%%haVerMajor%% .%%haVerMinor%%' ]],
+    },
+    haStarted => { 
+      title => 'HA started', order => 160, brief => 0, 
+    },
+    haState => { 
+      title => 'HA state', order => 170, brief => 1, 
+    },
+    haBlockState => { 
+      title => 'HA blocking state', order => 180, brief => 0, 
+    },
+    haIdentifier => { 
+      title => 'HA identifier', order => 190, brief => 0, 
+    },
+    haProtoVersion => { 
+      title => 'HA protocol version', order => 200, brief => 0, 
+    },
+    haWorkMode => { 
+      title => 'HA working mode', order => 210, brief => 0, 
+    },
+  },
+}

@@ -1,0 +1,344 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.9' ],
+  DISCOVER => [ '1.3.6.1.4.1.9.9.161.1.3.1.1.4' ],
+  DISCOVER_NAME_OVERRIDE => '%%1.DISCOVER_INDEX_CHR.5%%::%%DISCOVER_INDEX_LAST.5.1%%::%%DISCOVER_INDEX_LAST.1.0%%',
+  ENTITY_ICON => 'slb_reals',
+
+  NAME => 'Cisco SLB real server',
+  TRACKS => {
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.4' => {
+      track_name => 'slbrState',
+      text_translator => {
+        1 => 'out of service',
+        2 => 'in service',
+        3 => 'failed',
+        4 => 'ready to test',
+        5 => 'testing',
+        6 => 'max conns throttle',
+        7 => 'max clients throttle',
+        8 => 'DFP has lowered the weight of this server',
+        9 => 'probe failed',
+        10 => 'probe testing',
+        11 => 'operational, but is waiting for the associated',
+        12 => 'ready to be tested',
+        13 => 'Server has failed the inband Health Probe agent',
+        14 => 'Server has been disabled because it returned an HTTP code that matched a configured value',
+      },
+      text_test => {
+          bad => [
+              { value => 'out of service', alarm_level => _ST_WARNING , message => 'not in service', },
+              { value => 'probe failed', alarm_level => _ST_DOWN, message => 'probe failed', },
+              { value => 'failed', alarm_level => _ST_DOWN, message => 'failed', },
+              { value => 'max conns throttle', alarm_level => _ST_MAJOR, message => 'max conns throttle', },
+          ]
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.5' => {
+      track_name => 'slbrNuConn',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => [['','RPN::%%slbrMaxConn%%,0.9,*',]],
+          alarm_level => _ST_DOWN,
+          message => "high connctions count",
+      },
+      threshold_medium => {
+          value => [['','RPN::%%slbrMaxConn%%,0.7,*',]],
+          alarm_level => _ST_MINOR,
+          message => "medium connections count",
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.6' => {
+      track_name => 'slbrNuDummyCo',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => [['','RPN::%%slbrMaxConn%%,0.9,*',]],
+          alarm_level => _ST_DOWN,
+          message => "high connctions count",
+      },
+      threshold_medium => {
+          value => [['','RPN::%%slbrMaxConn%%,0.7,*',]],
+          alarm_level => _ST_MINOR,
+          message => "medium connections count",
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.7' => {
+      track_name => 'slbrMaxConn',
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.8' => {
+      track_name => 'slbrAdminWeight',
+      rrd_track_type => 'GAUGE',
+      threshold_too_low => {
+          value => 1,
+          alarm_level => _ST_WARNING,
+          message => "no new connections are assigned to this server",
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.9' => {
+      track_name => 'slbrOperWeight',
+      rrd_track_type => 'GAUGE',
+      threshold_too_low => {
+          value => 1,
+          alarm_level => _ST_WARNING,
+          message => "no new connections are assigned to this server",
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.10' => {
+      track_name => 'slbrMetric',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.11' => {
+      track_name => 'slbrReassign',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.12' => {
+      track_name => 'slbrRetryInterval',
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.13' => {
+      track_name => 'slbrFailedConn',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.14' => {
+      track_name => 'slbrFailedClie',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.15' => {
+      track_name => 'slbrConsFails',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.16' => {
+      track_name => 'slbrTotalFails',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.9.9.161.1.3.1.1.19' => {
+      track_name => 'slbrTotalConn',
+      rrd_track_type => 'COUNTER',
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'total fails',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbrTotalFails',
+               title => 'total fails',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       default => 1,
+       title => 'total connections',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbrTotalConn',
+               title => 'total connections',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'connections',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbrNuConn',
+               title => 'number of connections',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'dummy connections',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbrNuDummyCo',
+               title => 'number dummy of connections',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'reassigns',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbrReassign',
+               title => 'reassigned connections',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'failed connections',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbrFailedConn',
+               title => 'failed connections',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'failed clients',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbrFailedClie',
+               title => 'failed clients',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'consecutive fails',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbrConsFails',
+               title => 'consecutive fails',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'admin weight',
+       tracks => [
+           {
+               name => 'slbrAdminWeight',
+               title => 'admin wieght',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'operation weight',
+       tracks => [
+           {
+               name => 'slbrOperWeight',
+               title => 'operation wieght',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'metric',
+       tracks => [
+           {
+               name => 'slbrMetric',
+               title => 'metric',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+
+  DESC => {
+      'slbrState' => {
+          order => 30,
+          title => 'status',
+          brief => 1,
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%slbrState%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%slbrState%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'slbrMaxConn' => {
+          order => 40,
+          title => 'max connections',
+          brief => 0,
+      },
+      'slbrAdminWeight' => {
+          order => 50,
+          title => 'admin weight',
+          brief => 0,
+      },
+      'slbrOperWeight' => {
+          order => 55,
+          title => 'operation weight',
+          brief => 0,
+      },
+      'slbrMetric' => {
+          order => 57,
+          title => 'metric',
+          brief => 0,
+      },
+      'slbrRetryInterval' => {
+          order => 58,
+          title => 'retry interval',
+          brief => 0,
+      },
+      'hr1' => {
+          order => 59,
+      },
+      'slbrNuConn' => {
+          order => 60,
+          title => 'current connections',
+          brief => 1,
+      },
+      'slbrNuDummyCo' => {
+          order => 70,
+          title => 'dummy connections',
+          brief => 0,
+      },
+      'slbrReassign' => {
+          order => 80,
+          title => 'reassigns',
+          brief => 0,
+      },
+      'slbrFailedConn' => {
+          order => 90,
+          title => 'failed connections',
+          brief => 0,
+      },
+      'slbrFailedClie' => {
+          order => 100,
+          title => 'failed clients',
+          brief => 0,
+      },
+      'slbrConsFails' => {
+          order => 110,
+          title => 'consecutive fails',
+          brief => 0,
+      },
+      'hr4' => {
+          order => 125,
+      },
+      'slbrTotalFails' => {
+          order => 130,
+          title => 'total fails',
+          brief => 0,
+          compute => [
+            ['abs', 'ABS::%%slbrTotalFails%%'],
+            ['fm', 'FORMAT::NUMBER.2::%%slbrTotalFails%%'],
+            ['', 'VALUES::%%fm%% cps (total: %%abs%% connections)'],
+          ],
+      },
+      'slbrTotalConn' => {
+          order => 140,
+          title => 'total connections',
+          brief => 0,
+          compute => [
+            ['abs', 'ABS::%%slbrTotalConns%%'],
+            ['fm', 'FORMAT::NUMBER.2::%%slbrTotalConn%%'],
+            ['', 'VALUES::%%fm%% cps (total: %%abs%% connections)'],
+          ],
+      },
+  }
+}

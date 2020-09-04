@@ -1,0 +1,189 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.8072.3.2.8' ],
+  DISCOVER => [ '1.3.6.1.4.1.13684.1.1.1.3.1', ],
+  DISCOVER_NAME_OVERRIDE => 'GPS antenna',
+  ENTITY_ICON => 'satellite2',
+
+  NAME => 'Elproma GPS antenna',
+  TRACKS => {
+    '1.3.6.1.4.1.13684.1.1.1.1' => {
+      track_name => 'ntsGsTracked',
+      threshold_too_low => { value => '1', alarm_level => _ST_DOWN, message => "no tracked satellites", },
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.2' => {
+      track_name => 'ntsGsVisible',
+      threshold_too_low => { value => '1', alarm_level => _ST_DOWN, message => "no visible satellites", },
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.1' => {
+      track_name => 'ntsGs1Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.2' => {
+      track_name => 'ntsGs2Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.3' => {
+      track_name => 'ntsGs3Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.4' => {
+      track_name => 'ntsGs4Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.5' => {
+      track_name => 'ntsGs5Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.6' => {
+      track_name => 'ntsGs6Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.7' => {
+      track_name => 'ntsGs7Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.8' => {
+      track_name => 'ntsGs8Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.9' => {
+      track_name => 'ntsGs9Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.10' => {
+      track_name => 'ntsGs10Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.11' => {
+      track_name => 'ntsGs11Signal',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.13684.1.1.1.3.12' => {
+      track_name => 'ntsGs12Signal',
+      rrd_track_type => 'GAUGE',
+    },
+  },
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'tracked/visible satellites',
+       units => 'no.',
+       tracks => [
+           {
+               name => 'ntsGsTracked',
+               title => 'tracked',
+               color => '330099',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGsVisible',
+               title => 'visible',
+               color => '00CC33',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'satellites signal',
+       units => 'level',
+       tracks => [
+           {
+               name => 'ntsGs1Signal',
+               title => '01',
+               color => '006600',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs2Signal',
+               title => '02',
+               color => '669966',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs3Signal',
+               title => '03',
+               color => '339933',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs4Signal',
+               title => '04',
+               color => '66ff66',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs5Signal',
+               title => '05',
+               color => '99cc99',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs6Signal',
+               title => '06',
+               color => 'cccc99',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs7Signal',
+               title => '07',
+               color => 'ffff99',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs8Signal',
+               title => '08',
+               color => 'cc9966',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs9Signal',
+               title => '09',
+               color => '996666',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs10Signal',
+               title => '10',
+               color => '996600',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs11Signal',
+               title => '11',
+               color => '663300',
+               style => 'LINE1',
+           },
+           {
+               name => 'ntsGs12Signal',
+               title => '12',
+               color => '990033',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    ntsGsTracked => { 
+      title => 'tracked satellites', order => 10, brief => 0, 
+      brief => 1,
+      compute => [
+        ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%ntsGsTracked%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+        ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%ntsGsTracked%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    ntsGsVisible => { 
+      title => 'visible satellites', order => 15, brief => 0, 
+      brief => 1,
+      compute => [
+        ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%ntsGsVisible%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+        ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%ntsGsVisible%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    ntsGs1Signal => { 
+      title => 'GPS signal', order => 20, brief => 0, 
+      compute => [['', 'VALUES::%%ntsGs1Signal.%.0.64.3%% %%ntsGs2Signal.%.0.64.3%% %%ntsGs3Signal.%.0.64.3%% %%ntsGs4Signal.%.0.64.3%% %%ntsGs5Signal.%.0.64.3%% %%ntsGs6Signal.%.0.64.3%% %%ntsGs7Signal.%.0.64.3%% %%ntsGs8Signal.%.0.64.3%% %%ntsGs9Signal.%.0.64.3%% %%ntsGs10Signal.%.0.64.3%% %%ntsGs11Signal.%.0.64.3%% %%ntsGs12Signal.%.0.64.3%%' ]],
+    },
+  },
+}

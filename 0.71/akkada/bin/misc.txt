@@ -1,0 +1,19 @@
+Net::SNMP::Message && cisco css 11xxx
+   if ($length < 1) {
+      #return $this->_error('OBJECT IDENTIFIER length equal to zero'); # zaremowac!
+   }	
+   :1423
+   if (defined $oid[1] && $oid[1] == 0x2b) {   # Handle the most common case # dodane defined
+      $oid[0] = 1;          # first [iso(1).org(3)]
+      $oid[1] = 3;
+   } elsif (defined $oid[1] && $oid[1] < 40) {
+      $oid[0] = 0;
+   } elsif (defined $oid[1] && $oid[1] < 80) {
+      $oid[0] = 1;
+      $oid[1] -= 40;
+   } else {
+      $oid[0] = 2;
+      $oid[1] -= 80;
+   }
+
+OpenVMS - ustawiac snmp v1

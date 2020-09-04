@@ -1,0 +1,49 @@
+/akkada/etc/conf.d/Web/SectionDefinitions.conf add:
+
+      'tools' => [
+        104,
+        [ ],
+        'tools',
+      ],
+      'tool' => [
+        1004,
+        [
+          'tool_name',
+          'start',
+          'options',
+        ],
+        'tool',
+      ],
+
+/akkada/etc/conf.d/Web/Sections.conf add:
+
+      '104' => 'tools',
+      '1004' => 'tool',
+
+/akkada/etc/conf.d/Web/Rights.conf add:
+
+      'tools' => 'vio',
+      'tool' => 'vio',
+      'Tools::time_synchronization_report' => 'vio',
+      'Plugins::utils_ssl_generic.1' => 'vio',
+
+/akkada/etc/conf.d/Web.conf change:
+      'ForceIE' => 1,
+to:
+      'ForceBrowser' => 1,
+
+/akkada/etc/conf.d/MyException.conf add:
+      'TimeFormat' => 'human',
+
+cp /akkada/lib
+cp /akkada/etc/Tools
+cp /akkada/htdocs/img/aat.gif
+cp /akkada/htdocs/img/freebsd.gif
+
+replace /akkada/etc/conf.d/Probes/node.conf
+replace /akkada/etc/snmp_generic directory
+replace /akkada/htdocs/*.js files
+replace /akkada/htdocs/css/*.css files
+
+run /akkada/bin/post_install.sh
+

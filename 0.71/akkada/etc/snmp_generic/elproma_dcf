@@ -1,0 +1,35 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.8072.3.2.8' ],
+  DISCOVER => [ '1.3.6.1.4.1.13684.1.3.1', ],
+  DISCOVER_NAME_OVERRIDE => 'DCF antenna',
+  ENTITY_ICON => 'antenna',
+
+  NAME => 'Elproma DCF antenna',
+  TRACKS => {
+    '1.3.6.1.4.1.13684.1.3.1' => {
+      track_name => 'ntsDcfStatusCode',
+      text_translator => {
+        0 => 'nominal (ok)',
+        1 => 'poll timeout',
+        2 => 'bad reply format',
+        3 => 'hardware or software fault',
+        4 => 'propagation failure',
+        5 => 'bad date format or value',
+        6 => 'bad time format or value',
+      },
+      text_test => {
+        expected => [ { value => 'nominal \(ok\)', alarm_level => _ST_DOWN, message => '%%ntsDcfStatusCode%%', }, ],
+      },
+    },
+  },
+  DESC => {
+    ntsDcfStatusCode => { 
+      title => 'status', order => 10, brief => 0, 
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%ntsDcfStatusCode%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%ntsDcfStatusCode%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      brief => 1,
+    },
+  },
+}

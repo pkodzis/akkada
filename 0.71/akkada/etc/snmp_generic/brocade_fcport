@@ -1,0 +1,652 @@
+{  
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.1588' ],
+  DISCOVER => [ '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.1' ],
+  DISCOVER_NAME_OVERRIDE => 'port %%DISCOVER_INDEX%%',
+  ENTITY_ICON => 'fcport',
+
+  NAME => 'Brocade fibre channel port',
+  TRACKS => {
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.2' => {
+      track_name => 'Type',
+      text_translator => {
+        1 => 'stitch',
+        2 => 'flannel',
+	3 => 'loom',
+        4 => 'bloom',
+	5 => 'rdbloom',
+	6 => 'wormhole',
+	7 => 'other',
+	8 => 'unknown',
+      },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.3' => {
+      track_name => 'PhyState',
+      text_translator => {
+        1 => 'noCard',
+        2 => 'noGbic',
+        3 => 'laserFault',
+        4 => 'noLight',
+        5 => 'noSync',
+        6 => 'inSync',
+        7 => 'portFault',
+        8 => 'diagFault',
+        9 => 'lockRef',
+      },
+      text_test => {
+          bad => [ { value => 'Fault', alarm_level => _ST_DOWN , message => 'bad physical port state: %%PhyState%%', }, ],
+          bad => [ { value => '^noSync', alarm_level => _ST_WARNING, message => 'bad physical port state: synchronization lost', }, ],
+      },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.4' => {
+      track_name => 'OpStatus',
+      text_translator => {
+        0 => 'unknown',
+        1 => 'online',
+        2 => 'offline',
+        3 => 'testing',
+        4 => 'faulty',
+      },
+      text_test => {
+          bad => [ { value => 'faulty', alarm_level => _ST_DOWN, message => 'bad operational port status: %%OpStatus%%', }, ],
+      },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.5' => {
+      track_name => 'AdmStatus',
+      text_translator => {
+        1 => 'online',
+        2 => 'offline',
+        3 => 'testing',
+        4 => 'faulty',
+      },
+      text_test => {
+          bad => [ { value => 'faulty', alarm_level => _ST_DOWN, message => 'bad administration port status: %%AdmStatus%%', }, ],
+      },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.6' => {
+      track_name => 'LinkState',
+      text_translator => {
+        1 => 'enabled',
+        2 => 'disabled',
+        3 => 'loopback',
+      },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.7' => {
+      track_name => 'TxType',
+      text_translator => {
+        1 => 'unknown',
+        2 => 'long wave laser',
+        3 => 'short wave laser',
+        4 => 'long wave LED',
+        5 => 'copper (electrical)',
+      },
+    },
+
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.11' => {
+      track_name => 'TxWords',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.12' => {
+      track_name => 'RxWords',
+      rrd_track_type => 'COUNTER',
+    },
+
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.13' => {
+      track_name => 'TxFrames',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.14' => {
+      track_name => 'RxFrames',
+      rrd_track_type => 'COUNTER',
+    },
+
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.15' => {
+      track_name => 'TxC2Frames',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.16' => {
+      track_name => 'RxC3Frames',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.17' => {
+      track_name => 'RxLCs',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.18' => {
+      track_name => 'RxMcasts',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.19' => {
+      track_name => 'TooManyRdys',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.20' => {
+      track_name => 'NoTxCredits',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.21' => {
+      track_name => 'RxEncInFrs',
+      rrd_track_type => 'COUNTER',
+      threshold_high => { value => '1', alarm_level => _ST_WARNING, message => "encoding error or disparity error inside frames received", },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.22' => {
+      track_name => 'RxCrcs',
+      rrd_track_type => 'COUNTER',
+      threshold_high => { value => '1', alarm_level => _ST_WARNING, message => "CRC errors", },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.23' => {
+      track_name => 'RxTruncs',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.24' => {
+      track_name => 'RxTooLongs',
+      rrd_track_type => 'COUNTER',
+      threshold_high => { value => '1', alarm_level => _ST_WARNING, message => "too long received frames", },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.25' => {
+      track_name => 'RxBadEofs',
+      rrd_track_type => 'COUNTER',
+      threshold_high => { value => '1', alarm_level => _ST_WARNING, message => "frames with bad EOF delimiter", },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.26' => {
+      track_name => 'RxEncOutFrs',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.27' => {
+      track_name => 'RxBadOs',
+      rrd_track_type => 'COUNTER',
+      threshold_high => { value => '1', alarm_level => _ST_WARNING, message => "invalid ordered sets received", },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.28' => {
+      track_name => 'C3Discards',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.29' => {
+      track_name => 'McastTimedOuts',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.30' => {
+      track_name => 'TxMcasts',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.31' => {
+      track_name => 'LipIns',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.32' => {
+      track_name => 'LipOuts',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.33' => {
+      track_name => 'LipLastAlpa',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.34' => {
+      track_name => 'Wwn',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.35' => {
+      track_name => 'Speed',
+      text_translator => {
+        1 => '1 GB',
+        2 => '2 GB',
+        3 => 'autonegotiate',
+        4 => '4 GB',
+      },
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.36' => {
+      track_name => 'Name',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.2.1.37' => {
+      track_name => 'Specifier',
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'transmited words',
+       units => 'words',
+       tracks => [
+           {
+               name => 'TxWords',
+               title => 'Tx',
+               color => '00CC33',
+               style => 'AREA',
+           },
+           {
+               name => 'RxWords',
+               title => 'Rx',
+               color => '330099',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+    {
+       title => 'transmited frames',
+       default => 1,
+       units => 'frames',
+       tracks => [
+           {
+               name => 'TxFrames',
+               title => 'Tx',
+               color => '00CC33',
+               style => 'AREA',
+           },
+           {
+               name => 'RxFrames',
+               title => 'Rx',
+               color => '330099',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+    {
+       title => 'Tx class 2 frames',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'TxC2Frames',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx class 3 frames',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'RxC3Frames',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx link control frames',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'RxLCs',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx multicasts',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'RxMcasts',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'too many RDYs',
+       units => 'no.',
+       tracks => [
+           {
+               name => 'TooManyRdys',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'no Tx credits',
+       units => 'no',
+       tracks => [
+           {
+               name => 'NoTxCredits',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx encoding and disparity errors',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'RxEncInFrs',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx CRC errors',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'RxCrcs',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx truncated frames',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'RxTruncs',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx too long frames',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'RxTooLongs',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx bad EOF delimiter frames',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'RxBadEofs',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx encoding and disparity errors',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'RxEncOutFrs',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Rx invalid ordered sets ',
+       units => 'no.',
+       tracks => [
+           {
+               name => 'RxBadOs',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'class 3 discards',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'C3Discards',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'timed out multicasts',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'McastTimedOuts',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Tx multicasts',
+       units => 'frames',
+       tracks => [
+           {
+               name => 'TxMcasts',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'loop initializations by attached device',
+       units => 'no.',
+       tracks => [
+           {
+               name => 'LipIns',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'loop initializations by the port',
+       units => 'no.',
+       tracks => [
+           {
+               name => 'LipOuts',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    Type => { 
+      title => 'type', order => 55, brief => 1, 
+    },
+    PhyState => { 
+      title => 'physical', order => 20, brief => 1, 
+      compute => [
+        ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%PhyState%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+        ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%PhyState%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    OpStatus => { 
+      title => 'operational', order => 30, brief => 1, 
+      compute => [
+        ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%OpStatus%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+        ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%OpStatus%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    AdmStatus => { 
+      title => 'admin', order => 40, brief => 1, 
+      compute => [
+        ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%AdmStatus%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+        ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%AdmStatus%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    LinkState => { 
+      title => 'link', order => 50, brief => 1, 
+    },
+    TxType => { 
+      title => 'Tx type', order => 60, brief => 1, 
+    },
+    Wwn => { 
+      title => 'world wide name', order => 61, brief => 0, 
+      compute => [['','MAC::%%Wwn%%',]],
+    },
+    Speed => { 
+      title => 'speed', order => 62, brief => 0, 
+    },
+    Name => { 
+      title => 'name', order => 63, brief => 0, 
+    },
+    Specifier => { 
+      title => 'specifier', order => 64, brief => 0, 
+    },
+    hr1 => {
+        order => 65,
+    },
+    TxWords => { 
+      title => 'Tx/Rx words', order => 70, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%TxWords%%'],
+        ['rxw', 'FORMAT::NUMBER.2::%%RxWords%%'],
+        ['', 'VALUES::%%txw%%/%%rxw%% wps (total: %%TxWords_absolute%%/%%RxWords_absolute%% words)'],
+      ],
+    },
+    TxFrames => { 
+      title => 'Tx/Rx frames', order => 90, brief => 1, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%TxFrames%%'],
+        ['rxw', 'FORMAT::NUMBER.2::%%RxFrames%%'],
+        ['', 'VALUES::%%txw%%/%%rxw%% fps (total: %%TxFrames_absolute%%/%%RxFrames_absolute%% frames)'],
+      ],
+    },
+    TxC2Frames => { 
+      title => 'Tx class 2', order => 110, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%TxC2Frames%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%TxC2Frames_absolute%% frames)'],
+      ],
+    },
+    RxC3Frames => { 
+      title => 'Rx class 3', order => 120, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxC3Frames%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxC3Frames_absolute%% frames)'],
+      ],
+    },
+
+    hr2 => {
+      order => 105,
+    },
+
+    RxLCs => { 
+      title => 'Rx link control', order => 130, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxLCs%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxLCs_absolute%% frames)'],
+      ],
+    },
+    RxMcasts => { 
+      title => 'Rx multicasts', order => 140, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxMcasts%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxMcasts_absolute%% frames)'],
+      ],
+    },
+    TooManyRdys => { 
+      title => 'too many RDYs', order => 150, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%TooManyRdys%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%TooManyRdys_absolute%% frames)'],
+      ],
+    },
+    NoTxCredits => { 
+      title => 'no Tx credits', order => 160, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%NoTxCredits%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%NoTxCredits_absolute%% frames)'],
+      ],
+    },
+    RxEncInFrs => { 
+      title => 'encoding error or disparity error inside frames ', order => 170, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxEncInFrs%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxEncInFrs_absolute%% frames)'],
+      ],
+    },
+    RxCrcs => { 
+      title => 'Rx CRC errors', order => 180, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxCrcs%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxCrcs_absolute%% frames)'],
+      ],
+    },
+    RxTruncs => { 
+      title => 'truncated', order => 190, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxTruncs%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxTruncs_absolute%% frames)'],
+      ],
+    },
+    RxTooLongs => { 
+      title => 'received frames that are too long', order => 200, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxTooLongs%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxTooLongs_absolute%% frames)'],
+      ],
+    },
+    RxBadEofs => { 
+      title => 'received frames that have bad EOF delimiter', order => 210, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxBadEofs%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxBadEofs_absolute%% frames)'],
+      ],
+    },
+    RxEncOutFrs => { 
+      title => 'encoding error or disparity error outside frames received', order => 220, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxEncOutFrs%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxEncOutFrs_absolute%% frames)'],
+      ],
+    },
+    RxBadOs => { 
+      title => 'invalid ordered sets received', order => 230, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%RxBadOs%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%RxBadOs_absolute%% frames)'],
+      ],
+    },
+    C3Discards => { 
+      title => 'class 3 frames discards', order => 240, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%C3Discards%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%C3Discards_absolute%% frames)'],
+      ],
+    },
+    McastTimedOuts => { 
+      title => 'timed out multicast frames', order => 250, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%McastTimedOuts%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%McastTimedOuts_absolute%% frames)'],
+      ],
+    },
+    TxMcasts => { 
+      title => 'Tx multicasts', order => 260, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%TxMcasts%%'],
+        ['', 'VALUES::%%txw%% fps (total: %%TxMcasts_absolute%% frames)'],
+      ],
+    },
+
+    hr3 => {
+       order => 265,
+    },
+    LipIns => { 
+      title => 'loop initializations initiated by loop devices attached', order => 270, brief => 0, 
+    },
+    LipOuts => { 
+      title => 'loop initializations initiated by the port', order => 280, brief => 0, 
+    },
+    LipLastAlpa => { 
+      title => 'last loop initialization device physical address', order => 290, brief => 0, 
+    },
+  },
+}

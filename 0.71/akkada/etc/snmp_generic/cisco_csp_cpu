@@ -1,0 +1,252 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.9' ],
+  DISCOVER => [ '1.3.6.1.4.1.9.9.370.1.18.1.1.2' ],
+  DISCOVER_NAME_OVERRIDE => 'CPU %%DISCOVER_INDEX_CHR%%',
+  ENTITY_ICON => 'cpu',
+
+  NAME => 'CPU',
+  TRACKS => {
+    '1.3.6.1.4.1.9.9.370.1.18.1.1.2' => {
+      track_name => 'status',
+      text_test => {
+          expected => [
+              {
+                value => 'up',
+                alarm_level => _ST_MAJOR,
+                message => 'CPU status down',
+              },
+          ]
+      },
+      text_translator => {
+          1 => 'up',
+          2 => 'down',
+      }
+    },
+    '1.3.6.1.4.1.9.9.370.1.18.1.1.4' => {
+      track_name => 'processU',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+    '1.3.6.1.4.1.9.9.370.1.18.1.1.6' => {
+      track_name => 'processU5Sec',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+    '1.3.6.1.4.1.9.9.370.1.18.1.1.7' => {
+      track_name => 'processU1Min',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+    '1.3.6.1.4.1.9.9.370.1.18.1.1.8' => {
+      track_name => 'processU5Min',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+    '1.3.6.1.4.1.9.9.370.1.18.1.1.5' => {
+      track_name => 'interruptU',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+    '1.3.6.1.4.1.9.9.370.1.18.1.1.9' => {
+      track_name => 'interruptU5sec',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+    '1.3.6.1.4.1.9.9.370.1.18.1.1.10' => {
+      track_name => 'interruptU1min',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+    '1.3.6.1.4.1.9.9.370.1.18.1.1.11' => {
+      track_name => 'interruptU5min',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'process utilization',
+       units => '%',
+       tracks => [
+           {
+               name => 'processU',
+               title => 'current',
+               color => 'FF0000',
+               style => 'LINE1',
+           },
+           {
+               name => 'processU5Min',
+               title => '5 min avg',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+           {
+               name => 'processU1Min',
+               title => '1 min avg',
+               color => 'CC9933',
+               style => 'LINE1',
+           },
+           {
+               name => 'processU5Sec',
+               title => '5 sec avg',
+               color => 'FFFF33',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       default => 1,
+       title => 'interrupt utilization',
+       units => '%',
+       tracks => [
+           {
+               name => 'interruptU',
+               title => 'current',
+               color => 'FF0000',
+               style => 'LINE1',
+           },
+           {
+               name => 'interruptU5min',
+               title => '5 min avg',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+           {
+               name => 'interruptU1min',
+               title => '1 min avg',
+               color => 'CC9933',
+               style => 'LINE1',
+           },
+           {
+               name => 'interruptU5sec',
+               title => '5 sec avg',
+               color => 'FFFF33',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+      'status' => {
+          order => 0,
+          title => 'status',
+          brief => 1,
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%status%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%status%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'hr0' => {
+          order => 2,
+      },
+      'processU' => {
+          order => 3,
+          title => 'process',
+          brief => 1,
+          compute => [['fm', 'FORMAT::NUMBER.2::%%processU%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+      'hr1' => {
+          order => 4,
+      },
+      'processU5Sec' => {
+          order => 5,
+          title => 'process 5 sec average',
+          brief => 0,
+          compute => [['fm', 'FORMAT::NUMBER.2::%%processU5Sec%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+      'processU1Min' => {
+          order => 6,
+          title => 'process 1 min average',
+          brief => 0,
+          compute => [['fm', 'FORMAT::NUMBER.2::%%processU1Min%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+      'processU5Min' => {
+          order => 7,
+          title => 'process 5 min average',
+          brief => 0,
+          compute => [['fm', 'FORMAT::NUMBER.2::%%processU5Min%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+      'hr2' => {
+          order => 8,
+      },
+      'interruptU' => {
+          order => 9,
+          title => 'interrupt',
+          brief => 1,
+          compute => [['fm', 'FORMAT::NUMBER.2::%%interruptU%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+      'hr3' => {
+          order => 10,
+      },
+      'interruptU5sec' => {
+          order => 11,
+          title => 'interrupt 5 sec average',
+          brief => 0,
+          compute => [['fm', 'FORMAT::NUMBER.2::%%interruptU5sec%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+      'interruptU1min' => {
+          order => 12,
+          title => 'interrupt 1 min average',
+          brief => 0,
+          compute => [['fm', 'FORMAT::NUMBER.2::%%interruptU1min%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+      'interruptU5min' => {
+          order => 13,
+          title => 'interrupt 5 min average',
+          brief => 0,
+          compute => [['fm', 'FORMAT::NUMBER.2::%%interruptU5min%%'],
+            ['', 'PERCENT::%%fm%%']],
+      },
+  }
+}
+
+

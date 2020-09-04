@@ -1,0 +1,166 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.2467' ],
+  # discover prowadzony bedzie tylko dla hostow
+  # ktorych sysObjectID zbadany przez czujke node zaczyna sie od DISCOVER_AFFECTED_SYSOBJECTID
+
+  DISCOVER => [
+    '1.3.6.1.4.1.2467.1.34.17.1.4',
+    '1.3.6.1.4.1.2467.1.34.17.1.8',
+  ],
+  # wartosci discoverowana musi byc name'em serwisu
+  # jesli wystepuje wiecej niz jeden DICOVER, to 
+  # discover buduje indexy wg pierwszego DISCOVER, a nazwa join "." @DISCOVERS
+  # w tym wypadku nazwa powinna dac w wyniku np. "SCFM.e8"
+
+  DISCOVER_NAME_OVERRIDE => '%%DISCOVER_NAME%%.%%DISCOVER_INDEX%%',
+  # jesli chce nadpisac name to podaje tutaj swoj name serwisu; puse ignorowane; obecnosc opcjonalna
+  # zmienna %%DISCOVER_INDEX%% - podstawia index zdiskowerowany
+  # zmienna %%DISCOVER_NAME%% - podstawia name wynikajacy z discovera
+  # zmienna %%DISCOVER_NAME.0%% - jesli nazwa z discovera sklada sie z 2 czlonow, to bierze pierwszy z tablicy
+  # czyli robiac string "cpu %%DISCOVER_NAME%%" => "cpu SCFM.e8"
+  # %%DISCOVER_INDEX_CHR%% konwersuje indexy typu: 3.84.67.80 na string 3 litreowy: TCP (funkcja chr perlowa na kodzie ASCII)
+  # %%2.DISCOVER_INDEX_CHR.0%% konwersuje indexy typu: 3.84.67.80 na string ale po usunieciu 2 pierwszych wartosci czyli zamienia 3.84.67.80 na 67.80 i to na ascii -> CP
+  # %%DISCOVER_INDEX_LAST.3.1%% zwraca ostatnie 3 liczby z indeksu oraz obcina ostatnia z nich. np. 1.2.3.4.5.6 -> 4.5
+
+  #DISCOVER_CONDITION => {
+  # eq => { 1 => 10},
+  # gt => {},
+  # lt => { 2 => 123},
+  # begin => {},
+  # contain => {3 => 'aa'},
+  # end => {},
+  #},
+  # serwis zostanie zdiskowerowany tylko jesli OID o indeksie 1 z tablicy DISCOVER w tej tablicy bedzie miec wartosc 10
+  # tablica indeksuje sie od 0!
+  # wszystkie podane warunki musza byc spelnione
+  #
+
+  ENTITY_ICON => 'misc1',
+  # ikonka serwisu
+
+  TRACKS => {
+  #tutaj tylko definicje gromadzenia danych - NIE WYKRESOW!
+    '1.3.6.1.4.1.2467.1.34.17.1.13' => {
+      # z tegog czytam dane
+
+      track_name => 'current',
+      # tak sie nazywa w pliku rrd; max 19 liter?
+
+      rrd_track_type => 'GAUGE',
+      # rodzaj traka rrd - jesli tego nie ma, tzn, to wartosc ktore nie jest gromadzona w rrd
+
+      compute => [ 'RPN::asdasda', 'REG::asdasdasa', '%%asdads%%', itd ], # tablicza przeliczen.. wg kolejnosci wpisow
+
+      threshold_high => {
+      #threshold_high - wartosc numeryczna, przekroszony dopuszczalny poziom
+          value => 80,
+          alarm_level => _ST_MAJOR,
+          message => "high current utilization",
+      },
+
+      threshold_medium => {
+      #threshold_medium - wartosc numeryczna, ostrzezenie o wysokiej utylizacji 
+          value => 70,
+          alarm_level => _ST_MINOR,
+          message => "medium current utilization",
+      },
+
+      threshold_too_low => undef,
+      #threshold_too_low - wartosc numeryczna, zbyt maly poziom
+
+      text_test => undef
+      #text_test => #- test wartosci tekstowaej jak w formacie AKKADA
+      #jesli zdefiniowany text_test, to thresholdy nie sa w ogole brane pod uwage!!
+      #{
+      #   expected => [ 
+      #       {value=>"aaaa", alarm_level=>_ST_DOWN, message=>'bad value %%x%%'}, 
+      #       #value => "ok|not present" => regexp
+      #   ],
+      #   bad => [
+      #       {value => "xxx", alarm_level => _ST_MAJOR, message => 'somethink bad'},
+      #   ],
+      #}
+      #text_translator - jesli zdefiniowany to wykonuje sie przez text_test
+      #text_translator => {
+      #    1 => 'normal',
+      #    2 => 'warning',
+      #    3 => 'critical',
+      #    4 => 'shutdown',
+      #    5 => 'notPresent',
+      #    6 => 'notFunctioning',
+      #}
+    },
+
+    '1.3.6.1.4.1.2467.1.34.17.1.14' => {
+      track_name => '5_min_avg',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 70,
+          alarm_level => _ST_MAJOR,
+          message => "high last 5 min average utilization",
+      },
+      threshold_medium => {
+          value => 60,
+          alarm_level => _ST_MINOR,
+          message => "medium last 5 min average utilization",
+      },
+    },
+  },
+
+#
+# format computed REG:
+# 'REG::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+$value::unit||^\s+',
+# REG:: regexp argumentowy ::name||regexp fixujacy wyextrachowane name::value||...::unit||....
+# liczba argumentow i kolejnosc musi zgadzac sie z podanymi nazwami: name, value, unit - i tylko takie nazwy sa dozwolone
+#
+
+  GRAPHS => [
+    # definicje wykresow  w kolejnosci
+    {
+       title => 'utilization',
+       units => '%',
+      # default => 1, - jesli podany to wykres bedzie wyswietlal sie na zakladce stat na hoscie
+      # i tutaj definicje trackow na wykres w kolejnosci
+       tracks => [
+           { 
+               name => 'current',
+               title => 'current', || [] wtedy jest computed; computer dziala tylko dla wykresow z pojedynczym trackiem.
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+           { 
+               title => '5 min avg',
+               name => '5_min_avg',
+               color => 'FFFF33',
+               style => 'LINE1',
+               #cdef => '%%DS_NAME%%,-1,*', - definicje CDEF do RRD zgodnie z rrd; %%DS_NAME%% zostanie zamieniony na nazwe z pola name
+           },
+       ],
+    }
+  ],
+  DESC => { 
+  #definicje do tworzenia opisow
+  # klucze /^hr\d$/ robia pusta linie
+      'current' => {
+          order => 1,
+          title => 'current utilization',
+          units => '%', #powoduje interpretacje danych jako liczby; nie ma units, dane sa interpretowane jako tekst
+          brief => 1, #1 oznacza, ze bedzie wyswietlane w briefie
+          #compute => [
+          #  'RPN::%%voltage%%,1000,/', - jesli wartosc ma byc przzeliczona przed prezentacja
+          #  'MAC', - jesli wartosc ma byc pokazany MAC
+          #  'VALUES::%%value1%% djfghdj %%value2.%.0.64.2%%', - jesli wartosc ma byc zbudowana z kilku wartosci
+          #     value1 - bez niczego podstawienia
+          #     value2 - pomalowana kolorami, procentowao 0 - low, 64 - max, 2 (opcjonalnie) fill zerami
+          #    %%BYTES%% wykonuje format_bytes na wartosci
+          #    %%NUMBER.<PREC>%% wykonuje format_number na wartosci z precyzja <PREC> (PREC musi byc pojedyncza cyfra)
+      },
+      '5_min_avg' => {
+          order => 2,
+          title => '5 min average utilization',
+          units => '%',
+      },
+  }
+}
+
+

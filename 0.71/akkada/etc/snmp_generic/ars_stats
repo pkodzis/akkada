@@ -1,0 +1,601 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.10163' ],
+  DISCOVER => [ '1.3.6.1.4.1.10163.1.2.2.1', ],
+  DISCOVER_NAME_OVERRIDE => 'ARS statistics',
+  ENTITY_ICON => 'remedy',
+
+  NAME => 'ARS server statistics',
+  TRACKS => {
+    '1.3.6.1.4.1.10163.1.2.2.1' => {
+      track_name => 'arsStartTime'
+    },
+    '1.3.6.1.4.1.10163.1.2.2.5' => {
+      track_name => 'arsCurrUsers',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.6' => {
+      track_name => 'arsWriteFixed',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.7' => {
+      track_name => 'arsWriteFloat',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.8' => {
+      track_name => 'arsWriteRead',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.9' => {
+      track_name => 'arsFullFixed',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.10' => {
+      track_name => 'arsFullFloat',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.11' => {
+      track_name => 'arsFullNone',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.12' => {
+      track_name => 'arsAPIReq',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.18' => {
+      track_name => 'arsGetECount',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.20' => {
+      track_name => 'arsSetECount',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.22' => {
+      track_name => 'arsCreateECount',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.24' => {
+      track_name => 'arsDeleteECount',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.26' => {
+      track_name => 'arsMergeECount',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.28' => {
+      track_name => 'arsGetListECount',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.32' => {
+      track_name => 'arlFlPassed',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.33' => {
+      track_name => 'arlFlFailed',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.36' => {
+      track_name => 'arlFlMessage',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.38' => {
+      track_name => 'arlFlFieldS',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.41' => {
+      track_name => 'arsEsclPassed',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.42' => {
+      track_name => 'arsEsclFailed',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.47' => {
+      track_name => 'arsEsclPr',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.50' => {
+      track_name => 'arsNumberBlocked',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.51' => {
+      track_name => 'arsCPU',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.54' => {
+      track_name => 'arsFTSSrchCount',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.56' => {
+      track_name => 'arsSinceStart',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.58' => {
+      track_name => 'arsNetRespTime',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.10163.1.2.2.63' => {
+      track_name => 'arsNumThreads',
+      rrd_track_type => 'GAUGE',
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'arsCurrUsers',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsCurrUsers',
+               title => 'current users',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsWriteFixed',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsWriteFixed',
+               title => 'used fixed write licenses',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsWriteFloat',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsWriteFloat',
+               title => 'used floating write licenses',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsWriteRead',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsWriteRead',
+               title => 'connected used no write license',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsFullFixed',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsFullFixed',
+               title => 'used fixed FT licenses',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsFullFloat',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsFullFloat',
+               title => 'used floating FT licenses',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsFullNone',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsFullNone',
+               title => 'connected users with no FT license',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsAPIReq',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsAPIReq',
+               title => 'API requests received',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsGetECount',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsGetECount',
+               title => 'ARGetEntry calls',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsSetECount',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsSetECount',
+               title => 'ARSetEntry calls',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsCreateECount',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsCreateECount',
+               title => 'ARCreateEntry calls',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsDeleteECount',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsDeleteECount',
+               title => 'ARDeleteEntry',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsMergeECount',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsMergeECount',
+               title => 'ARMergeEntry calls',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsGetListECount',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsGetListECount',
+               title => 'ARGetListEntry calls',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arlFlPassed',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arlFlPassed',
+               title => 'filters that were executed (qualification criteria met)',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arlFlFailed',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arlFlFailed',
+               title => 'filters that were skipped (qualification criteria not met)',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arlFlMessage',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arlFlMessage',
+               title => 'message filter actions performed',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arlFlFieldS',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arlFlFieldS',
+               title => 'set fields filter actions performed',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsEsclPassed',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsEsclPassed',
+               title => 'escalations that were executed (qualification criteria met)',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsEsclFailed',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsEsclFailed',
+               title => 'escalations that were skipped (qualification criteria not met)',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsEsclPr',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsEsclPr',
+               title => 'run process escalation actions performed',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsNumberBlocked',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsNumberBlocked',
+               title => 'blocked processes',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsCPU',
+       units => 'sec',
+       tracks => [
+           {
+               name => 'arsCPU',
+               title => 'CPU time used by the server',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsFTSSrchCount',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsFTSSrchCount',
+               title => 'FTS operations performed',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsSinceStart',
+       units => 'sec',
+       tracks => [
+           {
+               name => 'arsSinceStart',
+               title => 'number of miliseconds since the server was started',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsNetRespTime',
+       units => 'sec',
+       tracks => [
+           {
+               name => 'arsNetRespTime',
+               title => 'time spent on the network responding to the client',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'arsNumThreads',
+       units => 'no',
+       tracks => [
+           {
+               name => 'arsNumThreads',
+               title => 'threads in the queue',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    arsStartTime => { 
+      title => 'The time at which this server was started', order => 10, brief => 0, 
+      compute => [ ['', 'FORMAT::UNIXDATE::%%arsStartTime%%'], ],
+    },
+    arsCurrUsers => { 
+      title => 'users currently accessing the system', order => 20, brief => 0, 
+    },
+    arsWriteFixed => { 
+      title => 'connected users with fixed write licenses', order => 30, brief => 0, 
+    },
+    arsWriteFloat => { 
+      title => 'connected users with floating write licenses', order => 40, brief => 0, 
+    },
+    arsWriteRead => { 
+      title => 'connected users with no write license', order => 50, brief => 0, 
+    },
+    arsFullFixed => { 
+      title => 'connected users with fixed FT licenses', order => 60, brief => 0, 
+    },
+    arsFullFloat => { 
+      title => 'connected users with floating FT licenses', order => 70, brief => 0, 
+    },
+    arsFullNone => { 
+      title => 'connected users with no FT license', order => 80, brief => 0, 
+    },
+    arsAPIReq => { 
+      title => 'API requests received', order => 90, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsAPIReq%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsAPIReq_absolute%%)'],
+      ],
+    },
+    arsGetECount => { 
+      title => 'ARGetEntry function calls', order => 100, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsGetECount%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsGetECount_absolute%%)'],
+      ],
+    },
+    arsSetECount => { 
+      title => 'ARSetEntry function calls', order => 110, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsSetECount%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsSetECount_absolute%%)'],
+      ],
+    },
+    arsCreateECount => { 
+      title => 'ARCreateEntry function calls', order => 120, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsCreateECount%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsCreateECount_absolute%%)'],
+      ],
+    },
+    arsDeleteECount => { 
+      title => 'ARDeleteEntry function calls', order => 130, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsDeleteECount%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsDeleteECount_absolute%%)'],
+      ],
+    },
+    arsMergeECount => { 
+      title => 'ARMergeEntry function calls', order => 140, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsMergeECount%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsMergeECount_absolute%%)'],
+      ],
+    },
+    arsGetListECount => { 
+      title => 'ARGetListEntry function calls', order => 150, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsGetListECount%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsGetListECount_absolute%%)'],
+      ],
+    },
+    arlFlPassed => { 
+      title => 'filters that were executed (qualification criteria met)', order => 160, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arlFlPassed%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arlFlPassed_absolute%%)'],
+      ],
+    },
+    arlFlFailed => { 
+      title => 'filters that were skipped (qualification criteria not met)', order => 170, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arlFlFailed%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arlFlFailed%%)'],
+      ],
+    },
+    arlFlMessage => { 
+      title => 'message filter actions performed', order => 180, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arlFlMessage%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arlFlMessage_absolute%%)'],
+      ],
+    },
+    arlFlFieldS => { 
+      title => 'set fields filter actions performed', order => 190, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arlFlFieldS%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arlFlFieldS_absolute%%)'],
+      ],
+    },
+    arsEsclPassed => { 
+      title => 'escalations that were executed (qualification criteria met)', order => 200, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsEsclFailed%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsEsclFailed_absolute%%)'],
+      ],
+    },
+    arsEsclFailed => { 
+      title => 'escalations that were skipped (qualification criteria not met)', order => 210, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsEsclFailed%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsEsclFailed_absolute%%)'],
+      ],
+    },
+    arsEsclPr => { 
+      title => 'run process escalation actions performed', order => 220, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsEsclPr%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsEsclPr_absolute%%)'],
+      ],
+    },
+    arsFTSSrchCount => { 
+      title => 'FTS operations performed', order => 250, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsFTSSrchCount%%'],
+        ['', 'VALUES::%%txw%% ps (total: %%arsFTSSrchCount_absolute%%)'],
+      ],
+    },
+    arsNumberBlocked => { 
+      title => 'blocked processes', order => 230, brief => 0, 
+    },
+    arsCPU => { 
+      title => 'CPU time used by the server', order => 240, brief => 0, 
+      compute => [
+        ['txw', 'FORMAT::NUMBER.2::%%arsCPU%%'],
+        ['', 'VALUES::%%txw%% sec (total: %%arsCPU_absolute%%)'],
+      ],
+    },
+    arsSinceStart => { 
+      title => 'number of miliseconds since the server was started', order => 260, brief => 0, 
+      compute => [
+        ['', 'VALUES::%%arsSinceStart%% ms'],
+      ],
+    },
+    arsNetRespTime => { 
+      title => 'time spent on the network responding to the client', order => 270, brief => 0, 
+    },
+    arsNumThreads => { 
+      title => 'number of threads in the queue', order => 280, brief => 0, 
+    },
+  },
+}

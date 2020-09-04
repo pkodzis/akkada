@@ -1,0 +1,134 @@
+{ 
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.1588' ],
+  DISCOVER => [ '1.3.6.1.4.1.1588.2.1.1.1.1.7', ],
+  DISCOVER_NAME_OVERRIDE => 'chassis status',
+  ENTITY_ICON => 'chassis_info',
+
+  NAME => 'Brockade chassis',
+
+  TRACKS => {
+    '1.3.6.1.4.1.1588.2.1.1.1.1.7' => {
+      track_name => 'operStatus',
+      text_test => {
+          bad => [
+              { value => 'offline', alarm_level => _ST_MAJOR, message => 'switch is not accesible', },
+              { value => 'testing', alarm_level => _ST_MINOR, message => 'switch is in a test mode and is not accessible by an external Fibre Channel port', },
+              { value => 'faulty', alarm_level => _ST_DOWN, message => 'switch is not operational', },
+          ]
+      },
+      text_translator => {
+        1 => 'online',
+        2 => 'offline',
+        3 => 'testing',
+        4 => 'faulty',
+      }
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.1.8' => {
+      track_name => 'adminStatus',
+      text_test => {
+          expected => [
+              { 
+                value => 'online',
+                alarm_level => _ST_DOWN,
+                message => 'unexpected admin status: %%adminStatus%%',
+              },
+          ]
+      },
+      text_translator => {
+        1 => 'online',
+        2 => 'offline',
+        3 => 'testing',
+        4 => 'faulty',
+        5 => 'reboot',
+        6 => 'fastboot',
+      }
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.1.20' => {
+      track_name => 'diagResult',
+      text_test => {
+          expected => [
+              { 
+                value => 'ok',
+                alarm_level => _ST_DOWN,
+                message => 'diagnostic error: %%diagResult%%',
+              },
+          ]
+      },
+      text_translator => {
+        1 => 'ok',
+        2 => 'central memory fault',
+        3 => 'embedded port fault',
+      }
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.2.1' => {
+      track_name => 'domainID',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.2.2' => {
+      track_name => 'principalSwitch',
+      text_translator => {
+        1 => 'yes',
+        2 => 'no',
+      }
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.2.8' => {
+      track_name => 'numNbs',
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.6.1' => {
+      track_name => 'portCapacity',
+    },
+  },
+
+  DESC => { 
+      'operStatus' => {
+          order => 1,
+          brief => 1, 
+          title => 'operation status',
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%operStatus%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%operStatus%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'adminStatus' => {
+          order => 10,
+          brief => 1, 
+          title => 'admin status',
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%adminStatus%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%adminStatus%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'diagResult' => {
+          order => 20,
+          brief => 1, 
+          title => 'diagnostic result',
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%diagResult%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%diagResult%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'hr1' =>
+      {
+          order => 30,
+      },
+      'domainID' => {
+          order => 40,
+          brief => 1, 
+          title => 'domain ID',
+      },
+      'principalSwitch' => {
+          order => 50,
+          brief => 0, 
+          title => 'principal switch',
+      },
+      'numNbs' => {
+          order => 60,
+          brief => 0, 
+          title => 'number of links in the neighborhood',
+      },
+      'portCapacity' => {
+          order => 70,
+          brief => 0, 
+          title => 'port capacity',
+      },
+  }
+}

@@ -1,0 +1,94 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.1872' ],
+  DISCOVER => [ '1.3.6.1.4.1.1872.2.5.1.2.2.1' ],
+  DISCOVER_NAME_OVERRIDE => 'CPU',
+  ENTITY_ICON => 'cpu',
+
+  NAME => 'CPU',
+
+  TRACKS => {
+    '1.3.6.1.4.1.1872.2.5.1.2.2.1' => {
+      track_name => 'mpUt1Second',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+    '1.3.6.1.4.1.1872.2.5.1.2.2.2' => {
+      track_name => 'mpUt4Second',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+    '1.3.6.1.4.1.1872.2.5.1.2.2.3' => {
+      track_name => 'mpUt64Second',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 60,
+      },
+      threshold_medium => {
+          value => 50,
+      },
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'cpu utilization',
+       units => '%',
+       tracks => [
+           {
+               name => 'mpUt64Second',
+               title => '64 sec',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+           {
+               name => 'mpUt4Second',
+               title => '4 sec',
+               color => 'CC9933',
+               style => 'LINE1',
+           },
+           {
+               name => 'mpUt1Second',
+               title => '1 sec',
+               color => 'FFFF33',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+      'mpUt1Second' => {
+          order => 5,
+          title => '1 sec utilization',
+          compute => [['fm', 'FORMAT::NUMBER.2::%%mpUt1Second%%'],
+            ['', 'PERCENT::%%fm%%']],
+          brief => 1,
+      },
+      'mpUt4Second' => {
+          order => 10,
+          title => '4 sec utilization',
+          compute => [['fm', 'FORMAT::NUMBER.2::%%mpUt4Second%%'],
+            ['', 'PERCENT::%%fm%%']],
+          brief => 1,
+      },
+      'mpUt64Second' => {
+          order => 15,
+          title => '64 sec utilization',
+          compute => [['fm', 'FORMAT::NUMBER.2::%%mpUt64Second%%'],
+            ['', 'PERCENT::%%fm%%']],
+          brief => 1,
+      },
+  }
+}
+
+

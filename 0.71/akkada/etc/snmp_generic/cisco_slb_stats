@@ -1,0 +1,208 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.9' ],
+  DISCOVER => [ '1.3.6.1.4.1.9.9.161.1.1.1.1.7' ],
+  DISCOVER_NAME_OVERRIDE => 'SLB Stats %%DISCOVER_INDEX%%',
+  ENTITY_ICON => 'slb_stats',
+
+  NAME => 'Cisco SLB statistics',
+  TRACKS => {
+    '1.3.6.1.4.1.9.9.161.1.1.1.1.3' => {
+      track_name => 'slbsUnasSwPks',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.9.9.161.1.1.1.1.5' => {
+      track_name => 'slbsAsSwPks',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.9.9.161.1.1.1.1.7' => {
+      track_name => 'slbsCreConns',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.9.9.161.1.1.1.1.9' => {
+      track_name => 'slbsEstConns',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.9.9.161.1.1.1.1.11' => {
+      track_name => 'slbsDstConns',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.9.9.161.1.1.1.1.13' => {
+      track_name => 'slbsReasConns',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.9.9.161.1.1.1.1.15' => {
+      track_name => 'slbsZombies',
+      rrd_track_type => 'COUNTER',
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'connections created by SLB',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbsCreConns',
+               title => 'number of connections',
+               color => '330099',
+               style => 'AREA',
+           },
+       ],
+    },
+    {
+       title => 'connections established through SLB',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbsEstConns',
+               title => 'number of connections',
+               color => '330099',
+               style => 'AREA',
+           },
+       ],
+    },
+    {
+       title => 'connections destroyed by SLB',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbsDstConns',
+               title => 'number of connections',
+               color => '330099',
+               style => 'AREA',
+           },
+       ],
+    },
+    {
+       title => 'conns reassigned from one real server to another',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbsReasConns',
+               title => 'number of connections',
+               color => '330099',
+               style => 'AREA',
+           },
+       ],
+    },
+    {
+       title => 'connections currently in the zombie state',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbsZombies',
+               title => 'number of connections',
+               color => '330099',
+               style => 'AREA',
+           },
+       ],
+    },
+    {
+       title => 'packets forwarded by SLB',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbsUnasSwPks',
+               title => 'number of pkts',
+               color => '330099',
+               style => 'AREA',
+           },
+       ],
+    },
+    {
+       title => 'packets handled by SLB',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbsAsSwPks',
+               title => 'number of pkts',
+               color => '330099',
+               style => 'AREA',
+           },
+       ],
+    },
+  ],
+  DESC => {
+      'slbsCreConns' => {
+          order => 3,
+          title => 'connections created by SLB',
+          brief => 1,
+          compute => [
+            [ 'abs', 'ABS::%%slbsCreConns%%'],
+            [ 'abs', 'FORMAT::NUMBER.0::%%abs%%'],
+            [ 'fm', 'FORMAT::NUMBER.2::%%slbsCreConns%%'],
+            [ '', 'VALUES::%%abs%% (%%fm%% cps)'],
+          ],
+      },
+      'slbsEstConns' => {
+          order => 4,
+          title => 'connections established through SLB',
+          brief => 1,
+          compute => [
+            [ 'abs', 'ABS::%%slbsEstConns%%'],
+            [ 'abs', 'FORMAT::NUMBER.0::%%abs%%'],
+            [ 'fm', 'FORMAT::NUMBER.2::%%slbsEstConns%%'],
+            [ '', 'VALUES::%%abs%% (%%fm%% cps)'],
+          ],
+      },
+      'slbsDstConns' => {
+          order => 1,
+          title => 'connections destroyed by SLB',
+          brief => 1,
+          compute => [
+            [ 'abs', 'ABS::%%slbsDstConns%%'],
+            [ 'abs', 'FORMAT::NUMBER.0::%%abs%%'],
+            [ 'fm', 'FORMAT::NUMBER.2::%%slbsDstConns%%'],
+            [ '', 'VALUES::%%abs%% (%%fm%% cps)'],
+          ],
+      },
+      'slbsReasConns' => {
+          order => 6,
+          title => 'conns reassigned from one real server to another',
+          brief => 0,
+          compute => [
+            [ 'abs', 'ABS::%%slbsReasConns%%'],
+            [ 'abs', 'FORMAT::NUMBER.0::%%abs%%'],
+            [ 'fm', 'FORMAT::NUMBER.2::%%slbsReasConns%%'],
+            [ '', 'VALUES::%%abs%% (%%fm%% cps)'],
+          ],
+      },
+      'slbsZombies' => {
+          order => 7,
+          title => 'connections currently in the zombie state',
+          brief => 0,
+          compute => [
+            [ 'abs', 'ABS::%%slbsZombies%%'],
+            [ 'abs', 'FORMAT::NUMBER.0::%%abs%%'],
+            [ 'fm', 'FORMAT::NUMBER.2::%%slbsZombies%%'],
+            [ '', 'VALUES::%%abs%% (%%fm%% cps)'],
+          ],
+      },
+      'hr0' => {
+          order => 8,
+      },
+      'slbsUnasSwPks' => {
+          order => 9,
+          title => 'packets forwarded by SLB',
+          brief => 0,
+          compute => [
+            [ 'abs', 'ABS::%%slbsUnasSwPks%%'],
+            [ 'abs', 'FORMAT::NUMBER.0::%%abs%%'],
+            [ 'fm', 'FORMAT::NUMBER.2::%%slbsUnasSwPks%%'],
+            [ '', 'VALUES::%%abs%% (%%fm%% pps)'],
+          ],
+      },
+      'slbsAsSwPks' => {
+          order => 10,
+          title => 'packets handled by SLB',
+          brief => 0,
+          compute => [
+            [ 'abs', 'ABS::%%slbsAsSwPks%%'],
+            [ 'abs', 'FORMAT::NUMBER.0::%%abs%%'],
+            [ 'fm', 'FORMAT::NUMBER.2::%%slbsAsSwPks%%'],
+            [ '', 'VALUES::%%abs%% (%%fm%% pps)'],
+          ],
+      },
+  }
+}

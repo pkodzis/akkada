@@ -1,0 +1,185 @@
+1) install perl module NetAddr::IP;
+
+2) files
+replace /akkada/lib
+replace /akkada/etc/snmp_generic
+cp /akkada/htdocs/img/kredobank.gif
+cp /akkada/htdocs/img/polbank.gif
+cp /akkada/htdocs/img/ing.gif
+cp /akkada/htdocs/img/bankpocztowy.gif
+cp /akkada/htdocs/img/dell.gif
+cp /akkada/htdocs/img/mbank.gif
+cp /akkada/htdocs/img/pkobp.gif
+cp /akkada/htdocs/img/remedy.gif
+cp /akkada/htdocs/img/contacts.gif
+cp /akkada/htdocs/img/checkmark.gif
+cp /akkada/htdocs/img/correlation_on.gif
+cp /akkada/htdocs/img/correlation_off.gif
+cp /akkada/htdocs/img/hline.gif
+cp /akkada/htdocs/img/aac.gif
+cp /akkada/htdocs/img/nortel.gif
+cp /akkada/htdocs/img/linksys.gif
+cp /akkada/htdocs/img/slb_stats.gif
+cp /akkada/htdocs/img/slb_sfarm.gif
+cp /akkada/htdocs/img/slb_reals.gif
+cp /akkada/htdocs/img/slb_vservers.gif
+cp /akkada/htdocs/img/chassis_info.gif
+cp /akkada/htdocs/img/fcport.gif
+cp /akkada/htdocs/img/blade_server.gif
+cp /akkada/htdocs/img/antenna.gif
+cp /akkada/htdocs/img/oscillator.gif
+cp /akkada/htdocs/img/fwstats.gif
+replace /akkada/htdocs/css/*
+replace /akkada/htdocs/*.js
+
+3) configuration
+
+file etc/conf.d/Web/SectionDefinitions.conf add:
+      'contacts' => [
+        105,
+        [
+          'mode',
+          'id'
+        ],
+        'contacts',
+      ],
+
+file etc/conf.d/Web/Sections.conf add:
+      '105' => 'contacts',
+
+file etc/conf.d/Probes/snmp_generic.conf add:
+    'ComputeDebug' => 0,
+
+file etc/conf.d/Probe.conf add:
+    'FlagsCheckTimeSlots' => 1,
+
+file etc/conf.d/Web.conf add:
+    'FormProcessorDebug' => 0,
+
+file etc/conf.d/Web/Rights.conf add:
+    'form_alarms_sort' => 'vie',
+    'form_correlation' => 'vie',
+    'form_parameters_modify' => 'mdy',
+    'Plugins::utils_node.10' => 'vio',
+    'Tools::cisco_inventory_report' => 'vio',
+    'contacts' => 'vio',
+    'form_bind_contacts' => 'vio',
+    'form_bind_contacts_node_select' => 'vio',
+    'form_bind_contacts_child_select' => 'vio',
+    'form_unbind_contacts' => 'vio',
+    'form_contact_select' => 'vio',
+    'form_contact_add' => 'vio',
+    'form_contact_update' => 'vio',
+    'form_contact_delete' => 'vio',
+    'form_cgroup_select' => 'vio',
+    'form_cgroup_add' => 'vio',
+    'form_cgroup_update' => 'vio',
+    'form_cgroup_delete' => 'vio',
+
+
+file etc/conf.d/Probes/node.conf in array 'IMG_VENDOR' add:
+        {
+          'oids' => [ 35, 45, 1872, 2865, 10482, 16885],
+          'img' => 'nortel',
+        },
+        { 
+          'oids' => [ 42, ],
+          'img' => 'sun'
+        },
+
+file etc/conf.d/Probes/node.conf in array 'IMG_FUNCTION' add:
+        {
+          'keys' => [ 'Fibre Channel Switch', ],
+          'fwd' => 'notForwarding',
+          'img' => 'san_switch'
+        },
+
+file etc/conf.d/Web/SectionDefinitions.conf change:
+      'history' => [
+        4,
+        [
+          'show_form_history_filter',
+          'clear_history_filter',
+          'history_mode',
+          'limit',
+          'offset',
+          'filter'
+        ],
+        'log',
+      ],
+  to:
+      'history' => [
+        4,
+        [
+          'show_form_history_filter',
+          'clear_history_filter',
+          'limit',
+          'offset',
+          'filter',
+          'base',
+        ],
+        'log',
+      ],
+
+4) file permissions
+
+run script /akkada/bin/post_install.sh #this can take a few minutes
+
+5) mysql database execute:
+
+INSERT INTO PARAMETERS(name) VALUES('stop_discover');
+ALTER TABLE `akkada`.`history24` ADD INDEX `Index_2`(`id_entity`);
+ALTER TABLE `akkada`.`history24` ADD INDEX `Index_3`(`time`);
+CREATE TABLE `akkada`.`contacts` (
+  `id_contact` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255),
+  `phone` VARCHAR(255),
+  `active` INTEGER UNSIGNED NOT NULL DEFAULT 1,
+  `company` VARCHAR(255),
+  PRIMARY KEY(`id_contact`)
+)
+ENGINE = MYISAM;
+CREATE TABLE `akkada`.`cgroups` (
+  `id_cgroup` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY(`id_cgroup`)
+)
+ENGINE = MYISAM;
+ALTER TABLE `akkada`.`contacts` DROP PRIMARY KEY,
+ ADD PRIMARY KEY(`id_contact`, `name`);
+CREATE TABLE `akkada`.`contacts_2_cgroups` (
+  `id_contact` BIGINT UNSIGNED NOT NULL,
+  `id_cgroup` BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY(`id_contact`, `id_cgroup`)
+)
+ENGINE = MYISAM;
+ALTER TABLE `akkada`.`contacts` ADD UNIQUE `Index_2`(`name`);
+CREATE TABLE `akkada`.`entities_2_cgroups` (
+  `id_entity` BIGINT UNSIGNED NOT NULL,
+  `id_cgroup` BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY(`id_entity`, `id_cgroup`)
+)
+ENGINE = MYISAM;
+
+6) apache server configuration
+
+add in apache config file new mod_perl section:
+
+PerlModule ContactsRuntime
+<Location /contacts>
+SetHandler perl-script
+PerlResponseHandler ContactsRuntime
+</Location>
+
+PerlModule CommentsRuntime
+<Location /comments>
+SetHandler perl-script
+PerlResponseHandler CommentsRuntime
+</Location>
+
+stop akkada; stop apache server
+rm -rf var/tree_cache/*
+start akkada
+start apache
+

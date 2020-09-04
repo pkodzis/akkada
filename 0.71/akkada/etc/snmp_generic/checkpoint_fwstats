@@ -1,0 +1,160 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.8072.3.2.10' ],
+  DISCOVER => [ '1.3.6.1.4.1.2620.1.1.25.5.1.2', ],
+  DISCOVER_NAME_OVERRIDE => '%%DISCOVER_NAME%% fw stats',
+  ENTITY_ICON => 'fwstats',
+
+  NAME => 'Checkpoint network interface statistics',
+
+  TRACKS => {
+    '1.3.6.1.4.1.2620.1.1.25.5.1.5' => {
+      track_name => 'AcceptPcktsIn',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.5.1.6' => {
+      track_name => 'AcceptPcktsOut',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.5.1.9' => {
+      track_name => 'DropPcktsIn',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.5.1.10' => {
+      track_name => 'DropPcktsOut',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.5.1.11' => {
+      track_name => 'RejectPcktsIn',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.5.1.12' => {
+      track_name => 'RejectPcktsOut',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.5.1.13' => {
+      track_name => 'LogIn',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.4.1.2620.1.1.25.5.1.14' => {
+      track_name => 'LogOut',
+      rrd_track_type => 'COUNTER',
+    },
+  },
+
+  GRAPHS => [
+    {
+       title => 'accepted packets',
+       units => 'pkts',
+       tracks => [
+           {
+               name => 'AcceptPcktsIn',
+               title => 'in',
+               color => '00CC33',
+               style => 'LINE1',
+           },
+           {
+               name => 'AcceptPcktsOut',
+               title => 'out',
+               color => '330099',
+               style => 'LINE1',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+    {
+       title => 'dropped packets',
+       units => 'pkts',
+       tracks => [
+           {
+               name => 'DropPcktsIn',
+               title => 'in',
+               color => '00CC33',
+               style => 'LINE1',
+           },
+           {
+               name => 'DropPcktsOut',
+               title => 'out',
+               color => '330099',
+               style => 'LINE1',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+    {
+       title => 'rejected packets',
+       units => 'pkts',
+       tracks => [
+           {
+               name => 'RejectPcktsIn',
+               title => 'in',
+               color => '00CC33',
+               style => 'LINE1',
+           },
+           {
+               name => 'RejectPcktsOut',
+               title => 'out',
+               color => '330099',
+               style => 'LINE1',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+    {
+       title => 'log records',
+       units => 'no.',
+       tracks => [
+           {
+               name => 'LogIn',
+               title => 'in',
+               color => '00CC33',
+               style => 'LINE1',
+           },
+           {
+               name => 'LogOut',
+               title => 'out',
+               color => '330099',
+               style => 'LINE1',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    AcceptPcktsIn => { 
+      title => 'accepted', order => 10, brief => 1, 
+      compute => [
+          [ 'ppsi', 'FORMAT::NUMBER.2::%%AcceptPcktsIn%%'],
+          [ 'ppso', 'FORMAT::NUMBER.2::%%AcceptPcktsOut%%'],
+          [ '', 'VALUES::%%ppsi%%/%%ppso%% pps (total: %%AcceptPcktsIn_absolute%%/%%AcceptPcktsOut_absolute%% pkts)', 12],
+          [ '', 'VALUES::%%ppsi%%/%%ppso%% pps', 3],
+      ],
+    },
+    DropPcktsIn => { 
+      title => 'dropped', order => 50, brief => 1, 
+      compute => [
+          [ 'ppsi', 'FORMAT::NUMBER.2::%%DropPcktsIn%%'],
+          [ 'ppso', 'FORMAT::NUMBER.2::%%DropPcktsOut%%'],
+          [ '', 'VALUES::%%ppsi%%/%%ppso%% pps (total: %%DropPcktsIn_absolute%%/%%DropPcktsOut_absolute%% pkts)', 12],
+          [ '', 'VALUES::%%ppsi%%/%%ppso%% pps', 3],
+      ],
+    },
+    RejectPcktsIn => { 
+      title => 'rejected', order => 70, brief => 1, 
+      compute => [
+          [ 'ppsi', 'FORMAT::NUMBER.2::%%RejectPcktsIn%%'],
+          [ 'ppso', 'FORMAT::NUMBER.2::%%RejectPcktsOut%%'],
+          [ '', 'VALUES::%%ppsi%%/%%ppso%% pps (total: %%RejectPcktsIn_absolute%%/%%RejectPcktsOut_absolute%% pkts)', 12],
+          [ '', 'VALUES::%%ppsi%%/%%ppso%% pps', 3],
+      ],
+    },
+    LogIn => { 
+      title => 'logged records', order => 90, brief => 1, 
+      compute => [
+          [ 'ppsi', 'FORMAT::NUMBER.2::%%LogIn%%'],
+          [ 'ppso', 'FORMAT::NUMBER.2::%%LogOut%%'],
+          [ '', 'VALUES::%%ppsi%%/%%ppso%% eps (total: %%LogIn_absolute%%/%%LogOut_absolute%% entries)', 12],
+          [ '', 'VALUES::%%ppsi%%/%%ppso%% eps', 3],
+      ],
+    },
+  },
+}

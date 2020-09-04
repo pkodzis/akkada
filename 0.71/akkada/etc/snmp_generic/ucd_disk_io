@@ -1,0 +1,137 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.2021', '1.3.6.1.4.1.8072' ],
+  DISCOVER => [ '1.3.6.1.4.1.2021.13.15.1.1.2',
+                '1.3.6.1.4.1.2021.13.15.1.1.3',
+                '1.3.6.1.4.1.2021.13.15.1.1.4' ],
+  DISCOVER_NAME_OVERRIDE => '%%DISCOVER_NAME.0%%',
+  ENTITY_ICON => 'hdd_io',
+
+  NAME => 'HDD I/O',
+  DISCOVER_CONDITION => {
+    gt => 
+    { 
+        1 => 0,
+        2 => 0,
+    },
+  },
+
+  TRACKS => {
+    '1.3.6.1.4.1.2021.13.15.1.1.3' =>
+    {
+      track_name => 'diskIONRead',
+      rrd_track_type => 'COUNTER',
+      threshold_high => {
+          value => 0,
+      },
+      threshold_medium => {
+          value => 0,
+      },
+    },
+    '1.3.6.1.4.1.2021.13.15.1.1.4' =>
+    {
+      track_name => 'diskIONWritten',
+      rrd_track_type => 'COUNTER',
+      threshold_high => {
+          value => 0,
+      },
+      threshold_medium => {
+          value => 0,
+      },
+    },
+    '1.3.6.1.4.1.2021.13.15.1.1.5' =>
+    {
+      track_name => 'diskIOReads',
+      rrd_track_type => 'COUNTER',
+      threshold_high => {
+          value => 0,
+      },
+      threshold_medium => {
+          value => 0,
+      },
+    },
+    '1.3.6.1.4.1.2021.13.15.1.1.6' =>
+    {
+      track_name => 'diskIOWrites',
+      rrd_track_type => 'COUNTER',
+      threshold_high => {
+          value => 0,
+      },
+      threshold_medium => {
+          value => 0,
+      },
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'bytes',
+       units => 'B',
+       tracks => [
+           {   
+               name => 'diskIONRead',
+               title => 'read',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+           {   
+               title => 'written',
+               name => 'diskIONWritten',
+               color => 'FFFF33',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'accesses',
+       units => 'no',
+       tracks => [
+           {   
+               name => 'diskIOReads',
+               title => 'reads',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+           {   
+               title => 'writes',
+               name => 'diskIOWrites',
+               color => 'FFFF33',
+               style => 'LINE1',
+           },
+       ],
+    }
+  ],
+
+  DESC => { 
+      'diskIONRead' => {
+          order => 1,
+          title => 'read',
+          units => 'B',
+          brief => 1, 
+          compute => [['', 'ABS::%%diskIONRead%%']],
+      },
+      'diskIONWritten' => {
+          order => 2,
+          title => 'written',
+          units => 'B',
+          brief => 1, 
+          compute => [['', 'ABS::%%diskIONWritten%%']],
+      },
+      'diskIOReads' => {
+          order => 3,
+          title => 'read',
+          units => 'no.',
+          brief => 1, 
+          compute => [['', 'ABS::%%diskIOReads%%']],
+      },
+      'diskIOWrites' => {
+          order => 4,
+          title => 'write',
+          units => 'no.',
+          brief => 1, 
+          compute => [['', 'ABS::%%diskIOWrites%%']],
+      },
+  }
+}
+
+

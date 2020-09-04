@@ -1,0 +1,335 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.3181' ],
+  DISCOVER => [ '1.3.6.1.4.1.3181.3.4.5.1.2',
+                '1.3.6.1.4.1.3181.3.4.5.1.4' ],
+  DISCOVER_NAME_OVERRIDE => '%%DISCOVER_NAME.1%% %%DISCOVER_NAME.0%% (slot %%DISCOVER_INDEX%%)',
+  DISCOVER_CONDITION => {
+      ne => {1 => "unknown"},
+  },
+  ENTITY_ICON => 'module_card',
+  NAME => 'CWDM media converter module',
+  TRACKS => {
+    '1.3.6.1.4.1.3181.3.4.5.1.3' => {
+      track_name => 'serNo',
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.5' => {
+      track_name => 'tpLink1',
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.6' => {
+      track_name => 'fbLink1',
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.7' => {
+      track_name => 'tpLink2',
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.8' => {
+      track_name => 'fbLink2',
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.9' => {
+      track_name => 'tpPort1',
+      text_translator => {
+          0 => 'none',
+          1 => 'rj45',
+          -255 => 'unknown',
+      },
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.10' => {
+      track_name => 'fbPort1',
+      text_translator => {
+         0 => "none",
+         1 => "ST multi mode 850nm",
+         2 => "ST single mode 850nm",
+         3 => "ST multi mode 1300nm",
+         4 => "ST single mode 1300nm",
+         5 => "SC multi mode 850nm",
+         6 => "SC single mode 850nm",
+         7 => "SC multi mode 1300nm",
+         8 => "SC single mode 1300nm",
+         9 => "e2000 multi mode 850nm",
+         10 => "e2000 single mode 850nm",
+         11 => "e2000 multi mode 1300nm",
+         12 => "e2000 single mode 1300nm",
+         13 => "mtrj multi mode 850nm",
+         14 => "mtrj single mode 850nm",
+         15 => "mtrj multi mode 1300nm",
+         16 => "mtrj single mode 1300nm",
+         17 => "vf45 multi mode 850nm",
+         18 => "vf45 single mode 850nm",
+         19 => "vf45 multi mode 1300nm",
+         20 => "vf45 single mode 1300nm",
+         21 => "FC multi mode 850nm",
+         22 => "FC single mode 850nm",
+         23 => "FC multi mode 1300nm",
+         24 => "FC single mode 1300nm",
+         25 => "LC multi mode 850nm",
+         26 => "LC single mode 850nm",
+         27 => "LC multi mode 1300nm",
+         28 => "LC single mode 1300nm",
+         29 => "SC single mode 1550nm",
+         30 => "SC single mode TX1550RX1300nm",
+         31 => "SC single mode TX1300RX1550nm",
+         32 => "GBIC",
+         33 => "SFP",
+         34 => "SC single mode Cwdm",
+         35 => "SC single mode TX1590RX1510nm",
+         36 => "SC single mode TX1510RX1590nm",
+         37 => "DWDM pluggable transceiver",
+         -255  => "unknown",
+      },
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.11' => {
+      track_name => 'tpPort2',
+      text_translator => {
+          0 => 'none',
+          1 => 'rj45',
+          -255 => 'unknown',
+      },
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.12' => {
+      track_name => 'fbPort2',
+      text_translator => {
+         0 => "none",
+         1 => "ST multi mode 850nm",
+         2 => "ST single mode 850nm",
+         3 => "ST multi mode 1300nm",
+         4 => "ST single mode 1300nm",
+         5 => "SC multi mode 850nm",
+         6 => "SC single mode 850nm",
+         7 => "SC multi mode 1300nm",
+         8 => "SC single mode 1300nm",
+         9 => "e2000 multi mode 850nm",
+         10 => "e2000 single mode 850nm",
+         11 => "e2000 multi mode 1300nm",
+         12 => "e2000 single mode 1300nm",
+         13 => "mtrj multi mode 850nm",
+         14 => "mtrj single mode 850nm",
+         15 => "mtrj multi mode 1300nm",
+         16 => "mtrj single mode 1300nm",
+         17 => "vf45 multi mode 850nm",
+         18 => "vf45 single mode 850nm",
+         19 => "vf45 multi mode 1300nm",
+         20 => "vf45 single mode 1300nm",
+         21 => "FC multi mode 850nm",
+         22 => "FC single mode 850nm",
+         23 => "FC multi mode 1300nm",
+         24 => "FC single mode 1300nm",
+         25 => "LC multi mode 850nm",
+         26 => "LC single mode 850nm",
+         27 => "LC multi mode 1300nm",
+         28 => "LC single mode 1300nm",
+         29 => "SC single mode 1550nm",
+         30 => "SC single mode TX1550RX1300nm",
+         31 => "SC single mode TX1300RX1550nm",
+         32 => "GBIC",
+         33 => "SFP",
+         34 => "SC single mode Cwdm",
+         35 => "SC single mode TX1590RX1510nm",
+         36 => "SC single mode TX1510RX1590nm",
+         37 => "DWDM pluggable transceiver",
+         -255  => "unknown",
+      },
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.13' => {
+      track_name => 'moduleTemp',
+      text_translator => {
+          -255 => 'unknown',
+      },
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => 45,
+          alarm_level => _ST_DOWN,
+          message => "high temperature!",
+      },
+      threshold_medium => {
+          value => 40,
+          alarm_level => _ST_MAJOR,
+          message => "medium temperature!",
+      },
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.14' => {
+      track_name => 'modulePower',
+      rrd_track_type => 'GAUGE',
+      text_translator => {
+          -255 => 'unknown',
+      }, 
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.15' => {
+      track_name => 'modulePowerLoad',
+      rrd_track_type => 'GAUGE',
+      text_translator => {
+          -255 => 'unknown',
+      },
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.16' => {
+      track_name => 'modulePowerStat',
+      text_test => {
+          expected => [
+              {
+                value => '1|-255',
+                alarm_level => _ST_MAJOR,
+                message => 'power down',
+              },
+          ],
+      },
+    },
+    '1.3.6.1.4.1.3181.3.4.5.1.17' => {
+      track_name => 'moduleAlarm',
+      text_translator => {
+          0 => 'no error',
+          1 => 'error',
+          -255 => 'unknown',
+      },  
+      text_test => {
+          expected => [
+              {
+                value => 'no error|unknown',
+                alarm_level => _ST_DOWN,
+                message => 'errors on module',
+              },
+          ]
+      },
+    },
+  },
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'temperature',
+       units => 'deg. C',
+       tracks => [
+           {
+               name => 'moduleTemp',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+       conditions => {
+              entity_name => ['ne', 'SNMP'],
+       },
+    },
+    {
+       title => 'module power load',
+       units => '%',
+       tracks => [
+           {
+               name => 'modulePowerLoad',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+          conditions => {
+              entity_name => ['eq', 'Power Supply'],
+          },
+    },
+    {
+       title => 'module power',
+       units => 'W',
+       tracks => [
+           {
+               name => 'modulePower',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+          conditions => {
+              entity_name => ['eq', 'Power Supply'],
+          },
+    },
+  ],
+
+  DESC => {
+      'moduleAlarm' => {
+          conditions => {
+              entity_name => ['ne', 'SNMP'],
+          },
+          order => 5,
+          title => 'alarm',
+          compute => [
+             ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%moduleAlarm%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+             ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%moduleAlarm%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'serNo' => {
+          order => 10,
+          title => 'serial number',
+      },
+      'tpLink1' => {
+          conditions => {
+              entity_name => ['eq', 'Optical Crossbar'],
+          },
+          order => 7,
+          brief => 1,
+          title => 'ports status',
+          compute => [
+              ['tpl1', 'RPN::%%tpLink1%%,1,=,port_on.gif,%%tpLink1%%,0,=,port_off.gif,port_miss.gif,IF,IF'],
+              ['tpl2', 'RPN::%%tpLink2%%,1,=,port_on.gif,%%tpLink2%%,0,=,port_off.gif,port_miss.gif,IF,IF'],
+              ['tpl1', 'LC::%%tpl1%%'],
+              ['tpl2', 'LC::%%tpl2%%'],
+              ['fbl1', 'RPN::%%fbLink1%%,1,=,port_on.gif,%%fbLink1%%,0,=,port_off.gif,port_miss.gif,IF,IF'],
+              ['fbl2', 'RPN::%%fbLink2%%,1,=,port_on.gif,%%fbLink2%%,0,=,port_off.gif,port_miss.gif,IF,IF'],
+              ['fbl1', 'LC::%%fbl1%%'],
+              ['fbl2', 'LC::%%fbl2%%'],
+              ['', 'VALUES::<img src=/img/%%tpl1%%> (%%tpPort1%%) <img src=/img/%%fbl1%%> (%%fbPort1%%) <img src=/img/%%tpl2%%> (%%tpPort2%%) <img src=/img/%%fbl2%%> (%%fbPort2%%)'],
+          ],
+      },
+      'tpLink2' => {
+          conditions => {
+              entity_name => ['eq', 'Line Protection Module'],
+          },
+          order => 7,
+          brief => 1,
+          title => 'ports status',
+          compute => [
+              ['fbl1', 'RPN::%%fbLink1%%,1,=,port_on.gif,%%fbLink1%%,0,=,port_off.gif,port_miss.gif,IF,IF'],
+              ['fbl2', 'RPN::%%fbLink2%%,1,=,port_on.gif,%%fbLink2%%,0,=,port_off.gif,port_miss.gif,IF,IF'],
+              ['fbl1', 'LC::%%fbl1%%'],
+              ['fbl2', 'LC::%%fbl2%%'],
+              ['', 'VALUES::primary <img src=/img/%%fbl1%%> backup <img src=/img/%%fbl2%%>'],
+          ],
+      },
+      'moduleTemp' => {
+          conditions => {
+              entity_name => ['ne', 'SNMP'],
+          },
+          order => 9,
+          brief => 1,
+          title => 'temperature',
+          units => 'deg. C',
+          compute => [['','PERCDEFL::%%moduleTemp%%::-5::50::0::deg. C']],
+      },
+      'modulePower' => {
+          conditions => {
+              entity_name => ['eq', 'Power Supply'],
+              modulePowerStat => ['eq','on'],
+          },
+          order => 6,
+          title => 'module power',
+          units => 'W',
+      },
+      'modulePowerLoad' => {
+          conditions => {
+              entity_name => ['eq', 'Power Supply'],
+              modulePowerStat => ['eq',1],
+          },
+          order => 8,
+          brief => 1,
+          title => 'module power load',
+          units => '%',
+          compute => [['','PERCENT::%%modulePowerLoad%%',], ],
+      },
+      'modulePowerStat' => {
+          compute => [
+              ['ps', 'RPN::%%modulePowerStat%%,1,=,state_on.gif,%%modulePowerStat%%,0,=,state_off.gif,state_unknown.gif,IF,IF'],
+              ['ps', 'LC::%%ps%%'],
+              ['', 'VALUES::<img src=/img/%%ps%%>'],
+          ],
+          conditions => {
+              entity_name => ['eq', 'Power Supply'],
+          },
+          order => 7,
+          brief => 1,
+          title => 'power state',
+      },
+  }
+}

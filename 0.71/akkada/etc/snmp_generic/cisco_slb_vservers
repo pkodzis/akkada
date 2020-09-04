@@ -1,0 +1,230 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.9' ],
+  DISCOVER => [ '1.3.6.1.4.1.9.9.161.1.4.1.1.2' ],
+  DISCOVER_NAME_OVERRIDE => '%%1.DISCOVER_INDEX_CHR.0%%',
+  ENTITY_ICON => 'slb_vservers',
+
+  NAME => 'Cisco SLB virtual server',
+  TRACKS => {
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.2' => {
+      track_name => 'slbvServerState',
+      text_translator => {
+        1 => 'out of service',
+        2 => 'in service',
+        3 => 'standby',
+      },
+      text_test => {
+          bad => [
+              { value => 'out of service', alarm_level => _ST_DOWN, message => 'out of service', },
+          ],
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.16' => {
+      track_name => 'slbvRowStatus',
+      text_translator => {
+        1 => 'active',
+        2 => 'not in service',
+        3 => 'not ready',
+        4 => 'create and go',
+        5 => 'create and wait',
+        6 => 'destroy',
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.4' => {
+      track_name => 'slbvIpAddress',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.20' => {
+      track_name => 'slbvMask',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.5' => {
+      track_name => 'slbvPort',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.6' => {
+      track_name => 'slbvProtocol',
+      text_translator => {
+        1 => 'icmp',
+        6 => 'tcp',
+        17 => 'udp',
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.7' => {
+      track_name => 'slbvService',
+      text_translator => {
+        1 => 'none',
+        2 => 'ftp',
+        3 => 'wsp',
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.8' => {
+      track_name => 'slbvAdvertise',
+      text_translator => {
+        1 => 'true',
+        2 => 'false',
+      },
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.9' => {
+      track_name => 'slbvFarmName',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.10' => {
+      track_name => 'slbvDelayTimer',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.11' => {
+      track_name => 'slbvIdleTimer',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.12' => {
+      track_name => 'slbvStickyTimer',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.13' => {
+      track_name => 'slbvStickyGroup',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.14' => {
+      track_name => 'slbvSynguardCount',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.15' => {
+      track_name => 'slbvSynguardPeriod',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.17' => {
+      track_name => 'slbvNuOfConn',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.9.9.161.1.4.1.1.19' => {
+      track_name => 'slbvTotalConn',
+      rrd_track_type => 'COUNTER',
+    },
+  },
+
+  GRAPHS => [
+    {
+       title => 'current connections',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbvNuOfConn',
+               title => 'connections',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       default => 1,
+       title => 'total connections',
+       units => 'no',
+       tracks => [
+           {
+               name => 'slbvTotalConn',
+               title => 'connections',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+
+  DESC => {
+      'slbvServerState' => {
+          order => 30,
+          title => 'status',
+          brief => 1,
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%slbvServerState%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%slbvServerState%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'slbvRowStatus' => {
+          order => 40,
+          title => 'row status',
+          brief => 0,
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%slbvRowStatus%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%slbvRowStatus%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+      'slbvFarmName' => {
+          order => 45,
+          title => 'server farm',
+          brief => 1,
+      },
+      'slbvIpAddress' => {
+          order => 50,
+          title => 'ip address',
+          brief => 1,
+      },
+      'slbvMask' => {
+          order => 55,
+          title => 'mask',
+          brief => 0,
+      },
+      'slbvPort' => {
+          order => 57,
+          title => 'port',
+          brief => 1,
+      },
+      'slbvProtocol' => {
+          order => 58,
+          title => 'protocol',
+          brief => 0,
+      },
+      'slbvService' => {
+          order => 60,
+          title => 'service',
+          brief => 0,
+      },
+      'slbvAdvertise' => {
+          order => 65,
+          title => 'advertise',
+          brief => 0,
+      },
+      'hr1' => {
+          order => 70,
+      },
+      'slbvNuOfConn' => {
+          order => 80,
+          title => 'current connections',
+          brief => 1,
+      },
+      'slbvTotalConn' => {
+          order => 90,
+          title => 'total connections',
+          brief => 0,
+          compute => [
+            [ 'abs', 'ABS::%%slbvTotalConn%%'],
+            [ 'fm', 'FORMAT::NUMBER.2::%%slbvTotalConn%%'],
+            [ '', 'VALUES::%%abs%% (%%fm%% cps)'],
+          ],
+      },
+      'hr2' => {
+          order => 100,
+      },
+      'slbvDelayTimer' => {
+          order => 110,
+          title => 'delay timer',
+          brief => 0,
+      },
+      'slbvIdleTime' => {
+          order => 120,
+          title => 'idle timer',
+          brief => 0,
+      },
+      'slbvStickyTimer' => {
+          order => 130,
+          title => 'sticky timer',
+          brief => 0,
+      },
+      'slbvStickyGroup' => {
+          order => 140,
+          title => 'sticky group',
+          brief => 0,
+      },
+      'slbvSynguardCount' => {
+          order => 150,
+          title => 'synguard count',
+          brief => 0,
+      },
+      'slbvSynguardPeriod' => {
+          order => 160,
+          title => 'synguard period',
+          brief => 0,
+      },
+  }
+}

@@ -1,0 +1,1212 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.2.6.158.3', ],
+  DISCOVER => [ '1.3.6.1.4.1.2.3.51.2.22.1.5.1.1.2', ],
+  DISCOVER_NAME_OVERRIDE => 'blade %%DISCOVER_NAME%%',
+  ENTITY_ICON => 'blade_server',
+
+  NAME => 'IBM blade server',
+  TRACKS => {
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.1.1.2' => {
+      track_name => 'bladeId',
+      text_translator => {
+        0 => '--managementModule',
+        1 => 'blade1',
+        2 => 'blade2',
+        3 => 'blade3',
+        4 => 'blade4',
+        5 => 'blade5',
+        6 => 'blade6',
+        7 => 'blade7',
+        8 => 'blade8',
+        9 => 'blade9',
+        10 => 'blade10',
+        11 => 'blade11',
+        12 => 'blade12',
+        13 => 'blade13',
+        14 => 'blade14',
+      },
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.1.1.3' => {
+      track_name => 'bladeExists',
+      text_translator => {
+        0 => 'false',
+        1 => 'true',
+      },
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.1.1.4' => {
+      track_name => 'bladePowerState',
+      text_translator => {
+        0 => 'off',
+        1 => 'on',
+      },
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.1.1.5' => {
+      track_name => 'bladeHealthState',
+      text_translator => {
+        0 => 'unknown',
+        1 => 'good',
+        2 => 'warning',
+        3 => 'bad',
+      },
+      text_test => {
+        bad => [ 
+          { value => 'warning', alarm_level => _ST_WARNING, message => 'server state: %%bladeHealthState%%', }, 
+          { value => 'bad', alarm_level => _ST_MAJOR, message => 'server state: %%bladeHealthState%%', }, 
+        ],
+      },
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.1.1.6' => {
+      track_name => 'bladeName',
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.1.1.10' => {
+      track_name => 'bladeConnectionType',
+      text_translator => {
+        0 => 'none',
+        1 => 'ethernet',
+        2 => 'fiber',
+      },
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.1.1.11' => {
+      track_name => 'bladeOwnsKVM',
+      text_translator => {
+        0 => 'false',
+        1 => 'true',
+      },
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.1.1.12' => {
+      track_name => 'bladeOwnsMediaTray',
+      text_translator => {
+        0 => 'false',
+        1 => 'true',
+      },
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.6' => {
+      track_name => 'tempCPU1',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%tempCPU1%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.7' => {
+      track_name => 'tempCPU2',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%tempCPU2%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.8' => {
+      track_name => 'tempCPU3',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%tempCPU3%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.9' => {
+      track_name => 'tempCPU4',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%tempCPU4%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.10' => {
+      track_name => 'tempDASD11',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%tempDASD11%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.11' => {
+      track_name => 'bsTempCapa',
+      text_translator => {
+        0 => 'false',
+        1 => 'true',
+     },
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.12' => {
+      track_name => 'bs1Temp',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs1Temp%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.13' => {
+      track_name => 'bs2Temp',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs2Temp%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.14' => {
+      track_name => 'bs3Temp',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs3Temp%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.15' => {
+      track_name => 'bs4Temp',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs4Temp%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.16' => {
+      track_name => 'bs5Temp',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs5Temp%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.3.1.17' => {
+      track_name => 'bs6Temp',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs6Temp%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.15' => {
+      track_name => 'bs1Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs1Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.16' => {
+      track_name => 'bs2Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs2Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.17' => {
+      track_name => 'bs3Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs3Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.18' => {
+      track_name => 'bs4Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs4Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.19' => {
+      track_name => 'bs5Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs5Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.20' => {
+      track_name => 'bs6Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs6Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.21' => {
+      track_name => 'bs7Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs7Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.22' => {
+      track_name => 'bs8Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs8Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.23' => {
+      track_name => 'bs9Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs9Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.24' => {
+      track_name => 'bs10Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs10Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.25' => {
+      track_name => 'bs11Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs11Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.26' => {
+      track_name => 'bs12Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs12Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.27' => {
+      track_name => 'bs13Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs13Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.28' => {
+      track_name => 'bs14Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs14Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.29' => {
+      track_name => 'bs15Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs15Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.30' => {
+      track_name => 'bs16Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs16Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.31' => {
+      track_name => 'bs17Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs17Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.32' => {
+      track_name => 'bs18Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs18Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.33' => {
+      track_name => 'bs19Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs19Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.34' => {
+      track_name => 'bs20Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs20Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.35' => {
+      track_name => 'bs21Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs21Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.36' => {
+      track_name => 'bs22Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs22Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.37' => {
+      track_name => 'bs23Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs23Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.38' => {
+      track_name => 'bs24Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs24Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.39' => {
+      track_name => 'bs25Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs25Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.40' => {
+      track_name => 'bs26Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs26Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.41' => {
+      track_name => 'bs27Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs27Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.42' => {
+      track_name => 'bs28Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs28Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.43' => {
+      track_name => 'bs29Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs29Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+    '1.3.6.1.4.1.2.3.51.2.22.1.5.5.1.44' => {
+      track_name => 'bs30Volt',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'REG::%%bs30Volt%%::(.*= )([\-,\+,0-9,\.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]],
+    },
+  },
+  DESC => {
+    bladeName => { 
+       title => 'name', order => 10, brief => 1, 
+          compute => [ ['', 'FORMAT::STRING::<b>%s</b>::%%bladeName%%'],],
+     },
+    bladeExists => { 
+       title => 'blade exists', order => 20, brief => 0, 
+    },
+    bladePowerState => { 
+       title => 'power state', order => 30, brief => 0, 
+    },
+    bladeHealthState => { 
+       title => 'health state', order => 40, brief => 1, 
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%bladeHealthState%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%bladeHealthState%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+    },
+    bladeConnectionType => { 
+       title => 'connection type', order => 60, brief => 0, 
+    },
+    bladeOwnsKVM => { 
+       title => 'owns KVM', order => 70, brief => 0, 
+    },
+    bladeOwnsMediaTray => { 
+       title => 'owns media tray', order => 80, brief => 0, 
+    },
+
+    hr0 => { order => 100, },
+
+    tempCPU1 => {
+       title => 'CPU temperature sensor 1', order => 105, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%tempCPU1%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    tempCPU2 => {
+       title => 'CPU temperature sensor 2', order => 110, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%tempCPU2%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    tempCPU3 => {
+       title => 'CPU temperature sensor 3', order => 115, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%tempCPU3%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    tempCPU4 => {
+       title => 'CPU temperature sensor 4', order => 120, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%tempCPU4%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    tempCPU5 => {
+       title => 'CPU temperature sensor 5', order => 125, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%tempCPU5%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    tempCPU6 => {
+       title => 'CPU temperature sensor 6', order => 130, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%tempCPU6%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    tempDASD11 => {
+       title => 'DASD temperature sensor', order => 135, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%tempDASD11%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bsTempCapa => {
+       title => 'temperature sensors capability', order => 140, brief => 0,
+    },
+
+    hr1 => { order => 150, },
+    
+    bs1Temp => {
+       title => 'temperature sensor 1', order => 170, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%bs1Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs2Temp => {
+       title => 'temperature sensor 2', order => 180, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%bs2Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs3Temp => {
+       title => 'temperature sensor 3', order => 190, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%bs2Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs4Temp => {
+       title => 'temperature sensor 4', order => 200, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%bs4Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs5Temp => {
+       title => 'temperature sensor 5', order => 210, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%bs5Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs6Temp => {
+       title => 'temperature sensor 6', order => 220, brief => 0,
+       compute => [
+         ['abs', 'ABS::%%bs6Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    hr2 => { order => 230, },
+    bs1Volt => { 
+       title => 'voltage sensor 1', order => 510, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs1Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs2Volt => { 
+       title => 'voltage sensor 2', order => 520, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs2Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs3Volt => { 
+       title => 'voltage sensor 3', order => 530, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs3Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs4Volt => { 
+       title => 'voltage sensor 4', order => 540, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs4Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs5Volt => { 
+       title => 'voltage sensor 5', order => 550, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs5Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs6Volt => { 
+       title => 'voltage sensor 6', order => 560, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs6Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs7Volt => { 
+       title => 'voltage sensor 7', order => 570, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs7Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs8Volt => { 
+       title => 'voltage sensor 8', order => 580, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs8Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs9Volt => { 
+       title => 'voltage sensor 9', order => 590, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs9Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs10Volt => { 
+       title => 'voltage sensor 10', order => 1100, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs10Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs11Volt => { 
+       title => 'voltage sensor 11', order => 1110, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs11Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs12Volt => { 
+       title => 'voltage sensor 12', order => 1120, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs12Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs13Volt => { 
+       title => 'voltage sensor 13', order => 1130, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs13Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs14Volt => { 
+       title => 'voltage sensor 14', order => 1140, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs14Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs15Volt => { 
+       title => 'voltage sensor 15', order => 1150, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs15Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs16Volt => { 
+       title => 'voltage sensor 16', order => 1160, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs16Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs17Volt => { 
+       title => 'voltage sensor 17', order => 1170, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs17Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs18Volt => { 
+       title => 'voltage sensor 18', order => 1180, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs18Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs19Volt => { 
+       title => 'voltage sensor 19', order => 1190, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs19Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs20Volt => { 
+       title => 'voltage sensor 20', order => 1200, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs20Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs21Volt => { 
+       title => 'voltage sensor 21', order => 1210, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs21Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs22Volt => { 
+       title => 'voltage sensor 22', order => 1220, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs22Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs23Volt => { 
+       title => 'voltage sensor 23', order => 1230, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs23Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs24Volt => { 
+       title => 'voltage sensor 24', order => 1240, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs24Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs25Volt => { 
+       title => 'voltage sensor 25', order => 1250, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs25Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs26Volt => { 
+       title => 'voltage sensor 26', order => 1260, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs26Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs27Volt => { 
+       title => 'voltage sensor 27', order => 1270, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs27Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs28Volt => { 
+       title => 'voltage sensor 28', order => 1280, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs28Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs29Volt => { 
+       title => 'voltage sensor 29', order => 1290, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs29Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+    bs30Volt => { 
+       title => 'voltage sensor 30', order => 1300, brief => 0, 
+       compute => [
+         ['abs', 'ABS::%%bs30Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+    },
+  },
+  GRAPHS =>
+  [
+    {
+       title => [
+         ['abs', 'ABS::%%tempCPU1%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'tempCPU1',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%tempCPU2%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'tempCPU2',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%tempCPU3%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'tempCPU3',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%tempCPU4%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'tempCPU4',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%tempDASD11%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'tempDASD11',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs1Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs1Temp',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs2Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs2Temp',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs3Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs3Temp',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs4Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs4Temp',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs5Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs5Temp',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs6Temp%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs6Temp',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs1Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs1Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs2Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs2Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs3Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs3Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs4Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs4Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs5Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs5Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs6Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs6Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs7Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs7Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs8Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs8Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs9Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs9Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs10Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs10Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs11Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs11Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs12Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs12Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs13Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs13Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs14Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs14Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs15Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs15Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs16Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs16Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs17Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs17Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs18Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs18Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs19Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs19Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs20Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs20Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs21Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs21Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs22Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs22Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs23Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs23Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs24Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs24Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs25Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs25Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs26Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs26Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs27Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs27Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs28Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs28Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs29Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs29Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => [
+         ['abs', 'ABS::%%bs30Volt%%'],
+         ['', 'REG::%%abs%%::(.*= )([-,+,0-9,.]*)(.*)::name||\s+=\s+::value::unit||^\s+', ]
+       ],
+       units => '',
+       tracks => [
+           {
+              name => 'bs30Volt',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+},

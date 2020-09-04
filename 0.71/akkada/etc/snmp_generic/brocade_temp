@@ -1,0 +1,88 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.1588' ],
+  DISCOVER => [ '1.3.6.1.4.1.1588.2.1.1.1.1.22.1.2',
+                '1.3.6.1.4.1.1588.2.1.1.1.1.22.1.3',
+                '1.3.6.1.4.1.1588.2.1.1.1.1.22.1.5',
+    ],
+  DISCOVER_CONDITION => {
+      eq => {0 => 1},
+      lt => {1 => 6},
+  },  
+  DISCOVER_NAME_OVERRIDE => '%%DISCOVER_NAME.2%%',
+  ENTITY_ICON => 'temperature1',
+
+  NAME => 'temperature sensor',
+  TRACKS => {
+    '1.3.6.1.4.1.1588.2.1.1.1.1.22.1.3' => {
+      track_name => 'status',
+      text_test => {
+          bad => [
+              { value => 'unknown', alarm_level => _ST_UNKNOWN, message => '%%status%%', },
+              { value => 'faulty|above-max|below-min', alarm_level => _ST_DOWN, message => '%%status%%', },
+          ]
+      },
+      text_translator => {
+         1 => 'unknown',
+         2 => 'faulty',
+         3 => 'below-min',
+         4 => 'nominal',
+         5 => 'above-max',
+         6 => 'absent',
+      }
+    },
+    '1.3.6.1.4.1.1588.2.1.1.1.1.22.1.4' => {
+      track_name => 'value',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => '55',
+          alarm_level => _ST_DOWN,
+          message => "high temperature!",
+      },
+      threshold_medium => {
+          value => '50',
+          alarm_level => _ST_MINOR,
+          message => "warning too high temperature",
+      },
+      threshold_too_low => {
+          value => '15',
+          alarm_level => _ST_MAJOR,
+          message => "too low temperature",
+      },
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'temperature',
+       units => 'deg. C',
+       tracks => [
+           { 
+               name => 'value',
+               title => 'temperature',
+               color => 'CC3333',
+               style => 'LINE1',
+           },
+       ],
+    }
+  ],
+  DESC => { 
+      'value' => {
+          order => 2,
+          title => 'temperature',
+          brief => 1, 
+          compute => [['','PERCDEFL::%%value%%::-5::50::0::deg. C']],
+      },
+      'status' => {
+          order => 1,
+          brief => 1, 
+          title => 'status',
+          compute => [
+            ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%status%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+            ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%status%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+          ],
+      },
+  }
+}
+
+
