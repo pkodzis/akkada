@@ -1,0 +1,136 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.318' ],
+  DISCOVER => [ '1.3.6.1.4.1.318.1.1.1.4.1.1' ],
+  DISCOVER_NAME_OVERRIDE => 'AC output',
+  ENTITY_ICON => 'ac_output',
+  NAME => 'AC output',
+  TRACKS => {
+    '1.3.6.1.4.1.318.1.1.1.4.1.1' => {
+      track_name => 'Status',
+      text_translator => {
+        1 => 'unknown',
+        2 => 'on line',
+        3 => 'on battery',
+        4 => 'on smart boost',
+        5 => 'timed sleeping',
+        6 => 'software bypass',
+        7 => 'off',
+        8 => 'rebooting',
+        9 => 'switched bypass',
+        10 => 'hardware failure bypass',
+        11 => 'sleeping until power return',
+        12 => 'on smart trim',
+     },
+     text_test => {
+          expected => [ 
+              { value => 'unknown|on line', alarm_level => _ST_DOWN, message => 'unexpected UPS output state: %%Status%%', }, 
+          ],
+     },
+    },
+    '1.3.6.1.4.1.318.1.1.1.4.1.2' => {
+      track_name => 'Phase',
+      change_detect => 'log',
+    },
+    '1.3.6.1.4.1.318.1.1.1.4.2.1' => {
+      track_name => 'Voltage',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.4.2.2' => {
+      track_name => 'Frequency',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.4.2.3' => {
+      track_name => 'Load',
+      rrd_track_type => 'GAUGE',
+      threshold_high => { value => '90', alarm_level => _ST_MAJOR, message => "high load!", },
+      threshold_medium => { value => '80', alarm_level => _ST_MINOR, message => "medium load!", },
+    },
+    '1.3.6.1.4.1.318.1.1.1.4.2.4' => {
+      track_name => 'Current',
+      rrd_track_type => 'GAUGE',
+#      "current in ampres drawn by the load on the UPS."
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'Voltage',
+       units => 'VAC',
+       default => 1,
+       tracks => [
+           {
+               name => 'Voltage',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       default => 1,
+       title => 'Frequency',
+       units => 'MHz',
+       tracks => [
+           {
+               name => 'Frequency',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       default => 1,
+       title => 'current load in %',
+       units => '%',
+       tracks => [
+           {
+               name => 'Load',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'current load in A',
+       units => 'A',
+       tracks => [
+           {
+               name => 'Current',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    Voltage => { 
+      title => "output voltage of the UPS system",
+      compute => [ ['', 'FORMAT::STRING::<b>%s VAC</b>::%%Voltage%%']],
+      order => 10, brief => 1, 
+    },
+    Frequency => { 
+      title => 'frequency', order => 20, brief => 1, 
+      compute => [['','PERCDEFL::%%Frequency%%::40::60::1::MHz']],
+    },
+    Status => { 
+      title => 'status', order => 30, brief => 1, 
+      compute => [
+          ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%Status%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+          ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%Status%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    Load => { 
+      title => 'load', order => 40, brief => 1, 
+      compute => [
+          ['tmp', 'PERCENT::%%Load%%'],
+          ['', 'VALUES::%%tmp%% (%%Current%% A)'],
+      ],
+    },
+    Phase => { 
+      title => "current output phase",
+      order => 50, brief => 0, 
+    },
+  },
+}

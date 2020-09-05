@@ -1,0 +1,168 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1' ],
+  DISCOVER => [ '1.3.6.1.2.1.67.1.1.1.1.1' ],
+  DISCOVER_NAME_OVERRIDE => 'RADIUS server - authentication',
+  ENTITY_ICON => 'authentication',
+  NAME => 'RADIUS server - authentication',
+  TRACKS => {
+    '1.3.6.1.2.1.67.1.1.1.1.1' => {
+      track_name => 'ServIdent',
+    },
+    '1.3.6.1.2.1.67.1.1.1.1.2' => {
+      track_name => 'ServUpTime',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.2.1.67.1.1.1.1.3' => {
+      track_name => 'ServResetTime',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.2.1.67.1.1.1.1.5' => {
+      track_name => 'Access',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.2.1.67.1.1.1.1.6' => {
+      track_name => 'Invalid',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.2.1.67.1.1.1.1.7' => {
+      track_name => 'DupAccess',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.2.1.67.1.1.1.1.8' => {
+      track_name => 'AccessAccepts',
+      rrd_track_type => 'COUNTER', 
+    },
+    '1.3.6.1.2.1.67.1.1.1.1.9' => {
+      track_name => 'AccessRejects',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.2.1.67.1.1.1.1.10' => {
+      track_name => 'AccessChallenges',
+      rrd_track_type => 'COUNTER',
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'ServUpTime',
+       units => 'ticks',
+       tracks => [
+           {
+               name => 'ServUpTime',
+               title => 'up time',
+               color => '009933',
+               style => 'AREA',
+           },
+           {
+               name => 'ServResetTime',
+               title => 'reset time',
+               color => '990033',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'RADIUS requests',
+       units => 'pps',
+       tracks => [
+           {
+               name => 'Access',
+               title => 'total access-request packets received',
+               color => '009933',
+               style => 'AREA',
+           },
+           {
+               name => 'DupAccess',
+               title => 'duplicate access-request packets received',
+               color => 'ff9933',
+               style => 'LINE2',
+           },
+           {
+               name => 'Invalid',
+               title => 'access-request packets received from unknown addresses',
+               color => '990033',
+               style => 'LINE2',
+           },
+       ],
+    },
+    {
+       title => 'RADIUS responces',
+       units => 'pps',
+       default => 1,
+       tracks => [
+           {
+               name => 'AccessAccepts',
+               title => 'access-accept',
+               color => '009933',
+               style => 'AREA',
+           },
+           {
+               name => 'AccessChallenges',
+               title => 'access-reject',
+               style => 'STACK',
+               color => 'ff9933',
+           },
+           {
+               name => 'AccessRejects',
+               title => 'access-challenge',
+               color => '990033',
+               style => 'STACK',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    ServIdent => { 
+      title => 'version', order => 10, brief => 0, 
+    },
+    ServUpTime => { 
+      title => 'up time', order => 20, brief => 0, 
+      compute => [ ['', 'TICK2DURATION::%%ServUpTime%%']],
+    },
+    ServResetTime => { 
+      title => 'reset time', order => 30, brief => 0, 
+      compute => [ ['', 'TICK2DURATION::%%ServResetTime%%']],
+    },
+    Access => { 
+      title => 'total access-request packets received', order => 40, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Access%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%Access_absolute%%)'],
+      ],
+    },
+    Invalid => { 
+      title => 'access-request packets received from unknown addresses', order => 50, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Invalid%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%Invalid_absolute%%)'],
+      ],
+    },
+    DupAccess => { 
+      title => 'duplicate access-request packets received', order => 60, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%DupAccess%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%DupAccess_absolute%%)'],
+      ],
+    },
+    AccessAccepts => { 
+      title => 'access-accepts', order => 70, brief => 1, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%AccessAccepts%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%AccessAccepts_absolute%%)'],
+      ],
+    },
+    AccessRejects => { 
+      title => 'access-rejects', order => 80, brief => 1, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%AccessRejects%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%AccessRejects_absolute%%)'],
+      ],
+    },
+    AccessChallenges => { 
+      title => 'access-challenges', order => 90, brief => 1, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%AccessChallenges%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%AccessChallenges_absolute%%)'],
+      ],
+    },
+  },
+}

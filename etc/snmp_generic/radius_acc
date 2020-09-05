@@ -1,0 +1,168 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1' ],
+  DISCOVER => [ '1.3.6.1.2.1.67.2.1.1.1.1' ],
+  DISCOVER_NAME_OVERRIDE => 'RADIUS server - accounting',
+  ENTITY_ICON => 'accounting',
+  NAME => 'RADIUS server - accounting',
+  TRACKS => {
+    '1.3.6.1.2.1.67.2.1.1.1.1' => {
+      track_name => 'Ident',
+    },
+    '1.3.6.1.2.1.67.2.1.1.1.2' => {
+      track_name => 'UpTime',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.2.1.67.2.1.1.1.3' => {
+      track_name => 'ResetTime',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.2.1.67.2.1.1.1.5' => {
+      track_name => 'Requests',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.2.1.67.2.1.1.1.8' => {
+      track_name => 'Responses',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.2.1.67.2.1.1.1.6' => {
+      track_name => 'InvalidRequests',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.2.1.67.2.1.1.1.7' => {
+      track_name => 'DupRequests',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.2.1.67.2.1.1.1.12' => {
+      track_name => 'NoRecords',
+      rrd_track_type => 'COUNTER',
+    },
+    '1.3.6.1.2.1.67.2.1.1.1.13' => {
+      track_name => 'UnknownTypes',
+      rrd_track_type => 'COUNTER',
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'UpTime',
+       units => 'ticks',
+       tracks => [
+           {
+               name => 'UpTime',
+               title => 'up time',
+               color => '009933',
+               style => 'AREA',
+           },
+           {
+               name => 'ResetTime',
+               title => 'reset time',
+               color => '990033',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'requests/responses',
+       units => 'pps',
+       default => 1,
+       tracks => [
+           {
+               name => 'Requests',
+               title => 'requests',
+               color => '009966',
+               style => 'AREA',
+           },
+           {
+               name => 'Responses',
+               title => 'responses',
+               color => '330066',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'invalid requests',
+       units => 'pps',
+       tracks => [
+           {
+               name => 'InvalidRequests',
+               title => 'packets received from unknown addresses\n',
+               color => '000066',
+               style => 'LINE1',
+           },
+           {
+               name => 'DupRequests',
+               title => 'duplicate packets\n',
+               color => '006666',
+               style => 'LINE1',
+           },
+           {
+               name => 'NoRecords',
+               title => 'received and responded to but not recorded\n',
+               color => 'ff9966',
+               style => 'LINE1',
+           },
+           {
+               name => 'UnknownTypes',
+               title => 'received unknown type packets',
+               color => 'ff0066',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    Ident => {
+      title => 'version', order => 10, brief => 0,
+    },
+    UpTime => {
+      title => 'up time', order => 20, brief => 0,
+      compute => [ ['', 'TICK2DURATION::%%UpTime%%']],
+    },
+    ResetTime => {
+      title => 'reset time', order => 30, brief => 0,
+      compute => [ ['', 'TICK2DURATION::%%ResetTime%%']],
+    },
+    Requests => { 
+      title => 'requests', order => 40, brief => 1, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Requests%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%Requests_absolute%%)'],
+      ],
+    },
+    Responses => { 
+      title => 'responses', order => 42, brief => 1, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Responses%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%Responses_absolute%%)'],
+      ],
+    },
+    InvalidRequests => { 
+      title => 'packets received from unknown addresses', order => 50, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%InvalidRequests%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%InvalidRequests_absolute%%)'],
+      ],
+    },
+    DupRequests => { 
+      title => 'duplicate packets', order => 60, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%DupRequests%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%DupRequests_absolute%%)'],
+      ],
+    },
+    NoRecords => { 
+      title => 'received and responded to but not recorded', order => 80, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%NoRecords%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%NoRecords_absolute%%)'],
+      ],
+    },
+    UnknownTypes => { 
+      title => 'received unknown type packets', order => 90, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%UnknownTypes%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%UnknownTypes_absolute%%)'],
+      ],
+    },
+  },
+}

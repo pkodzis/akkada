@@ -1,0 +1,126 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.318' ],
+  DISCOVER => [ '1.3.6.1.4.1.318.1.1.1.2.1.1' ],
+  DISCOVER_NAME_OVERRIDE => 'battery status',
+  ENTITY_ICON => 'battery',
+  NAME => 'battery status',
+  TRACKS => {
+    '1.3.6.1.4.1.318.1.1.1.2.1.1' => {
+      track_name => 'Status',
+      text_translator => {
+        1 => 'unknown',
+        2 => 'normal',
+        3 => 'low',
+     },
+     text_test => {
+        bad => [ { value => 'low', alarm_level => _ST_MAJOR , message => 'battery status low', }, ],
+     },
+    },
+    '1.3.6.1.4.1.318.1.1.1.2.1.2' => {
+      track_name => 'TimeOnBattery',
+    },
+    '1.3.6.1.4.1.318.1.1.1.2.1.3' => {
+      track_name => 'LastReplaceDate',
+    },
+    '1.3.6.1.4.1.318.1.1.1.2.2.1' => {
+      track_name => 'gCapacity',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.2.2.2' => {
+      track_name => 'gTemperature',
+      rrd_track_type => 'GAUGE',
+      threshold_high => { value => '45', alarm_level => _ST_MAJOR, message => "high temperature!", },
+      threshold_medium => { value => '40', alarm_level => _ST_WARNING, message => "medium temperature", },
+    },
+    '1.3.6.1.4.1.318.1.1.1.2.2.3' => {
+      track_name => 'gRunTimeRemaining',
+      threshold_too_low => { value => '100000', alarm_level => _ST_DOWN , message => "battery exhaustion soon", },
+    },
+    '1.3.6.1.4.1.318.1.1.1.2.2.4' => {
+      track_name => 'gReplaceIndicator',
+      text_translator => {
+        1 => 'no battery needs replacing',
+        2 => 'battery needs replacing',
+     },
+     text_test => {
+          bad => [ { value => '^battery needs replacing$', alarm_level => _ST_DOWN, message => 'battery needs replacing', }, ],
+      },
+    },
+    '1.3.6.1.4.1.318.1.1.1.2.2.5' => {
+      track_name => 'gNumOfBattPacks',
+    },
+    '1.3.6.1.4.1.318.1.1.1.2.2.6' => {
+      track_name => 'gNumOfBadBattPacks',
+      threshold_high => { value => '1', alarm_level => _ST_DOWN, message => "bad battery packs", },
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'capacity',
+       units => '%',
+       default => 1,
+       tracks => [
+           {
+               name => 'gCapacity',
+               title => '',
+               color => '00FF00',
+               style => 'AREA',
+           },
+       ],
+    },
+    {
+       title => 'temperature',
+       units => 'deg. C',
+       default => 1,
+       tracks => [
+           {
+               name => 'gTemperature',
+               title => '',
+               color => 'FF0000',
+               style => 'LINE2',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    Status => { 
+      title => 'status', order => 10, brief => 1, 
+      compute => [
+          ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%Status%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+          ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%Status%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    gCapacity => { 
+      title => 'battery capacity', order => 20, brief => 0, 
+      compute => [ ['', 'PERCENTLOW::%%gCapacity%%'] ],
+    },
+    TimeOnBattery => { 
+      title => 'time on battery', order => 30, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s sec::%%TimeOnBattery%%']],
+    },
+    gTemperature => { 
+      title => 'battery temperature', order => 40, brief => 1, 
+      compute => [['','PERCDEFL::%%gTemperature%%::0::50::1::deg. C']],
+    },
+    LastReplaceDate => { 
+      title => 'last replace date', order => 50, brief => 0, 
+    },
+    gRunTimeRemaining => { 
+      title => 'battery run time remaining before battery exhaustion', order => 60, brief => 0, 
+      compute => [ ['', 'TICK2DURATION::%%gRunTimeRemaining%%']],
+    },
+    gReplaceIndicator => { 
+      title => 'replace indicator', order => 70, brief => 0, 
+      compute => [
+          ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%gReplaceIndicator%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+          ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%gReplaceIndicator%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    gNumOfBattPacks => { 
+      title => 'number of battery packs', order => 80, brief => 0, 
+    },
+    gNumOfBadBattPacks => { 
+      title => 'number of bad battery packs', order => 90, brief => 0, 
+    },
+  },
+}

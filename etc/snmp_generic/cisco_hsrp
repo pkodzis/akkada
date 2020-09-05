@@ -1,0 +1,83 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.9' ],
+  DISCOVER => [ '1.3.6.1.4.1.9.9.106.1.2.1.1.2' ],
+  DISCOVER_NAME_OVERRIDE => 'HSPR group %%DISCOVER_INDEX_LAST.1.0%%',
+  ENTITY_ICON => 'hsrp',
+  NAME => 'HSRP group',
+  TRACKS => {
+    '1.3.6.1.4.1.9.9.106.1.2.1.1.3' => {
+      track_name => 'Priority',
+    },
+    '1.3.6.1.4.1.9.9.106.1.2.1.1.4' => {
+      track_name => 'Preempt',
+      text_translator => {
+          1 => 'on',
+          2 => 'off',
+      },
+    },
+    '1.3.6.1.4.1.9.9.106.1.2.1.1.11' => {
+      track_name => 'VirtualIpAddr',
+    },
+    '1.3.6.1.4.1.9.9.106.1.2.1.1.13' => {
+      track_name => 'ActiveRouter',
+    },
+    '1.3.6.1.4.1.9.9.106.1.2.1.1.14' => {
+      track_name => 'StandbyRouter',
+    },
+    '1.3.6.1.4.1.9.9.106.1.2.1.1.15' => {
+      track_name => 'StandbyState',
+      text_translator => {
+          1 => 'initial',
+          2 => 'learn',
+          3 => 'listen',
+          4 => 'speak',
+          5 => 'standby',
+          6 => 'active',
+      },
+      change_detect => 'log',
+      text_test => {
+          bad => [
+              {
+                value => 'initial',
+                alarm_level => _ST_NOSTATUS,
+                message => 'state %%StandbyState%%; not configured or interface down',
+              },
+          ],
+      },
+    },
+    '1.3.6.1.4.1.9.9.106.1.2.1.1.16' => {
+      track_name => 'VirtualMacAddr',
+    },
+  },
+  GRAPHS => [
+  ],
+  DESC => {
+    StandbyState => { 
+      title => 'state', order => 20, brief => 1, 
+      compute => [
+          ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%StandbyState%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+          ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%StandbyState%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    VirtualIpAddr => { 
+      title => 'virtual IP address', order => 30, brief => 1, 
+      compute => [['', 'FORMAT::STRING::<b>%s</b>::%%VirtualIpAddr%%']],
+    },
+    VirtualMacAddr => { 
+      title => 'virtual MAC address', order => 40, brief => 0, 
+      compute => [['','MAC::%%VirtualMacAddr%%',]],
+    },
+    ActiveRouter => { 
+      title => 'active router', order => 50, brief => 1, 
+    },
+    StandbyRouter => { 
+      title => 'standby router', order => 60, brief => 0, 
+    },
+    Priority => { 
+      title => 'priority', order => 70, brief => 1, 
+    },
+    Preempt => { 
+      title => 'preempt', order => 80, brief => 1, 
+    },
+  },
+}

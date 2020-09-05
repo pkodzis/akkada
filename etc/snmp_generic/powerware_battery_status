@@ -1,0 +1,92 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.534' ],
+  DISCOVER => [ '1.3.6.1.4.1.534.1.2.1' ],
+  DISCOVER_NAME_OVERRIDE => 'battery status',
+  ENTITY_ICON => 'battery',
+  TRACKS => {
+    '1.3.6.1.4.1.534.1.2.1' => {
+      track_name => 'TimeRemaining',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.534.1.2.2' => {
+      track_name => 'Voltage',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.534.1.2.4' => {
+      track_name => 'Capacity',
+      rrd_track_type => 'GAUGE',
+      threshold_too_low => { value => '80', alarm_level => _ST_MAJOR, message => "battery charge level low", },
+    },
+    '1.3.6.1.4.1.534.1.2.5' => {
+      track_name => 'Status',
+      text_translator => {
+        1 => 'charging',
+        2 => 'discharging',
+        3 => 'floating',
+        4 => 'resting',
+        5 => 'unknown',
+     },
+      text_test => {
+          bad => [ { value => 'discharging', alarm_level => _ST_DOWN , message => 'battery is discharging; probably power is down', }, ],
+      },
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'capacity',
+       units => '%',
+       tracks => [
+           {
+               name => 'Capacity',
+               title => 'capacity',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'time before UPS turns off',
+       units => 'sec',
+       tracks => [
+           {
+               name => 'TimeRemaining',
+               title => 'time',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'voltage',
+       units => 'V',
+       tracks => [
+           {
+               name => 'Voltage',
+               title => 'voltage',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    Capacity => { 
+      title => 'capacity', order => 10, brief => 1, 
+      compute => [ ['', 'FORMAT::STRING::%s %%::%%Capacity%%']],
+    },
+    TimeRemaining => { 
+      title => 'time before UPS turns off', order => 15, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s sec::%%TimeRemaining%%']],
+    },
+    Voltage => { 
+      title => 'voltage', order => 20, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s V::%%Voltage%%']],
+    },
+    Status => { 
+      title => 'status', order => 5, brief => 1, 
+      compute => [
+          ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%Status%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+          ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%Status%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],    },
+  },
+}

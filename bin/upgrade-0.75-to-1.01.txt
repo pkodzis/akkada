@@ -1,0 +1,58 @@
+
+ProbesMapRev:
+    '28' => 'cisco_pix_ipsec_traffic',
+ProbesMap:
+    'cisco_pix_ipsec_traffic'i => '28',
+
+System:
+    'cisco_pix_ipsec_traffic'i => 1, <=== musi byc dokladnie 1 bo keszuje sie
+informacja w sondzie
+
+cp /akkada/htdocs/img/ssl_generic.gif /akkada/htdocs/img/cisco_pix_ipsec.gif
+cp /akkada/htdocs/img/ssl_generic.gif /akkada/htdocs/img/cisco_pix_ipsec_traffic.gif
+
+
+
+smsapi - wywal hasla!
+add lib/ActionExecutor/smsapi.pm
+add etc/conf.d/ActionExecutor/smsapi.conf
+update etc/conf.d/ActionExecutor.conf:
+	add: 'smsapi' => do "$ENV{AKKADA}/etc/conf.d/ActionsExecutor/smsapi.conf",
+
+APACHE:
+
+add:
+
+PerlModule WSRuntime
+<Location /ws>
+    SetHandler perl-script
+    PerlResponseHandler WSRuntime
+</Location>
+
+PerlModule WSERuntime
+<Location /ws>
+    SetHandler perl-script
+    PerlResponseHandler WSERuntime
+</Location>
+
+
+FILES:
+
+add files:
+../htdocs/img/idle.gif
+/akkada/htdocs/dhs*
+/akkada/htdocs/ws*
+
+create a symbolic link:
+ln -s ln -s /akkada/htdocs/dhs-theme-akkada  /akkada/htdocs/dhs/themes/akkada
+
+
+CONFIG:
+
+remove etc/conf.d/Web/Login.conf and its reference in etc/conf.d/Web.conf
+
+etc/conf.d/Web.conf add:
+   'Templates' => "/akkada/htdocs/wst",
+
+PERL:
+install JSON

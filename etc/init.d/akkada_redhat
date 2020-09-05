@@ -1,0 +1,84 @@
+#!/bin/bash
+
+test -e /akkada/bin/akkada.pl || exit 0
+test -e /akkada/etc/akkada.shell || exit 0
+
+. $AKKADA/etc/akkada.shell
+
+. /etc/init.d/functions
+
+CDIR=`pwd`
+
+RETVAL=0
+
+start() {
+
+        status $EXEC > /dev/null
+	RETVAL=$?
+        if [ $RETVAL -eq 0 ]; then
+            echo "akk@da is already running. exiting.";
+            exit 1;
+        fi
+
+	$CFGCHECK
+	RETVAL=$?
+	[ $RETVAL -ne 0 ] && exit $RETVAL
+
+	if [ -e $EXECPRE ]; then
+ 	    echo "Starting akk@da NMS system preload script"
+            $EXECPRE
+	    RETVAL=$?
+	    if [ $RETVAL -ne 0 ]; then
+                echo "error; check preload script $EXECPRE"
+                exit 1
+            fi
+        fi
+
+ 	echo -n $"Starting akk@da NMS system: "
+	daemon --user $OSLogin $EXEC
+
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch $PIDFILE
+	return $RETVAL
+}	
+stop() {
+	echo -n $"Shutting down akk@da NMS system: "
+	killproc $EXEC
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f $PIDFILE
+	return $RETVAL
+}
+rhstatus() {
+	status $EXEC
+}
+restart() {
+	$CFGCHECK
+	RETVAL=$?
+	[ $RETVAL -ne 0 ] && exit $RETVAL
+	stop
+	start
+}	
+
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
+	;;
+  status)
+  	rhstatus
+	;;
+  restart|reload)
+  	restart
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|status|restart}"
+	exit 1
+esac
+
+cd $CDIR
+
+exit $?
+

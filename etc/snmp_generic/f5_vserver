@@ -1,0 +1,634 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.3375' ],
+  DISCOVER => [ '1.3.6.1.4.1.3375.2.2.10.1.2.1.1' ],
+  ENTITY_ICON => 'slb_vservers',
+  NAME => 'BigIP virtual server',
+
+  TRACKS => {
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.3' => {
+      track_name => 'Addr',
+      compute => [['', 'HEXSTR2IP::%%Addr%%', ]],
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.5' => {
+      track_name => 'Wildmask',
+      compute => [['', 'HEXSTR2IP::%%Wildmask%%', ]],
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.6' => {
+      track_name => 'Port',
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.10' => {
+      track_name => 'ConnLimit',
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.12' => {
+      track_name => 'SfFlags',
+      text_translator => {
+        0 => 'disabled',
+        1 => 'enabled',
+     },
+#		"The flag to indicate whether connection mirroring is 
+#		enabled or not for the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.13' => {
+      track_name => 'TranslateAddr',
+      text_translator => {
+        0 => 'false',
+        1 => 'true',
+     },
+#		"The state indicating whether the address of the specified virtual server 
+#		should be translated."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.14' => {
+      track_name => 'TranslatePort',
+      text_translator => {
+        0 => 'false',
+        1 => 'true',
+     },
+#		"The state indicating whether the port of the specified virtual server 
+#		should be translated."
+    },
+    #'1.3.6.1.4.1.3375.2.2.10.1.2.1.15' => {
+    #  track_name => 'Type',
+    #  text_translator => {
+    #    0 => 'based on a pool',
+    #    1 => 'only supports IP forwarding; no load balancing',
+    #    2 => 'only supports L2 forwarding; no load balancing',
+    #    3 => 'all connections will be rejected, and resets will be sent',
+    # },
+    #},
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.16' => {
+      track_name => 'SnatType',
+      text_translator => {
+        0 => 'not used',
+        1 => 'uses a single translation address (invalid type)',
+        2 => 'uses a SNAT pool of translation addresses',
+        3 => 'uses self IP addresses',
+     },
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.17' => {
+      track_name => 'LasthopPoolName',
+#		"The last hop pool for the specified virtual server if traffic is 
+#		 transparent."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.18' => {
+      track_name => 'SnatpoolName',
+#		"The name of a SNAT pool used by the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.19' => {
+      track_name => 'DefaultPool',
+#		"The name of a default pool used by the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.21' => {
+      track_name => 'ActualPvaAccel',
+      text_translator => {
+        0 => 'full',
+        1 => 'partial',
+        2 => 'none',
+     },
+    },
+    '1.3.6.1.4.1.3375.2.2.10.1.2.1.27' => {
+      track_name => 'CmpEnabled',
+      text_translator => {
+        0 => 'false',
+        1 => 'true',
+      },
+#		"The state indicating whether CMP (Cluster Multiple Processor) is enabled or not for the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.13.2.1.2' => {
+      track_name => 'AvailState',
+      text_translator => {
+        0 => 'none',
+        1 => 'green',
+        2 => 'yellow',
+        3 => 'red',
+        4 => 'blue',
+        5 => 'gray',
+     },
+      text_test => {
+          ignore_unless => { name => 'EnabledState', value => 'enabled', },
+          bad => [ 
+              { value => 'none', alarm_level => _ST_DOWN, message => '%%DetailReason%%', }, 
+              { value => 'yellow', alarm_level => _ST_MAJOR, message => '%%DetailReason%%', }, 
+              { value => 'red', alarm_level => _ST_DOWN, message => '%%DetailReason%%', }, 
+              { value => 'blue', alarm_level => _ST_WARNING, message => '%%DetailReason%%', }, 
+              { value => 'gray', alarm_level => _ST_MAJOR, message => '%%DetailReason%%', }, 
+          ],
+      },
+    },
+    '1.3.6.1.4.1.3375.2.2.10.13.2.1.3' => {
+      track_name => 'EnabledState',
+      text_translator => {
+        0 => 'none',
+        1 => 'enabled',
+        2 => 'disabled',
+        3 => 'disabledbyparent',
+     },
+#		"The activity status of the specified virtual server, as specified 
+#		by the user."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.13.2.1.5' => {
+      track_name => 'DetailReason',
+#		"The detail description of the specified virtual server's status."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.5' => {
+      track_name => 'NoNodesErrors',
+      rrd_track_type => 'COUNTER',
+#      threshold_high => { value => '', alarm_level => , message => "", },
+#      threshold_medium => { value => '', alarm_level => , message => "", },
+#      threshold_too_low => { value => '', alarm_level => , message => "", },
+#		"The number of no-node errors. If active server node is zero, 
+#	         this counter is incremented."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.6' => {
+      track_name => 'ClientPktsIn',
+      rrd_track_type => 'COUNTER',
+#		"The number of packets received by the specified virtual server from client-side."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.7' => {
+      track_name => 'ClientBytesIn',
+      rrd_track_type => 'COUNTER',
+#		"The number of bytes received by the specified virtual server from client-side."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.8' => {
+      track_name => 'ClientPktsOut',
+      rrd_track_type => 'COUNTER',
+#		"The number of packets sent to client-side from the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.9' => {
+      track_name => 'ClientBytesOut',
+      rrd_track_type => 'COUNTER',
+#		"The number of bytes sent to client-side from the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.10' => {
+      track_name => 'ClientMaxConns',
+      rrd_track_type => 'GAUGE',
+#		"The maximum connections from client-side to the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.11' => {
+      track_name => 'ClientTotConns',
+      rrd_track_type => 'COUNTER',
+#		"The total connections from client-side to the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.12' => {
+      track_name => 'ClientCurConns',
+      rrd_track_type => 'GAUGE',
+      threshold_high => {
+          value => [
+              ['th1', 'RPN::%%ConnLimit%%,%%ConnLimit%%,10000000,IF'],
+              ['', 'RPN::%%th1%%,0.9,*', ]
+          ],
+          alarm_level => _ST_MAJOR, 
+          message => "number of current connections very close to limit", 
+      },
+      threshold_medium => {
+          value => [
+              ['th2', 'RPN::%%ConnLimit%%,%%ConnLimit%%,10000000,IF'],
+              ['', 'RPN::%%th2%%,0.8,*', ]
+          ],
+          alarm_level => _ST_MINOR, 
+          message => "number of current connections close to limit", 
+      },
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.13' => {
+      track_name => 'EphPktsIn',
+      rrd_track_type => 'COUNTER',
+#		"The number of packets received ephemeral by the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.14' => {
+      track_name => 'EphBytesIn',
+      rrd_track_type => 'COUNTER',
+#		"The number of bytes received ephemeral by the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.15' => {
+      track_name => 'EphPktsOut',
+      rrd_track_type => 'COUNTER',
+#		"The number of packets transmitted ephemeral from the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.16' => {
+      track_name => 'EphBytesOut',
+      rrd_track_type => 'COUNTER',
+#		"The number of bytes transmitted ephemeral from the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.17' => {
+      track_name => 'EphMaxConns',
+      rrd_track_type => 'GAUGE',
+#		"The maximum ephemeral connections to the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.18' => {
+      track_name => 'EphTotConns',
+      rrd_track_type => 'COUNTER',
+#		"The total ephemeral connections to the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.19' => {
+      track_name => 'EphCurConns',
+      rrd_track_type => 'GAUGE',
+#		"The current ephemeral connections to the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.20' => {
+      track_name => 'PvaPktsIn',
+      rrd_track_type => 'COUNTER',
+#		"The total number of hardware accelerated packets received by the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.21' => {
+      track_name => 'PvaBytesIn',
+      rrd_track_type => 'COUNTER',
+#		"The total number of hardware accelerated bytes received by the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.22' => {
+      track_name => 'PvaPktsOut',
+      rrd_track_type => 'COUNTER',
+#		"The total number of hardware accelerated packets sent out from the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.23' => {
+      track_name => 'PvaBytesOut',
+      rrd_track_type => 'COUNTER',
+#		"The total number of hardware accelerated bytes sent out from the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.24' => {
+      track_name => 'PvaMaxConns',
+      rrd_track_type => 'GAUGE',
+#		"The maximum hardware accelerated connections to the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.25' => {
+      track_name => 'PvaTotConns',
+      rrd_track_type => 'COUNTER',
+#		"The total hardware accelerated connections to the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.26' => {
+      track_name => 'PvaCurConns',
+      rrd_track_type => 'GAUGE',
+#		"The current hardware accelerated connections to the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.27' => {
+      track_name => 'TotRequests',
+      rrd_track_type => 'COUNTER',
+#		"The total number of requests going through the specified virtual server."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.28' => {
+      track_name => 'TotPvaAssistConn',
+      rrd_track_type => 'COUNTER',
+#		"The total number of connections to the specified virtual server, which 
+#		are partially hardware accelerated."
+    },
+    '1.3.6.1.4.1.3375.2.2.10.2.3.1.29' => {
+      track_name => 'CurrPvaAssistConn',
+      rrd_track_type => 'GAUGE',
+#		"The current number of connections to the specified virtual server, which
+#		are partially hardware accelerated."
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'connections number',
+       units => 'no',
+       default => 1,
+       tracks => [
+           {
+               name => 'ClientMaxConns',
+               title => 'clients maximum',
+               color => 'DD0000',
+               style => 'LINE1',
+           },
+           {
+               name => 'EphMaxConns',
+               title => 'ephemeral maximum',
+               color => '0047D6',
+               style => 'LINE1',
+           },
+           {
+               name => 'PvaMaxConns',
+               title => 'hardware accelerated maximum\n',
+               color => '009900',
+               style => 'LINE1',
+           },
+           {
+               name => 'ClientCurConns',
+               title => 'clients current',
+               color => 'FF9933',
+               style => 'AREA',
+           },
+           {
+               name => 'EphCurConns',
+               title => 'ephemeral current',
+               color => '148AFF',
+               style => 'LINE1',
+           },
+           {
+               name => 'PvaCurConns',
+               title => 'hardware accelerated current\n',
+               color => '00E070',
+               style => 'LINE1',
+           },
+           {
+               name => 'CurrPvaAssistConn',
+               title => 'partially hardware accelerated current',
+               color => '101010',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'connections per second',
+       units => 'cps',
+       default => 1,
+       tracks => [
+           {
+               name => 'ClientTotConns',
+               title => 'clients\n',
+               color => 'FF9933',
+               style => 'AREA',
+           },
+           {
+               name => 'EphTotConns',
+               title => 'ephemeral\n',
+               color => '148AFF',
+               style => 'LINE1',
+           },
+           {
+               name => 'PvaTotConns',
+               title => 'hardware accelerated\n',
+               color => '00E070',
+               style => 'LINE1',
+           },
+           {
+               name => 'TotPvaAssistConn',
+               title => 'partially hardware accelerated',
+               color => '101010',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'clients traffic (bps)',
+       units => 'bps',
+       default => 1,
+       tracks => [
+           {
+               name => 'ClientBytesIn',
+               title => 'in',
+               color => '009900',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,8,*',
+           },
+           {
+               name => 'ClientBytesOut',
+               title => 'out',
+               color => '004D99',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,-8,*',
+           },
+       ],
+    },
+    {
+       title => 'ephemeral traffic (bps)',
+       units => 'bps',
+       tracks => [
+           {
+               name => 'EphBytesIn',
+               title => 'in',
+               color => '009900',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,8,*',
+           },
+           {
+               name => 'EphBytesOut',
+               title => 'out',
+               color => '004D99',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,-8,*',
+           },
+       ],
+    },
+    {
+       title => 'hardware accelerated traffic (bps)',
+       units => 'bps',
+       tracks => [
+           {
+               name => 'PvaBytesIn',
+               title => 'in',
+               color => '009900',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,8,*',
+           },
+           {
+               name => 'PvaBytesOut',
+               title => 'out',
+               color => '004D99',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,-8,*',
+           },
+       ],
+    },
+    {
+       title => 'clients traffic (pps)',
+       units => 'pps',
+       tracks => [
+           {
+               name => 'ClientPktsIn',
+               title => 'in',
+               color => '00D600',
+               style => 'AREA',
+           },
+           {
+               name => 'ClientPktsOut',
+               title => 'out',
+               color => '148AFF',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+    {
+       title => 'ephemeral traffic (pps)',
+       units => 'pps',
+       tracks => [
+           {
+               name => 'EphPktsIn',
+               title => 'in',
+               color => '00D600',
+               style => 'AREA',
+           },
+           {
+               name => 'EphPktsOut',
+               title => 'out',
+               color => '148AFF',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+    {
+       title => 'hardware accelerated traffic (pps)',
+       units => 'pps',
+       tracks => [
+           {
+               name => 'PvaPktsIn',
+               title => 'in',
+               color => '00D600',
+               style => 'AREA',
+           },
+           {
+               name => 'PvaPktsOut',
+               title => 'out',
+               color => '148AFF',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+    {
+       title => 'no nodes errors count per second',
+       units => 'cps',
+       tracks => [
+           {
+               name => 'NoNodesErrors',
+               title => 'no nodes errors',
+               color => '330099',
+               style => 'AREA',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    Addr => { 
+      title => 'address', order => 10, brief => 1, 
+      compute => [ ['', 'VALUES::%%Addr%%:%%Port%%/%%Wildmask%%']],
+    },
+    AvailState => { 
+      title => 'status', order => 20, brief => 1, 
+      compute => [
+          ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%AvailState%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+          ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%AvailState%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],    
+    },
+    DetailReason => { 
+      title => 'status reason', order => 30, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%DetailReason%%']],
+    },
+    EnabledState => { 
+      title => 'administrative status', order => 50, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%EnabledState%%']],
+    },
+    ConnLimit => { 
+      title => 'connections limit', order => 60, brief => 0, 
+      compute => [ ['', 'RPN::%%ConnLimit%%,%%ConnLimit%%,none,IF']],
+    },
+    ClientPktsIn => { 
+      title => 'traffic in/out clients', order => 120, brief => 1, 
+      compute => [
+          [ 'ppsi', 'FORMAT::BYTES::%%ClientPktsIn%%'],
+          [ 'ppso', 'FORMAT::BYTES::%%ClientPktsOut%%'],
+          [ 'bpsi', 'RPN::%%ClientBytesIn%%,8,*'],
+          [ 'bpso', 'RPN::%%ClientBytesOut%%,8,*'],
+          [ 'bpsi', 'FORMAT::BYTES::%%bpsi%%'],
+          [ 'bpso', 'FORMAT::BYTES::%%bpso%%'],
+          [ '', 'VALUES::%%bpsi%%/%%bpso%% bps (%%ppsi%%/%%ppso%% pps)'],
+      ],
+    },
+    EphPktsIn => {
+      title => 'traffic in/out ephemeral', order => 130, brief => 0,
+      compute => [
+          [ 'ppsi', 'FORMAT::BYTES::%%EphPktsIn%%'],
+          [ 'ppso', 'FORMAT::BYTES::%%EphPktsOut%%'],
+          [ 'bpsi', 'RPN::%%EphBytesIn%%,8,*'],
+          [ 'bpso', 'RPN::%%EphBytesOut%%,8,*'],
+          [ 'bpsi', 'FORMAT::BYTES::%%bpsi%%'],
+          [ 'bpso', 'FORMAT::BYTES::%%bpso%%'],
+          [ '', 'VALUES::%%bpsi%%/%%bpso%% bps (%%ppsi%%/%%ppso%% pps)'],
+      ],
+    },
+    PvaPktsIn => {
+      title => 'traffic in/out hardware accelerated', order => 140, brief => 0,
+      compute => [
+          [ 'ppsi', 'FORMAT::BYTES::%%PvaPktsIn%%'],
+          [ 'ppso', 'FORMAT::BYTES::%%PvaPktsOut%%'],
+          [ 'bpsi', 'RPN::%%PvaBytesIn%%,8,*'],
+          [ 'bpso', 'RPN::%%PvaBytesOut%%,8,*'],
+          [ 'bpsi', 'FORMAT::BYTES::%%bpsi%%'],
+          [ 'bpso', 'FORMAT::BYTES::%%bpso%%'],
+          [ '', 'VALUES::%%bpsi%%/%%bpso%% bps (%%ppsi%%/%%ppso%% pps)'],
+      ],
+    },
+    NoNodesErrors => { 
+      title => 'no nodes errors', order => 145, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%NoNodesErrors%%']],
+      show_absolute_value => 2,
+      value_format => '%%NUMBER.0%%',
+    },
+
+    ClientMaxConns => { 
+      title => 'connections current/max clients', order => 100, brief => 1, 
+      compute => [
+          [ 'tmp', 'FORMAT::NUMBER.2::%%ClientTotConns%%'],
+          ['', 'VALUES::%%ClientCurConns%%/%%ClientMaxConns%% (%%tmp%% cps)']
+      ],
+    },
+    EphMaxConns => { 
+      title => 'connections current/max ephemeral', order => 101, brief => 0, 
+      compute => [
+          [ 'tmp', 'FORMAT::NUMBER.2::%%EphTotConns%%'],
+          ['', 'VALUES::%%EphCurConns%%/%%EphMaxConns%% (%%tmp%% cps)']
+      ],
+    },
+    PvaMaxConns => { 
+      title => 'connections current/max hardware accelerated', order => 103, brief => 0, 
+      compute => [
+          [ 'tmp', 'FORMAT::NUMBER.2::%%PvaTotConns%%'],
+          ['', 'VALUES::%%PvaCurConns%%/%%PvaMaxConns%% (%%tmp%% cps)']
+      ],
+    },
+    TotPvaAssistConn => { 
+      title => 'connections current partially hardware accelerated ', order => 105, brief => 0, 
+      compute => [
+          [ 'tmp', 'FORMAT::NUMBER.2::%%TotPvaAssistConn%%'],
+          ['', 'VALUES::%%CurrPvaAssistConn%% (%%tmp%% cps)']
+      ],
+    },
+    TotRequests => { 
+      title => 'total number of requests', order => 190, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%TotRequests%%']],
+      show_absolute_value => 2,
+      value_format => '%%NUMBER.0%%',
+    },
+
+    DefaultPool => { 
+      title => 'default pool', order => 200, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%DefaultPool%%']],
+    },
+    ActualPvaAccel => { 
+      title => 'hardware acceleration mode', order => 210, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%ActualPvaAccel%%']],
+    },
+    SfFlags => { 
+      title => 'connection mirroring', order => 240, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%SfFlags%%']],
+    },
+    CmpEnabled => { 
+      title => 'Cluster Multiple Processor', order => 250, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%CmpEnabled%%']],
+    },
+    TranslateAddr => { 
+      title => 'address should be translated', order => 260, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%TranslateAddr%%']],
+    },
+    TranslatePort => { 
+      title => 'port should be translated', order => 270, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%TranslatePort%%']],
+    },
+#    Type => { 
+#      title => 'Type', order => 300, brief => 0, 
+#      compute => [ ['', 'FORMAT::STRING::%s::%%Type%%']],
+#    },
+    SnatType => { 
+      title => 'SNAT type', order => 320, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%SnatType%%']],
+    },
+    SnatpoolName => { 
+      title => 'SNAT pool name', order => 325, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%SnatpoolName%%']],
+    },
+    LasthopPoolName => { 
+      title => 'last hope pool name', order => 330, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%LasthopPoolName%%']],
+    },
+  },
+}

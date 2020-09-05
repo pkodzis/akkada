@@ -1,0 +1,277 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.3375' ],
+  DISCOVER => [ '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.1' ],
+  DISCOVER_NAME_OVERRIDE => 'profile %%DISCOVER_NAME%%',
+  ENTITY_ICON => 'edit',
+  NAME => 'BigIP virtual server',
+
+  TRACKS => {
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.2' => {
+      track_name => 'Open',
+      rrd_track_type => 'GAUGE',
+#		"The number of current open connections for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.3' => {
+      track_name => 'Accepts',
+      rrd_track_type => 'COUNTER',
+#		"The number of accepted connections for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.4' => {
+      track_name => 'Acceptfails',
+      rrd_track_type => 'COUNTER',
+#		"The number of not accepted connections for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.5' => {
+      track_name => 'Expires',
+      rrd_track_type => 'COUNTER',
+#		"The number of expired connections due to idle timeout for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.6' => {
+      track_name => 'Rxbadpkt',
+      rrd_track_type => 'COUNTER',
+#		"The number of malformed packets for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.7' => {
+      track_name => 'Rxunreach',
+      rrd_track_type => 'COUNTER',
+#		"The number of received ICMP unreach/TCP RST for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.8' => {
+      track_name => 'Rxbadunreach',
+      rrd_track_type => 'COUNTER',
+#		"The number of received TCP RST outside the current window for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.9' => {
+      track_name => 'Rxbadsum',
+      rrd_track_type => 'COUNTER',
+#		"The number of bad checksum for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.10' => {
+      track_name => 'Txerrors',
+      rrd_track_type => 'COUNTER',
+#		"The number of transmit datagram errors for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.11' => {
+      track_name => 'SyncookIssue',
+      rrd_track_type => 'COUNTER',
+#		"The number of syncookies issued for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.12' => {
+      track_name => 'SyncookAccept',
+      rrd_track_type => 'COUNTER',
+#		"The number of syncookies accepted for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.13' => {
+      track_name => 'SyncookReject',
+      rrd_track_type => 'COUNTER',
+#		"The number of syncookies rejected for the specified fast L4 profile."
+    },
+    '1.3.6.1.4.1.3375.2.2.6.5.2.3.1.14' => {
+      track_name => 'Serversynrtx',
+      rrd_track_type => 'COUNTER',
+#		"The number of retransmissions of SYN to server for a syncookied connection for the specified fast L4 profile."
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'current open connections',
+       units => 'no',
+       default => 1,
+       tracks => [
+           {
+               name => 'Open',
+               title => 'connections',
+               color => 'FF9933',
+               style => 'AREA',
+           },
+       ],
+    },
+    {
+       title => 'connections accepted/not accepted',
+       units => 'cps',
+       tracks => [
+           {
+               name => 'Accepts',
+               title => 'accepts',
+               color => 'FF9933',
+               style => 'AREA',
+           },
+           {
+               name => 'Acceptfails',
+               title => 'Acceptfails',
+               color => '004D99',
+               style => 'AREA',
+               cdef => '%%DS_NAME%%,-1,*',
+           },
+       ],
+    },
+    {
+       title => 'expired connections due to idle timeout',
+       units => 'cps',
+       tracks => [
+           {
+               name => 'Expires',
+               title => 'connections',
+               color => 'FF9933',
+               style => 'AREA',
+           },
+       ],
+    },
+    {
+       title => 'received packets',
+       units => 'pps',
+       tracks => [
+           {
+               name => 'Rxbadpkt',
+               title => 'malformed packets\n',
+               color => 'FF9933',
+               style => 'LINE1',
+           },
+           {
+               name => 'Rxunreach',
+               title => 'ICMP unreach/TCP RST\n',
+               color => '148AFF',
+               style => 'LINE1',
+           },
+           {
+               name => 'Rxbadunreach',
+               title => 'received TCP RST outside the current window\n',
+               color => '00E070',
+               style => 'LINE1',
+           },
+           {
+               name => 'Rxbadsum',
+               title => 'bad checksum\n',
+               color => '101010',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'Txerrors',
+       units => '?',
+       tracks => [
+           {
+               name => 'Txerrors',
+               title => 'Txerrors',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {
+       title => 'syncookies',
+       units => 'ps',
+       tracks => [
+           {
+               name => 'SyncookAccept',
+               title => 'accepted\n',
+               color => 'FF9933',
+               style => 'LINE1',
+           },
+           {
+               name => 'SyncookIssue',
+               title => 'issued\n',
+               color => '148AFF',
+               style => 'LINE1',
+           },
+           {
+               name => 'SyncookReject',
+               title => 'rejected\n',
+               color => '00E070',
+               style => 'LINE1',
+           },
+           {
+               name => 'Serversynrtx',
+               title => 'retransmissions of SYN to server for a syncookied connection',
+               color => '101010',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    Open => { 
+      title => 'current open connections', order => 20, brief => 1, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%Open%%']],
+    },
+    Accepts => { 
+      title => 'connections accepted/not accepted', order => 30, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Accepts%%'],
+          [ 't2', 'FORMAT::BYTES::%%Acceptfails%%'],
+          [ '', 'VALUES::%%t1%%/%%t2%% cps (total: %%Accepts_absolute%%/%%Acceptfails_absolute%%)'],
+      ],
+    },
+    Expires => { 
+      title => 'expired connections due to idle timeout', order => 50, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Expires%%'],
+          [ '', 'VALUES::%%t1%% cps (total: %%Expires_absolute%%)'],
+      ],
+    },
+    Rxbadpkt => { 
+      title => 'received malformed packets', order => 60, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Rxbadpkt%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%Rxbadpkt_absolute%%)'],
+      ],
+    },
+    Rxunreach => { 
+      title => 'received ICMP unreach/TCP RST', order => 70, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Rxunreach%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%Rxunreach_absolute%%)'],
+      ],
+    },
+    Rxbadunreach => { 
+      title => 'received TCP RST outside the current window', order => 80, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Rxbadunreach%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%Rxbadunreach_absolute%%)'],
+      ],
+    },
+    Rxbadsum => { 
+      title => 'received bad checksum', order => 90, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Rxbadsum%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%Rxbadsum_absolute%%)'],
+      ],
+    },
+    Txerrors => { 
+      title => 'transmit datagram errors', order => 100, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Txerrors%%'],
+          [ '', 'VALUES::%%t1%% pps (total: %%Txerrors_absolute%%)'],
+      ],
+    },
+    SyncookIssue => { 
+      title => 'syncookies issued', order => 110, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%SyncookIssue%%'],
+          [ '', 'VALUES::%%t1%% ps (total: %%SyncookIssue_absolute%%)'],
+      ],
+    },
+    SyncookAccept => { 
+      title => 'syncookies accepted', order => 105, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%SyncookAccept%%'],
+          [ '', 'VALUES::%%t1%% ps (total: %%SyncookAccept_absolute%%)'],
+      ],
+    },
+    SyncookReject => { 
+      title => 'syncookies rejected', order => 130, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%SyncookReject%%'],
+          [ '', 'VALUES::%%t1%% ps (total: %%SyncookReject_absolute%%)'],
+      ],
+    },
+    Serversynrtx => { 
+      title => 'retransmissions of SYN to server for a syncookied connection', order => 140, brief => 0, 
+      compute => [
+          [ 't1', 'FORMAT::BYTES::%%Serversynrtx%%'],
+          [ '', 'VALUES::%%t1%% ps (total: %%Serversynrtx_absolute%%)'],
+      ],
+    },
+  },
+}

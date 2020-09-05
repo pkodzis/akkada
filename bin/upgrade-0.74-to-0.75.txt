@@ -1,0 +1,147 @@
+MySQL:
+ALTER TABLE `akkada`.`views` ADD COLUMN `id_view_type` BIGINT UNSIGNED NOT NULL DEFAULT 0 AFTER `last_change`;
+ALTER TABLE `akkada`.`views` ADD COLUMN `data` VARCHAR(255) AFTER `id_view_type`;
+ALTER TABLE `akkada`.`contacts` ADD COLUMN `other` VARCHAR(255) AFTER `alias`;
+ALTER TABLE `akkada`.`commands` ADD COLUMN `module` VARCHAR(255) NOT NULL AFTER `command`;
+ALTER TABLE `akkada`.`entities` ADD COLUMN `status_last_change_prev` BIGINT(20) UNSIGNED NOT NULL DEFAULT 0 AFTER `flap_count`;
+ALTER TABLE `akkada`.`statuses` ADD COLUMN `last_change_prev` BIGINT NOT NULL DEFAULT 0 AFTER `status_weight`;
+
+update commands set module='mail' where name='mail';
+update commands set name='mail default' where name='mail';
+update commands set module='gtalk' where name='gtalk';
+update commands set name='gtalk default' where name='gtalk';
+
+insert into parameters(name) values('cisco_pix_ipsec_username');
+insert into parameters(name) values('cisco_pix_ipsec_password');
+insert into parameters(name) values('cisco_pix_ipsec_enable');
+insert into parameters(name) values('cisco_pix_ipsec_names');
+insert into parameters(name) values('cisco_pix_ipsec_alarm_down');
+insert into parameters(name) values('cisco_pix_ipsec_dont_alarm_wrong_state');
+insert into parameters(name) values('ip_forwarding');
+insert into parameters(name,ro) values('ip_addresses', 1);
+
+
+FILES:
+
+repace lib/*
+repace bin/* and move from an old version akkada_pre script to the new dir
+repace etc/snmp_generic
+repace htdocs/*.js
+repace htdocs/css/*
+add htdocs/img/igougo.gif
+add htdocs/img/authentication.gif
+add htdocs/img/accounting.gif
+copy htdocs/img/ssl_generic.gif to htdocs/img/cisco_pix_ipsec.gif
+
+CONF:
+
+file etc/akkada.conf add:
+  'GrepBin' => '/bin/grep',
+
+file etc/conf.d/SysStat.conf
+    'FreshnessGuardEnabled' => 1,
+    'FreshnessStartCalcAfter' => 600,
+    'FreshnessThreshold' => 5,
+    'FreshnessStaleAlarmLevel' => _ST_DOWN,
+
+file etc/conf.d/Web/Tree.conf add:
+      'GroupMode' => 1,
+
+file etc/conf.d/Probe.conf add:
+ 'CorrelationsDir' => "$ENV{AKKADA}/var/correl",
+
+file etc/conf.d/Available2.conf add
+
+file etc/akkada.conf add:
+ 'Top' => do "$ENV{AKKADA}/etc/conf.d/Top.conf",
+ 'Available2' => do "$ENV{AKKADA}/etc/conf.d/Available2.conf",
+
+
+file etc/conf.d/Top.conf add
+
+file etc/conf.d/System.conf, section "Modules" add:
+        'top' => 1,
+        'available2' => 0,
+
+file etc/conf.d/Probes/node.conf replace
+
+file etc/conf.d/System.conf , section Probes add line:
+      'cisco_pix_ipsec' => 1,
+file etc/conf.d/ProbesMapRev.conf add line:
+    '27' => 'cisco_pix_ipsec',
+file etc/conf.d/ProbesMap.conf add line:
+    'cisco_pix_ipsec' => 27,
+file etc/conf.d/Web/Sections.conf remove line:
+      '103' => 'system',
+file etc/conf.d/Web/Sections.conf add line:
+      '107' => 'about',
+
+file etc/conf.d/Web/Rights.conf add line:
+      'Tools::find_mac_address' => _R_VIO,
+      'Tools::cisco_locate_MAC_address' => _R_VIO,
+      'Tools::cisco_find_half_duplex_interfaces' => _R_VIO,
+      'Tools::entities_flaps_clear' => _R_MDY,
+      'Tools::subnet_descriptions' => _R_MDY,
+      'top' => _R_VIE,
+
+file etc/conf.d/Web/SectionDefinitions.conf remove section:
+      'system' => [
+        103,
+        [
+          'system_mode'
+        ],
+        'system',
+      ],
+
+file etc/conf.d/Web/SectionDefinitions.conf add section:
+      'about' => [
+        107,
+        [ ],
+        'about',
+      ],
+
+file etc/conf.d/Web.conf change:
+from
+ 'OldLastCheckAlarm' => 120,
+to
+ 'OldLastCheckAlarm' => 2,
+
+file etc/conf.d/ActionsBroker.conf add:
+  'AddFooter' => 1,
+  'Footer' => "\n\nIf you have any questions, please contact Network Support Team 8xx-xxx-xxx.\n", #customize msg as you need
+
+file etc/conf.d/ActionsExecutor.conf add into section modules:
+        'gtalk' => do "$ENV{AKKADA}/etc/conf.d/ActionsExecutor/gtalk.conf",
+
+file etc/conf.d/ActionsExecutor/gtalk.conf add
+
+PERL:
+install modules:
+Authen::SASL
+Net::SSH::Perl
+XML::Stream
+Net::XMPP
+Net::Gadu
+Graph::Easy
+Graph
+
+APACHE:
+
+change Graph -> MyChart !!!
+PerlModule MyChart
+<Location /graph>
+SetHandler perl-script
+PerlResponseHandler MyChart
+</Location>
+
+
+add:
+PerlModule NFGraph
+<Location /nfgraph>
+    SetHandler perl-script
+    PerlResponseHandler NFGraph
+</Location>
+
+
+END: run:
+ cd /akkada/bin; ./port_install.sh

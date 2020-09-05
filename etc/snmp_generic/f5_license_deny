@@ -1,0 +1,39 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.3375' ],
+  DISCOVER => [ '1.3.6.1.4.1.3375.2.1.1.2.1.36' ],
+  DISCOVER_NAME_OVERRIDE => 'BigIP exceeding licensing limitations',
+  NAME => 'BigIP exceeding licensing limitations',
+  ENTITY_ICON => 'license',
+  TRACKS => {
+    '1.3.6.1.4.1.3375.2.1.1.2.1.36' => {
+      track_name => 'deny',
+      rrd_track_type => 'COUNTER',
+      threshold_high => { value => '1', alarm_level => _ST_DOWN, message => "BigIP exceeding licensing limitations", },
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'The packets which were dropped due to exceeding licensing limitations',
+       units => 'no',
+       default => 1,
+       tracks => [
+           {
+               name => 'deny',
+               title => 'dropped packets',
+               color => 'FF0000',
+               style => 'AREA',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    deny => { 
+      title => 'The packets which were dropped due to exceeding licensing limitations', 
+      order => 10, brief => 1, 
+      compute => [
+        ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%deny%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+        ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%deny%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+  },
+}

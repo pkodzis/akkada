@@ -1,0 +1,28 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.3375' ],
+  DISCOVER => [ '1.3.6.1.4.1.3375.2.1.1.1.1.19' ],
+  DISCOVER_NAME_OVERRIDE => 'failover status',
+  ENTITY_ICON => 'hsrp',
+  NAME => 'BigIP failover status',
+
+  TRACKS => {
+    '1.3.6.1.4.1.3375.2.1.1.1.1.19' => {
+      track_name => 'status',
+      change_detect => 'log',
+      text_translator => {
+        0 => 'standby',
+        1 => 'active unit 1',
+        2 => 'active unit 2',
+        3 => 'active',
+     },
+   },
+  },
+  GRAPHS => [
+  ],
+  DESC => {
+    status => { 
+      title => 'failover status', order => 5, brief => 1, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%status%%']],
+    },
+  },
+}

@@ -1,0 +1,68 @@
+html, body {
+  font:normal 12px verdana;
+  margin:0;
+  padding:0;
+  border:0 none;
+  overflow:hidden;
+}
+p {
+  margin:5px;
+}
+
+.settings {
+  background-image:url(/ext/examples/shared/icons/fam/folder_wrench.png);
+}
+.nav {
+  background-image:url(/ext/examples/shared/icons/fam/folder_go.png);
+}
+
+.ak-loading-indicator {
+    background: no-repeat left;
+    padding-left: 20px;
+    background-image: url(/ext/resources/images/default/grid/loading.gif);
+}
+
+.ak-sb-idle {
+    background: no-repeat left;
+    padding-left: 20px;
+    background-image:url(/img/idle.gif);
+}
+
+.x-grid3-header {
+    background: #ffffff;
+    background-image:url(/ext/resources/images/default/s.gif);
+}
+
+.x-grid3-hd-row td {
+    border: 0px;
+}
+
+.x-grid3-hd-vendor, .x-grid3-hd-name, .x-grid3-hd-status, .x-grid3-hd-function, .x-grid3-hd-last_change, .x-grid3-hd-last_check {
+  font-size: 9px;
+  text-align: center;
+}
+
+.ak-td-img {
+  background-color: #ffffff;
+  white-space: nowrap;
+}
+
+.ak-text-red {
+  color: red;
+}
+
+.ak-td-st-0 { background-color: lime; }
+.ak-td-st-1 { background-color: aquamarine; }
+.ak-td-st-2 { background-color: yellow; }
+.ak-td-st-3 { background-color: orange; }
+.ak-td-st-4 { color: white; background-color: red; }
+.ak-td-st-5 { color: white; background-color: #aa00ff; }
+.ak-td-st-6 { color: white; background-color: #4444aa; }
+.ak-td-st-64 { background-color: silver; }
+.ak-td-st-123 { color: white; background-color: green; }
+.ak-td-st-124 { background-color: white; }
+.ak-td-st-125 { background-color: white; }
+.ak-td-st-126 { background-color: orange; }
+.ak-td-st-127 { background-color: #dddddd; }
+
+

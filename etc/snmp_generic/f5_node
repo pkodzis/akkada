@@ -1,0 +1,203 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.3375' ],
+  DISCOVER => [ '1.3.6.1.4.1.3375.2.2.4.1.2.1.1' ],
+  DISCOVER_NAME_OVERRIDE => 'node %%DISCOVER_INDEX%%',
+  ENTITY_ICON => 'slb_reals',
+  NAME => 'BigIP node',
+
+  TRACKS => {
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1.3' => {
+      track_name => 'ConnLimit',
+#		"The maximum number of connections the specified node address is 
+#		 allowed to have open at one time."
+    },
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1.4' => {
+      track_name => 'Ratio',
+#		"The ratio of the specified node address, used in load balance algorithm."
+    },
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1.5' => {
+      track_name => 'DynamicRatio',
+#		"The dynamic ratio of the specified node address, used in load balance algorithm."
+    },
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1' => {
+      track_name => 'MonitorState',
+      text_translator => {
+        0 => 'unchecked',
+        1 => 'checking',
+        2 => 'up',
+        6 => 'down',
+        7 => 'forceddown',
+        9 => 'disabled',
+     },
+#      text_test => {
+#          bad => [ { value => '', alarm_level => , message => '', }, ],
+#          expected => [ { value => '', alarm_level => , message => '', }, ],
+#      },
+#		"The monitor state for the specified node address."
+    },
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1.7' => {
+      track_name => 'MonitorStatus',
+      text_translator => {
+        0 => 'unchecked',
+        1 => 'checking',
+        2 => 'up',
+        4 => 'addrdown',
+        5 => 'servdown',
+        6 => 'down',
+        7 => 'forceddown',
+        8 => 'maint',
+        9 => 'disabled',
+     },
+#      text_test => {
+#          bad => [ { value => '', alarm_level => , message => '', }, ],
+#          expected => [ { value => '', alarm_level => , message => '', }, ],
+#      },
+#		"The hierarchical load balance state for the specified node address, including parent status. 
+#		 unchecked - enabled node that is not monitored;
+#		 checking  - initial state until monitor reports;
+#		 up        - enabled node when its monitors succeed;
+#		 addrdown   - node address monitor fails or forced down;
+#		 servdown   - node server monitor fails or forced down;
+#		 down        - enabled node when its monitors fail;
+#		 forceddown - node forced down manually;
+#		 maint       - in maintenance mode;
+#		 disabled    - the monitor instance is disabled."
+
+##########################################################
+    },
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1.8' => {
+      track_name => 'MonitorRule',
+#		"The monitor rule used for load balance the specified node address."
+    },
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1.9' => {
+      track_name => 'NewSessionEnable',
+      text_translator => {
+        0 => 'false',
+        1 => 'true',
+     },
+#		"The state indicating whether a new session can be enabled or not for the specified node address."
+    },
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1.10' => {
+      track_name => 'SessionStatus',
+      text_translator => {
+        1 => 'enabled',
+        2 => 'addrdisabled',
+        3 => 'servdisabled',
+        4 => 'disabled',
+        5 => 'forceddisabled',
+     },
+#      text_test => {
+#          bad => [ { value => '', alarm_level => , message => '', }, ],
+#          expected => [ { value => '', alarm_level => , message => '', }, ],
+#      },
+#		"The hierarchical status of the session, including parent status, for 
+#		the specified node address.
+#		enabled       - new sessions enabled;
+#		addrdisabled - new sessions disabled on node address;
+#		servdisabled - new sessions disabled on node server;
+#		disabled      - new sessions disabled;
+#		forceddisabled - new sessions forced to be disabled."
+
+##########################################################
+    },
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1.11' => {
+      track_name => 'PoolMemberRefCount',
+#		"The number of pool members referencing the specified node."
+    },
+    '1.3.6.1.4.1.3375.2.2.4.1.2.1.12' => {
+      track_name => 'ScreenName',
+#		"The screen names for the specified node address."
+    },
+    '1.3.6.1.4.1.3375.2.2.4.3.2.1.3' => {
+      track_name => 'AvailState',
+      text_translator => {
+        0 => 'none',
+        1 => 'green',
+        2 => 'yellow',
+        3 => 'red',
+        4 => 'blue',
+        5 => 'gray',
+     },
+      text_test => {
+          ignore_unless => { name => 'EnabledState', value => 'enabled', },
+          bad => [
+              { value => 'none', alarm_level => _ST_DOWN, message => '%%DetailReason%%', },
+              { value => 'yellow', alarm_level => _ST_MAJOR, message => '%%DetailReason%%', },
+              { value => 'red', alarm_level => _ST_DOWN, message => '%%DetailReason%%', },
+              { value => 'blue', alarm_level => _ST_WARNING, message => '%%DetailReason%%', },
+              { value => 'gray', alarm_level => _ST_MAJOR, message => '%%DetailReason%%', },
+          ],
+      },
+    },
+    '1.3.6.1.4.1.3375.2.2.4.3.2.1.4' => {
+      track_name => 'EnabledState',
+      text_translator => {
+        0 => 'none',
+        1 => 'enabled',
+        2 => 'disabled',
+        3 => 'disabledbyparent',
+     },
+    },
+    '1.3.6.1.4.1.3375.2.2.4.3.2.1.6' => {
+      track_name => 'DetailReason',
+    },
+  },
+  GRAPHS => [],
+  DESC => {
+    ScreenName => { 
+      title => 'name', order => 5, brief => 1, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%ScreenName%%']],
+    },
+    AvailState => {
+      title => 'status', order => 20, brief => 1,
+      compute => [
+          ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%AvailState%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+          ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%AvailState%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    DetailReason => {
+      title => 'status reason', order => 30, brief => 0,
+      compute => [ ['', 'FORMAT::STRING::%s::%%DetailReason%%']],
+    },
+    EnabledState => {
+      title => 'administrative status', order => 50, brief => 0,
+      compute => [ ['', 'FORMAT::STRING::%s::%%EnabledState%%']],
+    },
+    ConnLimit => { 
+      title => 'connections limit', order => 20, brief => 0, 
+      compute => [ ['', 'RPN::%%ConnLimit%%,%%ConnLimit%%,none,IF']],
+    },
+    Ratio => { 
+      title => 'ratio', order => 50, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%Ratio%%']],
+    },
+    DynamicRatio => { 
+      title => 'dynamic ratio', order => 60, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%DynamicRatio%%']],
+    },
+    MonitorState => { 
+      title => 'monitor state', order => 70, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%MonitorState%%']],
+    },
+    MonitorStatus => { 
+      title => 'monitor status', order => 90, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%MonitorStatus%%']],
+    },
+    MonitorRule => { 
+      title => 'monitor rule', order => 65, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%MonitorRule%%']],
+    },
+    NewSessionEnable => { 
+      title => 'new session enable', order => 110, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%NewSessionEnable%%']],
+    },
+    SessionStatus => { 
+      title => 'session status', order => 120, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%SessionStatus%%']],
+    },
+    PoolMemberRefCount => { 
+      title => 'pool member references count', order => 130, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s::%%PoolMemberRefCount%%']],
+    },
+  },
+}

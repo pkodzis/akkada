@@ -1,0 +1,276 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.318' ],
+  DISCOVER => [ '1.3.6.1.4.1.318.1.1.1.9.3.3.1.1', ],
+  DISCOVER_NAME_OVERRIDE => 'phases output %%DISCOVER_INDEX_LAST.3.2%% phase %%DISCOVER_INDEX_LAST.1.0%%',
+  ENTITY_ICON => 'phases_output_phase',
+  NAME => 'phases output phase',
+  TRACKS => {
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.2' => {
+      track_name => 'PhaseIndex',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.3' => {
+      track_name => 'Voltage',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.4' => {
+      track_name => 'Current',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'RPN::%%Current%%,-1,=,-1,%%Current%%,10,/,IF']],
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.5' => {
+      track_name => 'MaxCurrent',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'RPN::%%MaxCurrent%%,-1,=,-1,%%MaxCurrent%%,10,/,IF']],
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.6' => {
+      track_name => 'MinCurrent',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'RPN::%%MinCurrent%%,-1,=,-1,%%MinCurrent%%,10,/,IF']],
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.7' => {
+      track_name => 'Load',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.8' => {
+      track_name => 'MaxLoad',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.9' => {
+      track_name => 'MinLoad',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.10' => {
+      track_name => 'PercentLoad',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.11' => {
+      track_name => 'MaxPercentLoad',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.12' => {
+      track_name => 'MinPercentLoad',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.13' => {
+      track_name => 'Power',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.14' => {
+      track_name => 'MaxPower',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.15' => {
+      track_name => 'MinPower',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.16' => {
+      track_name => 'PercPwr',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.17' => {
+      track_name => 'MaxPercPwr',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.3.3.1.18' => {
+      track_name => 'MinPercPwr',
+      rrd_track_type => 'GAUGE',
+    },
+  },
+  GRAPHS => [
+    {  
+       title => 'voltage',
+       units => 'VAC',
+       tracks => [
+           {
+               name => 'Voltage',
+               title => 'voltage',
+               color => '00FF00',
+               style => 'LINE1',
+           },
+       ],
+    },
+    {  
+       title => 'Current',
+       units => 'A',
+       tracks => [
+           {   
+               name => 'MaxCurrent',
+               title => 'maximum',
+               color => 'FF0000',
+               style => 'LINE1',
+           },
+           {   
+               name => 'MinCurrent',
+               title => 'minimum',
+               color => '00FFdd',
+               style => 'LINE1',
+           },
+           {
+               name => 'Current',
+               title => 'current',
+               color => '00FF00',
+               style => 'LINE2',
+           },
+       ],
+    },
+    {  
+       title => 'load capacity',
+       units => 'VA',
+       tracks => [
+           {   
+               name => 'MaxLoad',
+               title => 'maximum',
+               color => 'FF0000',
+               style => 'LINE1',
+           },
+           {   
+               name => 'MinLoad',
+               title => 'minimum',
+               color => '00FFdd',
+               style => 'LINE1',
+           },
+           {
+               name => 'Load',
+               title => 'current',
+               color => '00FF00',
+               style => 'LINE2',
+           },
+       ],
+    },
+    {
+       title => 'load percent capacity',
+       units => '%',
+       default => 1,
+       tracks => [
+           {
+               name => 'MaxPercentLoad',
+               title => 'maximum',
+               color => 'FF0000',
+               style => 'LINE1',
+           },
+           {   
+               name => 'MinPercentLoad',
+               title => 'minimum',
+               color => '00FFdd',
+               style => 'LINE1',
+           },
+           {   
+               name => 'PercentLoad',
+               title => 'current',
+               color => '00FF00',
+               style => 'LINE2',
+           },
+       ],
+    },
+    {  
+       title => 'power capacity',
+       units => 'W',
+       tracks => [
+           {   
+               name => 'MaxPower',
+               title => 'maximum',
+               color => 'FF0000',
+               style => 'LINE1',
+           },
+           {
+               name => 'MinPower',
+               title => 'minimum',
+               color => '00FFdd',
+               style => 'LINE1',
+           },
+           {
+               name => 'Power',
+               title => 'current',
+               color => '00FF00',
+               style => 'LINE2',
+           },
+       ],
+    },
+    {  
+       title => 'power capacity',
+       units => '%',
+       tracks => [
+           {   
+               name => 'MaxPercPwr',
+               title => 'maximum',
+               color => 'FF0000',
+               style => 'LINE1',
+           },
+           {
+               name => 'MinPercPwr',
+               title => 'minimum',
+               color => '00FFdd',
+               style => 'LINE1',
+           },
+           {
+               name => 'PercPwr',
+               title => 'current',
+               color => '00FF00',
+               style => 'LINE2',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    PhaseIndex => {
+      title => "phase identifier",
+      order => 10, brief => 0,
+    },
+    Load => {
+      title => 'load capacity', order => 20, brief => 0,
+      compute => [
+        ['curmin', 'RPN::%%MinLoad%%,-1,=,n/a,%%MinLoad%%,IF'],
+        ['curmax', 'RPN::%%MaxLoad%%,-1,=,n/a,%%MaxLoad%%,IF'],
+        ['cur', 'RPN::%%Load%%,-1,=,n/a,VALUES::<b>%%Load%%!!VA</b>!!(min:!!%%curmin%%;!!max:!!%%curmax%%),IF'],
+        ['','%%cur%%'],
+      ],
+    },
+    PercentLoad => {
+      title => 'percent load capacity', order => 30, brief => 1,
+      compute => [
+        ['curmin', 'RPN::%%MinPercentLoad%%,-1,=,n/a,%%MinPercentLoad%%,IF'],
+        ['curmax', 'RPN::%%MaxPercentLoad%%,-1,=,n/a,%%MaxPercentLoad%%,IF'],
+        ['cur', 'RPN::%%PercentLoad%%,-1,=,n/a,PERCENT::%%PercentLoad%%,IF'],
+        ['cur','%%cur%%'],
+        ['cur', 'RPN::%%cur%%,-1,=,n/a,VALUES::%%cur%%!!(min:!!%%curmin%%;!!max:!!%%curmax%%),IF'],
+        ['','%%cur%%'],
+      ],
+    },
+    Current => {
+      title => 'current', order => 40, brief => 0,
+      compute => [
+        ['curmin', 'RPN::%%MinCurrent%%,-1,=,n/a,%%MinCurrent%%,IF'],
+        ['curmax', 'RPN::%%MaxCurrent%%,-1,=,n/a,%%MaxCurrent%%,IF'],
+        ['cur', 'RPN::%%Current%%,-1,=,n/a,VALUES::<b>%%Current%%!!A</b>!!(min:!!%%curmin%%;!!max:!!%%curmax%%),IF'],
+        ['','%%cur%%'],
+      ],
+    },
+    Voltage => {
+      title => 'voltage', order => 50, brief => 0,
+      compute => [
+        ['vol', 'RPN::%%Voltage%%,-1,=,n/a,VALUES::<b>%%Voltage%%!!VAC</b>,IF'],
+        ['','%%vol%%'],
+      ],
+    },
+    Power => {
+      title => 'power capacity', order => 60, brief => 0,
+      compute => [
+        ['curmin', 'RPN::%%MinPower%%,-1,=,n/a,%%MinPower%%,IF'],
+        ['curmax', 'RPN::%%MaxPower%%,-1,=,n/a,%%MaxPower%%,IF'],
+        ['cur', 'RPN::%%Power%%,-1,=,n/a,VALUES::<b>%%Power%%!!W</b>!!(min:!!%%curmin%%;!!max:!!%%curmax%%),IF'],
+        ['','%%cur%%'],
+      ],
+    },
+    PercPwr=> {
+      title => 'percent power capacity', order => 70, brief => 1,
+      compute => [ 
+        ['curmin', 'RPN::%%MinPercPwr%%,-1,=,n/a,%%MinPercPwr%%,IF'],
+        ['curmax', 'RPN::%%MaxPercPwr%%,-1,=,n/a,%%MaxPercPwr%%,IF'],
+        ['cur', 'RPN::%%PercPwr%%,-1,=,n/a,PERCENT::%%PercPwr%%,IF'],
+        ['cur','%%cur%%'],
+        ['cur', 'RPN::%%cur%%,-1,=,n/a,VALUES::%%cur%%!!(min:!!%%curmin%%;!!max:!!%%curmax%%),IF'],
+        ['','%%cur%%'], 
+      ],
+    },
+  },
+}

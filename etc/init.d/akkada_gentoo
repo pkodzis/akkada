@@ -1,0 +1,67 @@
+#!/sbin/runscript
+
+test -e /akkada/bin/akkada.pl || exit 0
+test -e /akkada/etc/akkada.shell || exit 0
+
+opts="${opts} check"
+
+. $AKKADA/etc/akkada.shell
+
+depend() {
+	need net
+	use mysql dns logger apache2	
+	after sshd
+}
+
+check() {
+	ebegin "Checking akka@da"
+	checkakkada
+	eend $?
+}
+
+checkakkada() {
+	$CFGCHECK
+	RETVAL=$?
+	[ $RETVAL -ne 0 ] && exit $RETVAL
+#        status $EXEC > /dev/null
+#	RETVAL=$?
+#        if [ $RETVAL -eq 0 ]; then
+#            eerror "akk@da is already running. exiting.";
+#            return 1;
+#        fi
+
+}
+
+
+start() {
+	if [ -e $EXECPRE ]; then
+ 	    einfo "Starting akk@da NMS system preload script"
+            $EXECPRE
+	    RETVAL=$?
+	    if [ $RETVAL -ne 0 ]; then
+                eerror "error; check preload script $EXECPRE"
+                return 1
+            fi
+        fi
+
+	ebegin "Starting akk@da NMS system:"
+	check
+	start-stop-daemon --start --chuid $OSLogin --pidfile $PIDFILE --exec $EXEC
+	eend $?
+}
+
+stop() {
+	ebegin "Shutting down akk@da NMS system:"
+	start-stop-daemon --stop --pidfile $PIDFILE --exec $EXEC
+	rm -f $PIDFILE
+	eend $?
+}
+
+restart() {
+	ebegin "Restarting akk@da NMS system:"
+	svc_stop
+	svc_start
+	eend $?
+}
+
+

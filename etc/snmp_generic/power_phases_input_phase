@@ -1,0 +1,159 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.318' ],
+  DISCOVER => [ '1.3.6.1.4.1.318.1.1.1.9.2.3.1.1', ],
+  DISCOVER_NAME_OVERRIDE => 'phases input %%DISCOVER_INDEX_LAST.3.2%% phase %%DISCOVER_INDEX_LAST.1.0%%',
+  ENTITY_ICON => 'phases_input_phase',
+  NAME => 'phases input phase',
+  TRACKS => {
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.2' => {
+      track_name => 'PhaseIndex',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.3' => {
+      track_name => 'Voltage',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.4' => {
+      track_name => 'MaxVoltage',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.5' => {
+      track_name => 'MinVoltage',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.6' => {
+      track_name => 'Current',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'RPN::%%Current%%,-1,=,-1,%%Current%%,10,/,IF']],
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.7' => {
+      track_name => 'MaxCurrent',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'RPN::%%MaxCurrent%%,-1,=,-1,%%MaxCurrent%%,10,/,IF']],
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.8' => {
+      track_name => 'MinCurrent',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'RPN::%%MinCurrent%%,-1,=,-1,%%MinCurrent%%,10,/,IF']],
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.9' => {
+      track_name => 'Power',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.10' => {
+      track_name => 'MaxPower',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.3.1.11' => {
+      track_name => 'MinPower',
+      rrd_track_type => 'GAUGE',
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'voltage',
+       units => 'VAC',
+       tracks => [
+           {
+               name => 'MaxVoltage',
+               title => 'maximum',
+               color => 'FF0000',
+               style => 'LINE1',
+           },  
+           {
+               name => 'MinVoltage',
+               title => 'minimum',
+               color => '00FFdd',
+               style => 'LINE1',
+           },  
+           {
+               name => 'Voltage',
+               title => 'voltage',
+               color => '00FF00',
+               style => 'LINE2',
+           },
+       ],
+    },
+    {
+       title => 'Current',
+       units => 'A',
+       default => 1,
+       tracks => [
+           {
+               name => 'MaxCurrent',
+               title => 'maximum',
+               color => 'FF0000',
+               style => 'LINE1',
+           },  
+           {
+               name => 'MinCurrent',
+               title => 'minimum',
+               color => '00FFdd',
+               style => 'LINE1',
+           },  
+           {
+               name => 'Current',
+               title => 'current',
+               color => '00FF00',
+               style => 'LINE2',
+           },
+       ],
+    },
+    {
+       title => 'Power',
+       units => 'W',
+       tracks => [
+           {
+               name => 'MaxPower',
+               title => 'maximum',
+               color => 'FF0000',
+               style => 'LINE1',
+           },  
+           {
+               name => 'MinPower',
+               title => 'minimum',
+               color => '00FFdd',
+               style => 'LINE1',
+           },  
+           {
+               name => 'Power',
+               title => 'power',
+               color => '00FF00',
+               style => 'LINE2',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    PhaseIndex => { 
+      title => "phase identifier",
+      order => 10, brief => 0, 
+    },
+    Current => { 
+      title => 'current', order => 20, brief => 1, 
+      compute => [ 
+        ['curmin', 'RPN::%%MinCurrent%%,-1,=,n/a,%%MinCurrent%%,IF'],
+        ['curmax', 'RPN::%%MaxCurrent%%,-1,=,n/a,%%MaxCurrent%%,IF'],
+        ['cur', 'RPN::%%Current%%,-1,=,n/a,VALUES::<b>%%Current%%!!A</b>!!(min:!!%%curmin%%;!!max:!!%%curmax%%),IF'],
+        ['','%%cur%%'],
+      ],
+    },
+    Voltage => { 
+      title => 'voltage', order => 30, brief => 1, 
+      compute => [ 
+        ['volmin', 'RPN::%%MinVoltage%%,-1,=,n/a,%%MinVoltage%%,IF'],
+        ['volmax', 'RPN::%%MaxVoltage%%,-1,=,n/a,%%MaxVoltage%%,IF'],
+        ['vol', 'RPN::%%Voltage%%,-1,=,n/a,VALUES::<b>%%Voltage%%!!VAC</b>!!(min:!!%%volmin%%;!!max:!!%%volmax%%),IF'],
+        ['','%%vol%%'],
+      ],
+    },
+    Power => { 
+      title => 'power', order => 40, brief => 1, 
+      compute => [ 
+        ['curmin', 'RPN::%%MinPower%%,-1,=,n/a,%%MinPower%%,IF'],
+        ['curmax', 'RPN::%%MaxPower%%,-1,=,n/a,%%MaxPower%%,IF'],
+        ['cur', 'RPN::%%Power%%,-1,=,n/a,VALUES::<b>%%Power%%!!W</b>!!(min:!!%%curmin%%;!!max:!!%%curmax%%),IF'],
+        ['','%%cur%%'],
+      ],
+    },
+  },
+}

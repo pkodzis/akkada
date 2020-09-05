@@ -1,0 +1,42 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.3375' ],
+  DISCOVER => [ '1.3.6.1.4.1.3375.2.1.3.2.2.2.1.2' ],
+  DISCOVER_NAME_OVERRIDE => 'chassis power supply',
+  DISCOVER_CONDITION => {
+   lt => { 0 => 2},
+  },
+  ENTITY_ICON => 'supply1',
+  NAME => 'BigIP power supply',
+  TRACKS => {
+    '1.3.6.1.4.1.3375.2.1.3.2.2.2.1.2' => {
+      track_name => 'state',
+      text_test => {
+          expected => [
+              {
+                value => 'good|not present',
+                alarm_level => _ST_MAJOR,
+                message => 'power supply status: %%state%%'
+              },
+          ]
+      },
+      text_translator => {
+          0 => 'bad ',
+          1 => 'good',
+          2 => 'not present',
+      }
+    },
+  },
+  DESC => { 
+    'state' => {
+      order => 1,
+      brief => 1, 
+      title => 'status',
+      compute => [
+        ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%state%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+        ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%state%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+  },
+}
+
+

@@ -1,0 +1,133 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.318' ],
+  DISCOVER => [ '1.3.6.1.4.1.318.1.1.1.3.1.1' ],
+  DISCOVER_NAME_OVERRIDE => 'AC input',
+  ENTITY_ICON => 'ac_input',
+  NAME => 'AC input',
+  TRACKS => {
+    '1.3.6.1.4.1.318.1.1.1.3.1.1' => {
+      track_name => 'Phase',
+      change_detect => 'log',
+    },
+    '1.3.6.1.4.1.318.1.1.1.3.2.1' => {
+      track_name => 'LineVoltage',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.3.2.2' => {
+      track_name => 'MaxLineVoltage',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.3.2.3' => {
+      track_name => 'MinLineVoltage',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.3.2.4' => {
+      track_name => 'Frequency',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.318.1.1.1.3.2.5' => {
+      track_name => 'LineFailCause',
+      text_translator => {
+        1 => 'no transfer yet',
+        2 => 'high line voltage',
+        3 => 'brown out',
+        4 => 'black out',
+        5 => 'small momentary sag',
+        6 => 'deep momentary sag',
+        7 => 'small momentary spike',
+        8 => 'large momentary spike',
+        9 => 'self test',
+        10 => 'rate of voltage chnage',
+     },
+     change_detect => 'log',
+#       - highLineVoltage(2) -- if the transfer to battery is caused
+#       by an over voltage greater than the high transfer vloltage.
+#       - brownout(3) -- if the duration of the outage is greater than
+#       five seconds and the line voltage is between 40% of the
+#       rated output voltage and the low transfer voltage.
+#       - blackout(4) -- if the duration of the outage is greater than five
+#       seconds and the line voltage is between 40% of the rated 
+#       output voltage and ground.
+#       - smallMomentarySag(5) -- if the duration of the outage is less
+#       than five seconds and the line voltage is between 40% of the
+#       rated output voltage and the low transfer voltage.
+#       - deepMomentarySag(6) -- if the duration of the outage is less 
+#       than five seconds and the line voltage is between 40% of the 
+#       rated output voltage and ground.  The variable is set to 
+#       - smallMomentarySpike(7) -- if the line failure is caused by a
+#       rate of change of input voltage less than ten volts per cycle.
+#       - largeMomentarySpike(8) -- if the line failure is caused by 
+#       a rate of change of input voltage greater than ten volts per cycle.
+#       - selfTest(9) -- if the UPS was commanded to do a self test.
+#       - rateOfVoltageChange(10) -- if the failure is due to the rate of change of
+#       the line voltage."
+    },
+  },
+  GRAPHS => [
+    {
+       title => 'utility line voltage',
+       units => 'VAC',
+       default => 1,
+       tracks => [
+           {
+               name => 'MaxLineVoltage',
+               title => 'maximum in last 1 minute',
+               color => 'FF0000',
+               style => 'LINE1',
+           },
+           {
+               name => 'MinLineVoltage',
+               title => 'minimum in last 1 minute',
+               color => '00FFdd',
+               style => 'LINE1',
+           },
+           {
+               name => 'LineVoltage',
+               title => 'current',
+               color => '00FF00',
+               style => 'LINE2',
+           },
+       ],
+    },
+    {
+       default => 1,
+       title => 'frequency',
+       units => 'MHz',
+       tracks => [
+           {
+               name => 'Frequency',
+               title => 'Frequency',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    Phase => { 
+      title => 'The current AC input phase', order => 10, brief => 0, 
+    },
+    LineVoltage => { 
+      title => 'current utility line voltage',
+      order => 20, brief => 1, 
+      compute => [ ['', 'FORMAT::STRING::<b>%s VAC</b>::%%LineVoltage%%']],
+    },
+    MaxLineVoltage => { 
+      title => "maximum utility line voltage over the previous 1 minute period",
+      order => 30, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s VAC::%%MaxLineVoltage%%']],
+    },
+    MinLineVoltage => { 
+      title => "minimum utility line voltage over the previous 1 minute period",
+      order => 40, brief => 0, 
+      compute => [ ['', 'FORMAT::STRING::%s VAC::%%MinLineVoltage%%']],
+    },
+    Frequency => { 
+      title => 'frequency', order => 50, brief => 1, 
+      compute => [['','PERCDEFL::%%Frequency%%::40::60::1::MHz']],
+    },
+    LineFailCause => { 
+      title => 'last line fail cause', order => 60, brief => 0, 
+    },
+  },
+}

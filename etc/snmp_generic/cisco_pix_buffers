@@ -1,0 +1,71 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.9' ],
+  DISCOVER => [ '1.3.6.1.4.1.9.9.147.1.2.2.1.1.3' ],
+  DISCOVER_NAME_OVERRIDE => 'buffer %%DISCOVER_INDEX%% byte blocks',
+  DISCOVER_INDEX_OVERRIDE => 0,
+  ENTITY_ICON => 'buffers',
+
+  NAME => 'Cisco PIX buffers',
+  TRACKS => {
+    '1.3.6.1.4.1.9.9.147.1.2.2.1.1.4.%%INDEX%%.3' => {
+      track_name => 'maximum',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.9.9.147.1.2.2.1.1.4.%%INDEX%%.5' => {
+      track_name => 'fewest',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.9.9.147.1.2.2.1.1.4.%%INDEX%%.8' => {
+      track_name => 'current',
+      rrd_track_type => 'GAUGE',
+      threshold_too_low => { value => '1', alarm_level => _ST_DOWN, message => "no available blocks", },
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => 'allocated blocks',
+       units => 'no',
+       tracks => [
+           {
+               name => 'current',
+               title => 'current number of available blocks\n',
+               color => '00FF33',
+               style => 'AREA',
+           },
+           {
+               name => 'maximum',
+               title => 'maximum number of allocated blocks\n',
+               color => 'FF3300',
+               style => 'LINE1',
+           },
+           {
+               name => 'fewest',
+               title => 'fewest blocks available since system startup\n',
+               color => '3333FF',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+      'maximum' => {
+          order => 1,
+          title => 'maximum number of allocated blocks',
+          brief => 0,
+      },
+      'fewest' => {
+          order => 2,
+          title => 'fewest blocks available since system startup',
+          brief => 0,
+      },
+      'current' => {
+          order => 3,
+          title => 'current number of available blocks',
+          brief => 1,
+      },
+  }
+}
+
+

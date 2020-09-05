@@ -1,0 +1,183 @@
+PERL MODULES
+install Mail::Sender
+
+FILES:
+
+cp htdocs/img/f5.gif
+cp htdocs/img/hsrp.gif
+cp htdocs/img/battery.gif
+cp htdocs/img/ac_input.gif
+cp htdocs/img/ac_output.gif
+cp htdocs/img/phases_input.gif
+cp htdocs/img/phases_output.gif
+cp htdocs/img/phases_input_phase.gif
+cp htdocs/img/phases_output_phase.gif
+cp htdocs/img/actions.gif
+
+cp htdocs/*.js
+cp lib/*
+
+mkdir var/actions
+chown akkada.nobody var/actions
+
+=======================================================================================================
+MySQL:
+insert into parameters(name) values('windows_service_oid_name');
+insert into parameters(name) value('nic_ifOperStatus_interpret_dormant_down');
+update parameters set ro=1 where name='hdd_type';
+
+DROP TABLE IF EXISTS `actions`;
+CREATE TABLE `actions` (
+  `id_action` bigint(20) unsigned NOT NULL auto_increment,
+  `id_command` bigint(20) unsigned NOT NULL default '0',
+  `notification_interval` varchar(45) NOT NULL default '',
+  `notification_start` varchar(45) NOT NULL default '',
+  `notification_stop` varchar(45) NOT NULL default '',
+  `service_type` varchar(255) NOT NULL default '',
+  `error_messages_like` varchar(255) NOT NULL default '',
+  `statuses` varchar(255) NOT NULL default '',
+  `notify_recovery` varchar(45) NOT NULL default '',
+  `active` smallint(5) unsigned NOT NULL default '1',
+  `name` varchar(255) NOT NULL default '',
+  `calc` smallint(5) unsigned NOT NULL default '1',
+  `inherit` smallint(5) unsigned NOT NULL default '1',
+  PRIMARY KEY  (`id_action`),
+  UNIQUE KEY `Index_2` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `entities_2_actions`
+--
+
+DROP TABLE IF EXISTS `entities_2_actions`;
+CREATE TABLE `entities_2_actions` (
+  `id_entity` bigint(20) unsigned NOT NULL default '0',
+  `id_action` bigint(20) unsigned NOT NULL default '0',
+  `id_cgroup` bigint(20) unsigned NOT NULL default '0',
+  `id_time_period` bigint(20) unsigned NOT NULL default '0',
+  `id_e2a` bigint(20) unsigned NOT NULL auto_increment,
+  PRIMARY KEY  (`id_e2a`),
+  UNIQUE KEY `Index_2` (`id_entity`,`id_action`,`id_cgroup`,`id_time_period`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+--
+-- Table structure for table `commands`
+--
+
+DROP TABLE IF EXISTS `commands`;
+CREATE TABLE `commands` (
+  `id_command` bigint(20) unsigned NOT NULL auto_increment,
+  `name` varchar(45) NOT NULL,
+  `command` varchar(255) NOT NULL,
+  PRIMARY KEY  (`id_command`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `time_periods`
+--
+
+DROP TABLE IF EXISTS `time_periods`;
+CREATE TABLE `time_periods` (
+  `id_time_period` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(45) NOT NULL,
+  `monday` varchar(45) NOT NULL,
+  `tuesday` varchar(45) NOT NULL,
+  `wednesday` varchar(45) NOT NULL,
+  `thursday` varchar(45) NOT NULL,
+  `friday` varchar(45) NOT NULL,
+  `saturday` varchar(45) NOT NULL,
+  `sunday` varchar(45) NOT NULL,
+  PRIMARY KEY  (`id_time_period`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+
+=======================================================================================================
+AKKADA CONFIGURATION:
+
+etc/conf.d/ActionsBroker.conf copy
+etc/conf.d/ActionsExecutor.conf copy
+etc/conf.d/ActionsExecutor directory copy
+
+chown akkada.apache etc/conf.d/ActionsBroker.conf 
+chown akkada.apache etc/conf.d/ActionsExecutor.conf
+chown akkada.apache etc/conf.d/ActionsExecutor
+
+
+etc/akkada.conf add:
+      'ActionsBroker' => do "$ENV{AKKADA}/etc/conf.d/ActionsBroker.conf",
+      'ActionsExecutor' => do "$ENV{AKKADA}/etc/conf.d/ActionsExecutor.conf",
+
+etc/conf.d/System.conf section modules add:
+      'actions_broker' => 1,
+      'actions_executor' => 1,
+
+etc/conf.d/Web/Tree.conf add:
+      'MaxMasterHoldTime' => 120,
+
+etc/conf.d/Web/Rights.conf add:
+      'form_entity_recheck' => _R_VIO,
+      'form_entity_cache_reload' => _R_VIO,
+      'form_alarms_filter' => _R_VIE,
+      'actions' => _R_MDY,
+      'actionsen' => _R_MDY,
+      'form_action_select' => _R_MDY,
+      'form_action_add' => _R_MDY,
+      'form_action_update' => _R_MDY,
+      'form_action_delete' => _R_MDY,
+      'form_command_select' => _R_MDY,
+      'form_command_add' => _R_MDY,
+      'form_command_update' => _R_MDY,
+      'form_command_delete' => _R_MDY,
+      'form_time_period_select' => _R_MDY,
+      'form_time_period_add' => _R_MDY,
+      'form_time_period_update' => _R_MDY,
+      'form_time_period_delete' => _R_MDY,
+      'form_actions_bind_node_select' => _R_MDY,
+      'form_actions_bind_child_select' => _R_MDY,
+      'form_actions_bind_create' => _R_MDY,
+      'form_actions_bind_update' => _R_MDY,
+
+etc/conf.d/Probes/tcp_generic.conf add:
+      'DiscoverPreventFirewallFakes' => 12,
+
+etc/conf.d/Probes/ssl_generic.conf add:
+      'DiscoverPreventFirewallFakes' => 12,
+
+etc/conf.d/Web.conf add
+      'Contacts' => do "$ENV{AKKADA}/etc/conf.d/Web/Contacts.conf",
+      'CharSet' => 'UTF-8',
+
+etc/conf.d/Database.conf add
+      'CharSet' => 'utf8',
+
+
+etc/conf.d/Web/Sections.conf add
+      '9' => 'actionsen',
+      '106' => 'actions',
+
+etc/conf.d/Web/SectionDefinitions.conf add
+      'actions' => [
+        106,
+        [
+          'mode',
+        ],
+        'actions',
+      ],
+      'actionsen' => [
+        9,
+        [ ],
+        'actions',
+      ],
+
+execute bin/cfgcheck.pl to confirm configuration has no syntax errors.
+
+=======================================================================================================
+
+PERL:
+
+install module Time::Period
+
+

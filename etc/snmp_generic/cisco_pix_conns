@@ -1,0 +1,55 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.9' ],
+  DISCOVER => [ '1.3.6.1.4.1.9.9.147.1.2.2.2.1.3'],
+  DISCOVER_NAME_OVERRIDE => 'number of connections',
+  DISCOVER_INDEX_OVERRIDE => 0,
+  ENTITY_ICON => 'connections',
+
+  NAME => 'Cisco PIX number of connections',
+  TRACKS => {
+    '1.3.6.1.4.1.9.9.147.1.2.2.2.1.5.%%INDEX%%.6' => {
+      track_name => 'CurrConns',
+      rrd_track_type => 'GAUGE',
+    },
+    '1.3.6.1.4.1.9.9.147.1.2.2.2.1.5.%%INDEX%%.7' => {
+      track_name => 'MaxConns',
+      rrd_track_type => 'GAUGE',
+    },
+  },
+
+  GRAPHS => [
+    {
+       default => 1,
+       title => '',
+       units => 'no',
+       tracks => [
+           {
+               name => 'CurrConns',
+               title => 'number of connections currently in use by the entire firewall',
+               color => '00FF00',
+               style => 'AREA',
+           },
+           {
+               name => 'MaxConns',
+               title => 'highest number of connections in use at any one time since system startup',
+               color => 'FF0000',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+      'CurrConns' => {
+          order => 1,
+          title => 'number of connections currently in use by the entire firewall',
+          brief => 1,
+      },
+      'MaxConns' => {
+          order => 2,
+          title => 'highest number of connections in use at any one time since system startup',
+          brief => 0,
+      },
+  }
+}
+
+

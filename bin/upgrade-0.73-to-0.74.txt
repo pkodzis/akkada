@@ -1,0 +1,57 @@
+FILES:
+
+exchange following files:
+lib/*
+htdocs/*.js
+htdocs/css/*
+bin/*
+
+add directory:
+contrib/* (/akkada/contrib)
+
+add files:
+htdocs/img/getthere.gif
+htdocs/img/travelocity.gif
+htdocs/img/sabretravelnetwork.gif
+htdocs/img/lastminute.gif
+
+
+
+MySQL:
+ALTER TABLE `akkada`.`views` ADD COLUMN `id_view_type` BIGINT UNSIGNED NOT NULL DEFAULT 0 AFTER `last_change`;
+ALTER TABLE `akkada`.`views` ADD COLUMN `data` VARCHAR(255) AFTER `id_view_type`;
+
+CFG:
+
+file etc/conf.d/System.conf, section "Modules" add:
+	'sysstat' => 1,
+
+file etc/akkada.conf add:
+	'SysStat' => do "$ENV{AKKADA}/etc/conf.d/SysStat.conf",
+	'FlagsMaxAge' => 1800,
+
+file etc/conf.d/Web/Rights.conf add:
+      'Tools::entities_flaps_clear' => _R_MDY,
+
+
+add file etc/conf.d/SysStat.conf
+
+
+APACHE:
+
+add to apache configuration file:
+
+PerlModule GraphSysStat
+<Location /graphsysstat>
+    SetHandler perl-script
+    PerlResponseHandler GraphSysStat
+</Location>
+
+
+
+AFTER:
+
+run bin/post_install.sh script
+
+GUI -> go to dashboard and click "restore defaults"
+

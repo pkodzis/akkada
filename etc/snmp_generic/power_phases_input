@@ -1,0 +1,77 @@
+{
+  DISCOVER_AFFECTED_SYSOBJECTID => [ '1.3.6.1.4.1.318' ],
+  DISCOVER => [ '1.3.6.1.4.1.318.1.1.1.9.2.2.1.1' ],
+  DISCOVER_NAME_OVERRIDE => 'phases input %%DISCOVER_NAME%%',
+  ENTITY_ICON => 'phases_input',
+  NAME => 'phases input',
+  TRACKS => {
+    '1.3.6.1.4.1.318.1.1.1.9.2.2.1.2' => {
+      track_name => 'Phases',
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.2.1.3' => {
+      track_name => 'VoltageOrientation',
+      text_translator => {
+        1 => 'unknown',
+        2 => 'phase 1 voltage is between Phase 1 and Neutral',
+        3 => 'phase 1 voltage is between Phase 1 and Neutral; phase 2 voltage is between Phase 2 and Neutral; phase 3 voltage is between Phase 1 and Phase2',
+        4 => 'phase 1 voltage is between Phase 1 and Neutral; phase 2 voltage is between Phase 2 and Neutral; phase 3 voltage is between Phase3 and Neutral',
+        5 => 'phase 1 voltage is between Phase 1 and Phase 2; phase 2 voltage is betwwn Phase 2 and Phase 3; phase 3 voltage is between Phase 3 and Phase 1',
+      },
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.2.1.4' => {
+      track_name => 'Frequency',
+      rrd_track_type => 'GAUGE',
+      compute => [['', 'RPN::%%Frequency%%,-1,=,-1,%%Frequency%%,10,/,IF'],],
+    },
+    '1.3.6.1.4.1.318.1.1.1.9.2.2.1.5' => {
+      track_name => 'Type',
+      text_translator => {
+        1 => 'unknown',
+        2 => 'main',
+        3 => 'bypass',
+     },
+     text_test => {
+         bad => [ { value => 'bypass', alarm_level => _ST_MAJOR, message => 'input bypassed!', }, ],
+     },
+    },
+  },
+
+  GRAPHS => [
+    {
+       title => 'frequency',
+       units => 'kHz',
+       default => 1,
+       tracks => [
+           {
+               name => 'Frequency',
+               title => '',
+               color => '330099',
+               style => 'LINE1',
+           },
+       ],
+    },
+  ],
+  DESC => {
+    Type => { 
+      title => 'input type', order => 10, brief => 1, 
+      compute => [
+          ['', 'FORMAT::STRING::<span class="g9">%s</span>::%%Type%%', _MODE_BRIEF_BAD+_MODE_FULL_BAD],
+          ['', 'FORMAT::STRING::<span class="g8">%s</span>::%%Type%%', _MODE_BRIEF_OK+_MODE_FULL_OK],
+      ],
+    },
+    Phases => { 
+      order => 20, brief => 0, 
+      title => 'number of input phases',
+    },
+    VoltageOrientation => { 
+      title => 'voltage orientation', order => 30, brief => 0, 
+    },
+    Frequency => { 
+      title => 'frequency', order => 40, brief => 1, 
+      compute => [
+        ['tmp', 'RPN::%%Frequency%%,-1,=,n/a,PERCDEFL::%%Frequency%%::40::60::1::MHz,IF'],
+        ['', '%%tmp%%'],
+      ],
+    },
+  },
+}
