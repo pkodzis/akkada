@@ -1,0 +1,29 @@
+AKK@DA Appliance 0.75
+
+
+
+AKK@DA version 0.75 is available also as an VMware appliance on Rapidshare.com. It's a full installation, preconfigured and ready for using.
+
+
+Rapidshare.com codes:
+
+http://rapidshare.com/files/122119508/AKK_DA_Appliance_0.75_-_README.txt
+http://rapidshare.com/files/122129247/AKKADA-appliance-0.75.part01.rar
+http://rapidshare.com/files/122138338/AKKADA-appliance-0.75.part02.rar
+http://rapidshare.com/files/122150438/AKKADA-appliance-0.75.part03.rar
+
+
+
+The virtual machine is built with VMware Server E.X.P. (VMware-server-e.x.p-84186.exe). IT WILL NOT WORK WITH VMWARE SERVERS/PLAYERS 1.XX.
+
+
+OS root password: root
+AKK@DA superuser: yoda, pasword: upfs
+AKK@DA read only user: operator, password operator
+
+
+AKK@DA web GUI is available at https://<IP>:444/
+
+
+
+created by piotr.kodzis@yahoo.pl

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xml:base="http://akkada.tivi.net.pl/nms" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+ <title>akk@da home page - </title>
+ <link>http://akkada.tivi.net.pl/nms</link>
+ <description></description>
+ <language>en</language>
+<item>
+ <title>akk@da at the European Parliament election 2009 in Poland</title>
+ <link>http://akkada.tivi.net.pl/nms/index.php?q=node/114</link>
+ <description>&lt;p&gt;akk@da is used for monitoring purposes of the presentation system with European Parliament election 2009 results on the official, national web site &lt;a href=&quot;http://pe2009.pkw.gov.pl/PUE/EN/INF/index.html&quot; target=&quot;w2009&quot;&gt;http://pe2009.pkw.gov.pl&lt;/a&gt;.&lt;/p&gt;
+</description>
+ <comments>http://akkada.tivi.net.pl/nms/index.php?q=node/114#comments</comments>
+ <category domain="http://akkada.tivi.net.pl/nms/index.php?q=taxonomy/term/1">news</category>
+ <pubDate>Fri, 05 Jun 2009 15:10:19 +0200</pubDate>
+ <dc:creator>Piotr Kodzis</dc:creator>
+ <guid isPermaLink="false">114 at http://akkada.tivi.net.pl/nms</guid>
+</item>
+<item>
+ <title>release 0.75 ready!</title>
+ <link>http://akkada.tivi.net.pl/nms/index.php?q=node/113</link>
+ <description>&lt;p&gt;Some fixes and new features are available (see the change log &lt;a href="#niezarchiwizowane" &lt;a href="http://akkada.tivi.net.pl/download/akkada-0.75.tar.gz&gt;Download" the new version&lt;/a&gt;. To upgrade from 0.74 to 0.75 read the bin/upgrade-0.74-to-0.75.txt file.&lt;/p&gt;
+</description>
+ <comments>http://akkada.tivi.net.pl/nms/index.php?q=node/113#comments</comments>
+ <category domain="http://akkada.tivi.net.pl/nms/index.php?q=taxonomy/term/1">news</category>
+ <pubDate>Wed, 25 Jun 2008 09:09:35 +0200</pubDate>
+ <dc:creator>Piotr Kodzis</dc:creator>
+ <guid isPermaLink="false">113 at http://akkada.tivi.net.pl/nms</guid>
+</item>
+<item>
+ <title>overview</title>
+ <link>http://akkada.tivi.net.pl/nms/index.php?q=node/2</link>
+ <description>&lt;p&gt;&lt;font color=&quot;white&quot;&gt;&lt;a href=&quot;http://trianus.pl&quot;&gt;&lt;/a&gt;&lt;/font&gt;&lt;b&gt;akk@da&lt;/b&gt; is a network monitoring system designed for small and middle-sized computer networks. Its purpose is to quickly detect system or network fault and to display information about detected problem for an administrator. &lt;b&gt;akk@da&lt;/b&gt; is designed as a pro-active network monitor.&lt;/p&gt;
+</description>
+ <pubDate>Tue, 13 Sep 2005 09:28:00 +0200</pubDate>
+ <dc:creator>Piotr Kodzis</dc:creator>
+ <guid isPermaLink="false">2 at http://akkada.tivi.net.pl/nms</guid>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+  <title>v 0.70 | akk@da</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css" media="all"></style><link rel="shortcut icon" href="files/akkada_ico.gif" type="image/x-icon" />
+  <style type="text/css" media="all"></style>  <script type="text/javascript"> </script>
+</head>
+
+<body>
+
+<table border="0" cellpadding="0" cellspacing="0" id="header">
+  <tr>
+    <td id="logo">
+      <a href="index.html" title="Home"><img src="files/logo.gif" alt="Home" /></a>                </td>
+    <td id="menu">
+            <div id="primary"><a href="index.html@q=node_2.html" title="">introduction</a> | <a href="index.html@q=taxonomy_term_1.html" title="">news</a> | <a href="index.html@q=node_58.html" title="">download</a> | <a href="index.html@q=node_1.html" title="">features</a> | <a href="index.html@q=node_87.html" title="">live demo</a> | <a href="index.html@q=taxonomy_term_2.html" title="">changes</a> | <a href="index.html@q=node_80.html" title="">screenshots</a> | <a href="index.html@q=node_6.html" title="">documentation</a> | <a href="index.html@q=node_83.html" title="">support</a> | <a href="index.html@q=node_4.html" title="">license</a></div>          </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div></div></td>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" id="content">
+  <tr>
+    <td id="sidebar-left">
+        <div class="block block-menu" id="block-menu-24">
+    <h2 class="title">akk@da</h2>
+    <div class="content">
+<ul class="menu">
+<li class="leaf"><a href="index.html@q=node_2.html" title="">introduction</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_1.html" title="">news</a></li>
+<li class="leaf"><a href="index.html@q=node_58.html" title="">download</a></li>
+<li class="leaf"><a href="index.html@q=node_1.html" title="">features</a></li>
+<li class="leaf"><a href="index.html@q=node_87.html" title="">live demo</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_2.html" title="">changes</a></li>
+<li class="leaf"><a href="index.html@q=node_80.html" title="">screenshots</a></li>
+<li class="collapsed"><a href="index.html@q=node_6.html" title="">documentation</a></li>
+<li class="leaf"><a href="index.html@q=node_83.html" title="">support</a></li>
+<li class="leaf"><a href="index.html@q=node_4.html" title="">license</a></li>
+
+</ul>
+</div>
+ </div>
+    </td>    <td valign="top">
+            <div id="main">
+        <div class="breadcrumb"><a href="index.html">Home</a></div>        <h1 class="title">v 0.70</h1>
+        <div class="tabs"></div>
+                        <!-- begin content -->  <div class="node">
+            <span class="submitted">Submitted by Piotr Kodzis on Fri, 2006-08-11 09:12.</span>
+    <span class="taxonomy"><a href="index.html@q=taxonomy_term_2.html" rel="tag" title="">changes</a></span>
+    <div class="content"><p>[* fixed; + added; - removed; @ changed]</p>
+<p>+ probe snmp_generic - template DISCOVER_CONDITION options exctended to eq, gt, lt, begin, contain, end</p>
+<p>* view status wasn't calculated after delete of the entity from view</p>
+<p>* alarm approval functions allowed reapproval</p>
+<p>+ tab alarms - approval options added to context menus</p>
+<p>+ network interfaces alarms correlation</p>
+<p>+ function to approve all alarms in correlated event</p>
+<p>+ probe node - nortel detection</p>
+<p>+ utilities - added "cisco inventory" function, which collects information like model, cards, flash, IOS versions, etc. from cisco devices</p>
+<p>+ tools - added "cisco inventory report" which collects data described above for all cisco devices configured in akk@da</p>
+<p>* URL rewrite module internal bug</p>
+<p>+ little extension of snmp_generic template format</p>
+<p>+ snmp_generic added template for cisco slb statistics, cisco slb server farms, reals, vservers</p>
+<p>+ GUI, tab general - in parameters are visible parameters inherited from parent entity</p>
+<p>+ snmp_generic added template for alteon switches cpu (nortel ethernet switch for ibm blase chassis)</p>
+<p>+ GUI, tab options - in parameters are visible parameters inherited from parent entity</p>
+<p>+ snmp_generic added template for brocade san swiches env sensors, chassis information, fiber chanel ports</p>
+<p>+ snmp_generic template format added function to decode 8bit octet strings</p>
+<p>+ snmp_generic added template for ibm blade server</p>
+<p>+ 2 scripts for fast creating snmp_generic templates from MIB files</p>
+<p>+ softax_ima probe - added support for multiple IMA instances on existed on the same host</p>
+<p>+ snmp_generic probe added template for elproma network time servers with support for GPS antenna, DCF antenna and rubidium oscillator</p>
+<p>+ bulk add parameters possibility when adding or editing entity (tab options) </p>
+<p>+ GUI human presentation of errors while form processing </p>
+<p>@ GUI log browser - added mandatory date range selector due the performace problems with database when history table keeps too much records</p>
+<p>* probe hdd has missing proper support for snmp v1</p>
+<p>+ snmp_generic probe - added templates for checkpoint fw1 global and interfaces statistics</p>
+<p>+ snmp_generic probe - added possibility to use expresions in templates</p>
+<p>+ format_percdefl_test.pl script added for testing behavior of PERCDEFL format used in snmp_generic templates</p>
+<p>+ snmp_generic probe templates option for logging changes of non number values</p>
+<p>* GUI error information with status OK was presented as red error message, now if status is OK this information is presented as blue info message</p>
+<p>* GUI, tab log - missing function icons for records of snmp_generic entities</p>
+<p>+ GUI contact groups support</p>
+<p>+ GUI tab alarms, added icon with link to comments if comments for entity which owns alarm exists</p>
+<p>@ some CSS changes to make akkada GUI the same view in web browsers on Linux and Windows</p>
+<p>+ GUI views added possibility to update view name/image</p>
+</div>
+    <div class="links">&raquo; <a href="index.html@q=user_login_destination=comment_2Freply_2F81_23comment_form.html">login</a> to post comments</div>  </div>
+<!-- end content -->      </div>
+    </td>
+      </tr>
+</table>
+
+<div id="footer">
+  
+  <div class="block block-block" id="block-block-3">
+    <h2 class="title"></h2>
+    <div class="content"><p>© 2005-2007 <a href="mailto:piotr.kodzis@yahoo.pl">Kodzis</a>&nbsp;<a href="http://wwp.icq.com/scripts/contact.dll?msgto=384006935" target=_blank title="ICQ: 384006935"><img src="http://status.icq.com/online.gif?icq=384006935&amp;img=5"></a></p>
+</div>
+ </div>
+</div>
+</body>
+</html>

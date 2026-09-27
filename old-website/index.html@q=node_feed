@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xml:base="http://akkada.tivi.net.pl/nms" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+ <title>akk@da home page - </title>
+ <link>http://akkada.tivi.net.pl/nms</link>
+ <description></description>
+ <language>en</language>
+<item>
+ <title>end of life</title>
+ <link>http://akkada.tivi.net.pl/nms/?q=node/115</link>
+ <description>&lt;p&gt;2012/02/03, The project is no longer developed or supported.&lt;/p&gt;
+</description>
+ <comments>http://akkada.tivi.net.pl/nms/?q=node/115#comments</comments>
+ <pubDate>Fri, 03 Feb 2012 15:47:34 +0100</pubDate>
+ <dc:creator>Piotr Kodzis</dc:creator>
+ <guid isPermaLink="false">115 at http://akkada.tivi.net.pl/nms</guid>
+</item>
+<item>
+ <title>overview</title>
+ <link>http://akkada.tivi.net.pl/nms/?q=node/2</link>
+ <description>&lt;p&gt;&lt;font color=&quot;white&quot;&gt;&lt;a href=&quot;http://trianus.pl&quot;&gt;&lt;/a&gt;&lt;/font&gt;&lt;b&gt;akk@da&lt;/b&gt; is a network monitoring system designed for small and middle-sized computer networks. Its purpose is to quickly detect system or network fault and to display information about detected problem for an administrator. &lt;b&gt;akk@da&lt;/b&gt; is designed as a pro-active network monitor.&lt;/p&gt;
+</description>
+ <pubDate>Tue, 13 Sep 2005 09:28:00 +0200</pubDate>
+ <dc:creator>Piotr Kodzis</dc:creator>
+ <guid isPermaLink="false">2 at http://akkada.tivi.net.pl/nms</guid>
+</item>
+</channel>
+</rss>

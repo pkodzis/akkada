@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+  <title>v 0.67 | akk@da</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css" media="all"></style><link rel="shortcut icon" href="files/akkada_ico.gif" type="image/x-icon" />
+  <style type="text/css" media="all"></style>  <script type="text/javascript"> </script>
+</head>
+
+<body>
+
+<table border="0" cellpadding="0" cellspacing="0" id="header">
+  <tr>
+    <td id="logo">
+      <a href="index.html" title="Home"><img src="files/logo.gif" alt="Home" /></a>                </td>
+    <td id="menu">
+            <div id="primary"><a href="index.html@q=node_2.html" title="">introduction</a> | <a href="index.html@q=taxonomy_term_1.html" title="">news</a> | <a href="index.html@q=node_58.html" title="">download</a> | <a href="index.html@q=node_1.html" title="">features</a> | <a href="index.html@q=node_87.html" title="">live demo</a> | <a href="index.html@q=taxonomy_term_2.html" title="">changes</a> | <a href="index.html@q=node_80.html" title="">screenshots</a> | <a href="index.html@q=node_6.html" title="">documentation</a> | <a href="index.html@q=node_83.html" title="">support</a> | <a href="index.html@q=node_4.html" title="">license</a></div>          </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div></div></td>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" id="content">
+  <tr>
+    <td id="sidebar-left">
+        <div class="block block-menu" id="block-menu-24">
+    <h2 class="title">akk@da</h2>
+    <div class="content">
+<ul class="menu">
+<li class="leaf"><a href="index.html@q=node_2.html" title="">introduction</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_1.html" title="">news</a></li>
+<li class="leaf"><a href="index.html@q=node_58.html" title="">download</a></li>
+<li class="leaf"><a href="index.html@q=node_1.html" title="">features</a></li>
+<li class="leaf"><a href="index.html@q=node_87.html" title="">live demo</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_2.html" title="">changes</a></li>
+<li class="leaf"><a href="index.html@q=node_80.html" title="">screenshots</a></li>
+<li class="collapsed"><a href="index.html@q=node_6.html" title="">documentation</a></li>
+<li class="leaf"><a href="index.html@q=node_83.html" title="">support</a></li>
+<li class="leaf"><a href="index.html@q=node_4.html" title="">license</a></li>
+
+</ul>
+</div>
+ </div>
+    </td>    <td valign="top">
+            <div id="main">
+        <div class="breadcrumb"><a href="index.html">Home</a></div>        <h1 class="title">v 0.67</h1>
+        <div class="tabs"></div>
+                        <!-- begin content -->  <div class="node">
+            <span class="submitted">Submitted by Piotr Kodzis on Thu, 2006-01-26 21:20.</span>
+    <span class="taxonomy"><a href="index.html@q=taxonomy_term_2.html" rel="tag" title="">changes</a></span>
+    <div class="content"><p>[* fixed; + added; - removed; @ changed]</p>
+<p>* probe icmp_monitor.pm kept services in UNKNOWN state if parent node has no SNMP configuration</p>
+<p>+ GUI new tab: "utilities" for adding plugins which will do job for you from the akk@da server; startup available plugins which grab from monitored host: routing table, ARP table, TCP connections table, perform ping and nmap TCP ports scan;</p>
+<p>+ GUI "stat" tab, context menu on graphs added function "copy" to allow copping graph image to clipboard</p>
+<p>+ GUI automatic copy selected text to clipboard (e.g. like in PuTTY)</p>
+<p>@ imporeved performance of nm-tree_cache.pl and probes modules by implementing multipple-at-once model of data processing</p>
+<p>* it wasn't possible to set parameter on entity if entity had inherited this parameter from its parent</p>
+<p>@ entity type "node" cannot inherite parameters from entity type "group"; node parameters are still iherited to all children entities</p>
+<p>+ memory control (configuration -> {SystemLimits}) - allows setting memory threshold per each akk@da process; after exceeding defined threshold akka@da will restart affected process</p>
+<p>+ probe NTP- responssible for NTP server monitoring</p>
+<p>@ GUI node "stat" tab tried to display up time graph for node even if the node didn'thaveconfigured IP address; now it displays up timegraph only if node has configured SNMP</p>
+<p>+ GUI "alarms" tab, alarm sounds on/off option</p>
+<p>* ICMP monitor paramters nic_ip_max_delay_threshold and nic_ip_max_lost_threshold was ignored</p>
+<p>* probe nic - infinite discover if interface with space at the end of the name (e.g. OpenVMS: 'LO IP Interface: LO0, OpenVMS Adapter: <none>, ')</p>
+<p>@ GUI "Services options" tab, to imporve performance added checkbox to select entities for update</p>
+<p>* hide approved - didn't work for approval made by user with user id 0</p>
+<p>+ cfgcheck.pl integrated with etc/init.d/akkada start script</p>
+<p>+ cfgfind.pl script for quick locating variables in proper config files and dumping parts of the consolidated configuration</p>
+<p>+ cfgdump.pl script to print consolidated configuration</p>
+<p>+ cfgcheck.pl script to check config integrity</p>
+<p>@ akkada.conf configuration file model changed from one file to multiple files conf.d model</p>
+<p>+ GUI audit of mandatory entity changes on "options" tab in log</p>
+<p>+ GUI log clear options -> till now there where only option to clear all log; now it is possible to keep last week or last month</p>
+<p>+ rights - option to temporary disable selected right</p>
+<p>* permissions -> information leak on views</p>
+<p>@ GUI "general" tab; "force test" function now forces also entity status recalculation</p>
+<p>@ akkada.conf, all shell and perl scripts use env variable $AKKADA which has to point to akk@da root directory and should be set for user akkada</p>
+<p>+ security improvements: akkada must be running as its user; suggested: add user akkada with group akkada; more inform in bin/upgrade-0.66-to-0.67.txt file and in documentation in installation procedure;</p>
+<p>+ added bin/post_install.sh script</p>
+<p>+ GUI "stat" tab, context JavaScript menu sets selected setting in session for persistance</p>
+<p>+ probe tcpip added; probe collects TCP/IP stack global statisticks; through this probe you can also see some stack settings on monitored hosts (e.g. TTL, RTO); by default this probe does not raise any alarms; you can enable alarm function when errors in global statistcs are detected (e.g. you can enable alarm for detecting IP hardware error segments); more info in documentation</p>
+<p>+ GUI "services options" tab -> function to delete multiple services the once</p>
+<p>* GUI entity delete function didn't force parent status recalculation</p>
+<p>+ GUI function "approve all" in alarms tab</p>
+<p>+ probe bgp_peer added; probe is responssible for monitoring BGP session; it collect statistics and raise alarms if session is in unexpected state or does not exists; more info in documentation</p>
+<p>+ GUI option in akkada.conf {Web}->{ConspiracyFile} if defined, it should point to text file readable for apache process; file data format: str1|str2\n<br />
+akk@da will exchange str1 with str2 in whole generated HTML code; this operation is done after all generation and is case insensitive, so if you tell akk@da to replace str "td" with "ff" probably you will do not see the proper web page; however if used in proper way this option allows you to keep hidden all your private information; it shouldbe usefull during public presentations or in case you need to show sample akk@da output to someone not from your organization (e.g. send me sample screens with errors ;] )</p>
+<p>+ GUI views option in akkada.conf file {Web}->{Tree}->{ExpandViews} if set to 1 akk@da will display views in tree in expandable mode, which means you will be able to expand view and see its entities in tree; be carefull! if you will have too many entities in views it will take much more time to your internet browser to display akk@da web page</p>
+<p>* GUI probe cpu linux graph with percentage CPU utilization was displayed as empty in case when one of the CPU tracks was unknown (e.g. SNMP agent didn't show kernel CPU ticks)</p>
+<p>* probe hdd, in hdd_threshold_bytes_mode didn't raise alarm when disk was full</p>
+<p>+ GUI graphs - graph reload aftet click on them; right mouse button on graph to quick set time options; both in javascript - only graph reloads, not whole page; thanks to Pawel Sobotka for idea ;)</p>
+<p>* bug in RRD cache - if duplicated ip addresses in DB (e.g. 2 objects with the same IP - alive router interface and down interface which has the same IP address configured) RRD cache made duplicated updates which generated in log files errors like: illegal attempt to update using time 1136593608 when last update time is 1136593608 (minimum one second step)</p>
+<p>* bug in RRD cache which generated 'not a simple integer' RRD errors</p>
+<p>+ GUI added navigation caption bar in teeny mode</p>
+<p>* memmory leaks in GUI and entities cache for GUI</p>
+<p>+ GUI CSS class names has been changed to short 1-2 characters names; it saves a lot of byte from generated HTML output</p>
+<p>+ GUI Alarms sound support - grep akkada.conf for "Sound" string; you can configure different sounds for differend alarm type; there is an option to disable sounds and to make infinite sound if there are unacknowleded alarms; if all alarms are ack, sound alarm is not raised</p>
+<p>+ GUI CGI::Compress::Gzip support</p>
+<p>* nm-icmp_monitor.pl multiple test the same IP addresses if more the one entity has detected the same IP address</p>
+<p>* DB queries optimalization</p>
+<p>+ GUI entities cache - improve time of web page loading</p>
+<p>* bug with rights to comments; right "co" wasn't enaught to create comments, it was neccessery "cm"; now it's fixed, "co" is enaught to write comment, "cm" allows comments delete action</p>
+<p>+ akkada.conf {Web}->{Tree}->{TreeLowLevelDebug} option for very log level tree cache debug; usefull for developers if there are rights or conntent problems with cache; if set to 1 low level information from GUI are visible in apache error log and from nm-tree_cache.pl module as warning on the console where nm-tree_cache.pl module was started (to see those messages nm-tree_cache.pl module should be started manualy, not by etc/init.d/akkada script)</p>
+<p>+ GUI RECOVERED status support in views</p>
+<p>+ GUI ForceIE option added in akkada.conf; default 1; if set to 0 akk@da does not force GUI client to use MS Internet Explorer; please remember some of the akk@da functions works fine only under MS Internet Explorer</p>
+<p>* RRD cache and RRDCacheMaxEntriesNotOK behavior in probes nic and ucd_ext</p>
+<p>* FormatDispatcher.pm TEXT format dispatcher problem; probe ucd_ext affected</p>
+<p>* attempts_retry_interval parameter was automaticaly set</p>
+<p>* Entity.pm removed unneccesery SQL select</p>
+<p>+ GUI show/hide not monitored entities</p>
+<p>+ probe cpu added parameter cpu_stop_warning_high_utilization which disables alarms when cpu high utilization is detected</p>
+<p>* GUI views status calculation if member of view was in NOSNMP or UNREACHABLE status</p>
+<p>+ GUI clear history log function</p>
+<p>* attempts_current_count unexpected behavior when status other then OK</p>
+<p>+ GUI function to reset flaps monitor</p>
+<p>+ option to disable logging in history error messages changes if entity status wasn't changed to make history databse a little bit smaller (e.g. if you have network interface and you configured akk@da to ignore its operation status, akk@da still logs its error messages changes in history every time the interface changes its status; with dis option you can disable this); global setting => akkada.conf DisableErrorMessageLog; host/service setting parameter disable_error_message_change_log which override global DisableErrorMessageLog</p>
+<p>* GUI errors presentation if more then one error on entity was detected</p>
+<p>+ GUI confirmations for delete view and clear log operations</p>
+<p>* GUI hide approved alarm function didn't keep its settings during browsing entities tree</p>
+<p>+ virtual RECOVERED status, which means entity is in OK status not longer then StatusRecoveredDeltaTime in seconds (see akkada.conf); default value 60;</p>
+<p>@ GUI session ID moved from URL to coockie</p>
+<p>* during entity delete process wasn't deleted entities parameters which caused RRD update errors in nm-icmp_monitor.pl module like: illegal attempt to update using time 1136593608 when last update time is 1136593608 (minimum one second step)</p>
+<p>@ GUI URL structure changed. now entity id is always first parameter</p>
+</div>
+    <div class="links">&raquo; <a href="index.html@q=user_login.html">login</a> to post comments</div>  </div>
+<!-- end content -->      </div>
+    </td>
+      </tr>
+</table>
+
+<div id="footer">
+  
+  <div class="block block-block" id="block-block-3">
+    <h2 class="title"></h2>
+    <div class="content"><p>© 2005-2007 <a href="mailto:piotr.kodzis@yahoo.pl">Kodzis</a>&nbsp;<a href="http://wwp.icq.com/scripts/contact.dll?msgto=384006935" target=_blank title="ICQ: 384006935"><img src="http://status.icq.com/online.gif?icq=384006935&amp;img=5"></a></p>
+</div>
+ </div>
+</div>
+</body>
+</html>

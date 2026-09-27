@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <title>documentation | akk@da home page</title>
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="files/akkada_ico.gif" type="image/x-icon" />
+  <style type="text/css" media="all">@import "modules/node/node.css";</style>
+<style type="text/css" media="all">@import "modules/system/defaults.css";</style>
+<style type="text/css" media="all">@import "modules/system/system.css";</style>
+<style type="text/css" media="all">@import "modules/user/user.css";</style>
+<style type="text/css" media="all">@import "themes/pushbutton/style.css";</style>
+  </head>
+
+<body bgcolor="#ffffff">
+
+<div class="hide"><a href="#content" title="Skip navigation." accesskey="2">Skip navigation</a>.</div>
+
+<table id="content" border="0" cellpadding="15" cellspacing="0" width="100%">
+  <tr>
+       
+    <td id="sidebar-left">
+      <div class="logo"></div>
+      <div class="block block-menu" id="block-menu-24">
+  <div class="title"><h3></h3></div>
+  <div class="content">
+<ul class="menu">
+<li class="leaf"><a href="index.php@q=node_2.html">overview</a></li>
+<li class="leaf"><a href="index.php@q=node_1.html">features</a></li>
+<li class="leaf"><a href="index.php@q=node_87.html">live demo</a></li>
+<li class="leaf"><a href="index.php@q=taxonomy_term_1.html">news</a></li>
+<li class="leaf"><a href="index.php@q=taxonomy_term_2.html">changes</a></li>
+<li class="leaf"><a href="index.php@q=node_83.html">support</a></li>
+<li class="leaf"><a href="index.php@q=node_6.html" class="active">documentation</a></li>
+<li class="leaf"><a href="index.php@q=node_58.html">download</a></li>
+<li class="leaf"><a href="index.php@q=node_80.html">screenshots</a></li>
+<li class="leaf"><a href="index.php@q=taxonomy_term_5.html">who&#039;s using akk@da</a></li>
+<li class="leaf"><a href="index.php@q=node_4.html">license</a></li>
+<li class="leaf"><a href="index.php@q=user_login.html">log in</a></li>
+
+</ul>
+</div>
+</div>    </td>
+    
+    <td valign="top">
+<div id="main">
+        <div class="breadcrumb"><a href="index.html">Home</a></div>        <h1 class="title">documentation</h1>
+        <div class="tabs"></div>
+                        <div class="node">
+        <span class="submitted"></span>
+    <span class="taxonomy"></span>
+    <div class="content"><h3>users' guide</h3>
+<p><a href="../akkada-0.75-users-guide.pdf">AKK@DA 0.75 users' guide <img src="_brak-w-archiwum.gif"/></a></p>
+<h3>hardware requirements</h3>
+<p>Fast disks, good CPU and minimum 1 GB of RAM. <b>akk@da</b> checks all services every minute. It is a lot to do, so its processes consume a lot of system resources. Choosing a proper hardware depends on the service count which <b>akk@da</b> will have to monitor. It is strongly recommended to have a separate server for the <b>akk@da</b> system.
+</p>
+<p>
+For example:</p>
+<ul>
+<li>PC, Pentium III 800 MHz, 512 MB RAM with IDE disks is able to monitor around 700 services
+<li>Server HP DL 380, 2 x Pentium 4 2.9 GHz, 2 GB RAM with SCSII disks is able to monitor around 7000 services
+</ul>
+</p>
+<p>
+FYI: In the case of MS Windows the server automatic discovery process discovers around 80 services, in the case of Unix server ~20 services; in the case of the network device count the number of discovered services depends on the number of interfaces in the box. There is an option to stop monitoring unnecessary services in order to improve performance, if needed.
+</p>
+<h3>system requirements</h3>
+<p><b>akk@da</b> was developed on Linux OS (Fedora). It was also tested on RedHat, Gentoo and Ubuntu. Additionally the following software has to be installed:</p>
+<ul>
+<li>MySQL, ver. 4.x or newer (http://www.mysql.com/)
+<li>Apache, ver. 2.x with mod_perl (http://www.apache.org/)
+<li>fping (http://www.fping.com)
+<li>RRDtool, ver. 1.2 or newer (http://rrdtool.eu.org/); compiled with option --enable-perl-site-install (see ./configure --help from RRDtool sources)
+<li>Perl, ver. 5.8 or newer (http://www.perl.org/); compiled with threads support
+<li>Perl modules (http://search.cpan.org/) as listed in installation procedure.
+</ul>
+</p>
+<p>
+Proper time on your OS. It is recommended to use the NTP daemon to keep your OS time up to date. See <a href="http://www.ntp.org" target=ntp>www.ntp.org</a> for details.</p>
+<h3>user requirements</h3>
+<p>akk@da isn't software easy to install and configure . All system modules and configuration files are written in Perl, so you should be familiar with the Perl syntax. Also the knowledge of Apache and MySQL can help you to fix problems with akk@da installation, configuration and usage. </p>
+<p>Before you start playing with akk@da, be informed the main configuration file syntax is a complex Perl data structure. If you are not familiar with C or Perl this file may be not human readable for you. But don't give up! To start the system you will not have to do anything except for changing some directories in this file. If you'd like to make some more advanced changes, you'd better learn Perl a little bit ;) akk@da is not resistant for syntax and logical errors in this file - if you screw it up, akk@da will stop working 4U ;) </p>
+<p>akk@da GUI supports Microsoft Internet Explorer 6 or later and Mozilla Firefox 1.5 or later. It also works fine with the Opera browser, except for context menus. </p>
+</div>
+    </div>
+</div>
+    </td>
+      </tr>
+</table>
+
+
+<table id="footer-menu" summary="Navigation elements." border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="center" valign="middle">
+          <ul class="links primary-links"><li class="first menu-1-1-24"><a href="index.php@q=node_2.html" class="menu-1-1-24">overview</a></li>
+<li class="menu-1-2-24"><a href="index.php@q=node_1.html" class="menu-1-2-24">features</a></li>
+<li class="menu-1-3-24"><a href="index.php@q=node_87.html" class="menu-1-3-24">live demo</a></li>
+<li class="menu-1-4-24"><a href="index.php@q=taxonomy_term_1.html" class="menu-1-4-24">news</a></li>
+<li class="menu-1-5-24"><a href="index.php@q=taxonomy_term_2.html" class="menu-1-5-24">changes</a></li>
+<li class="menu-1-6-24"><a href="index.php@q=node_83.html" class="menu-1-6-24">support</a></li>
+<li class="menu-1-7-24-active"><a href="index.php@q=node_6.html" class="menu-1-7-24-active active">documentation</a></li>
+<li class="menu-1-8-24"><a href="index.php@q=node_58.html" class="menu-1-8-24">download</a></li>
+<li class="menu-1-9-24"><a href="index.php@q=node_80.html" class="menu-1-9-24">screenshots</a></li>
+<li class="menu-1-10-24"><a href="index.php@q=taxonomy_term_5.html" class="menu-1-10-24">who&#039;s using akk@da</a></li>
+<li class="menu-1-11-24"><a href="index.php@q=node_4.html" class="menu-1-11-24">license</a></li>
+<li class="last menu-1-12-24"><a href="index.php@q=user_login.html" class="menu-1-12-24">log in</a></li>
+</ul>            </td>
+  </tr>
+</table>
+
+<div id="footer-message">
+    
+<div class="block block-block" id="block-block-3">
+  <div class="title"><h3></h3></div>
+  <div class="content"><p><font style="color: #000000;"><small>© 2005-2008 <a href="mailto:piotr.kodzis@yahoo.pl">Kodzis</a><br><small>web design by Ola</small></small></font></p>
+</div>
+</div></div>
+</body>
+</html>

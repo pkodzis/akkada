@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+  <title>Installation | akk@da</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css" media="all"></style><link rel="shortcut icon" href="files/akkada_ico.gif" type="image/x-icon" />
+  <style type="text/css" media="all"></style>  <script type="text/javascript"> </script>
+</head>
+
+<body>
+
+<table border="0" cellpadding="0" cellspacing="0" id="header">
+  <tr>
+    <td id="logo">
+      <a href="index.html" title="Home"><img src="files/logo.gif" alt="Home" /></a>                </td>
+    <td id="menu">
+      <div id="secondary"><a href="index.html@q=node_93.html" title="">command line tools</a> | <a href="index.html@q=node_59.html" title="">engine core modules</a> | <a href="index.html@q=node_50.html" title="">faq</a> | <a href="index.html@q=node_91.html" title="">GUI</a> | <a href="index.html@q=node_9.html" title="" class="active">installation</a> | <a href="index.html@q=node_13.html" title="">probes</a> | <a href="index.html@q=node_72.html" title="">requirements</a> | <a href="index.html@q=node_74.html" title="">rrd cache *</a> | <a href="index.html@q=node_63.html" title="">startup scripts</a> | <a href="index.html@q=node_75.html" title="">status calculation *</a></div>      <div id="primary"><a href="index.html@q=node_2.html" title="">introduction</a> | <a href="index.html@q=taxonomy_term_1.html" title="">news</a> | <a href="index.html@q=node_58.html" title="">download</a> | <a href="index.html@q=node_1.html" title="">features</a> | <a href="index.html@q=node_87.html" title="">live demo</a> | <a href="index.html@q=taxonomy_term_2.html" title="">changes</a> | <a href="index.html@q=node_80.html" title="">screenshots</a> | <a href="index.html@q=node_6.html" title="">documentation</a> | <a href="index.html@q=node_83.html" title="">support</a> | <a href="index.html@q=node_4.html" title="">license</a></div>          </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div></div></td>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" id="content">
+  <tr>
+    <td id="sidebar-left">
+        <div class="block block-menu" id="block-menu-24">
+    <h2 class="title">akk@da</h2>
+    <div class="content">
+<ul class="menu">
+<li class="leaf"><a href="index.html@q=node_2.html" title="">introduction</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_1.html" title="">news</a></li>
+<li class="leaf"><a href="index.html@q=node_58.html" title="">download</a></li>
+<li class="leaf"><a href="index.html@q=node_1.html" title="">features</a></li>
+<li class="leaf"><a href="index.html@q=node_87.html" title="">live demo</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_2.html" title="">changes</a></li>
+<li class="leaf"><a href="index.html@q=node_80.html" title="">screenshots</a></li>
+<li class="expanded"><a href="index.html@q=node_6.html" title="">documentation</a>
+<ul class="menu">
+<li class="collapsed"><a href="index.html@q=node_93.html" title="">command line tools</a></li>
+<li class="collapsed"><a href="index.html@q=node_59.html" title="">engine core modules</a></li>
+<li class="leaf"><a href="index.html@q=node_50.html" title="">faq</a></li>
+<li class="collapsed"><a href="index.html@q=node_91.html" title="">GUI</a></li>
+<li class="leaf"><a href="index.html@q=node_9.html" title="" class="active">installation</a></li>
+<li class="collapsed"><a href="index.html@q=node_13.html" title="">probes</a></li>
+<li class="collapsed"><a href="index.html@q=node_72.html" title="">requirements</a></li>
+<li class="leaf"><a href="index.html@q=node_74.html" title="">rrd cache *</a></li>
+<li class="leaf"><a href="index.html@q=node_63.html" title="">startup scripts</a></li>
+<li class="leaf"><a href="index.html@q=node_75.html" title="">status calculation *</a></li>
+
+</ul>
+</li>
+<li class="leaf"><a href="index.html@q=node_83.html" title="">support</a></li>
+<li class="leaf"><a href="index.html@q=node_4.html" title="">license</a></li>
+
+</ul>
+</div>
+ </div>
+    </td>    <td valign="top">
+            <div id="main">
+        <div class="breadcrumb"><a href="index.html">Home</a> » <a href="index.html@q=node_6.html" title="">documentation</a></div>        <h1 class="title">Installation</h1>
+        <div class="tabs"></div>
+                        <!-- begin content -->  <div class="node">
+            <span class="submitted">Submitted by Piotr Kodzis on Tue, 2005-09-13 15:47.</span>
+    <span class="taxonomy"></span>
+    <div class="content"><p>
+At the present <b>akk@da</b> is in a <i>beta</i> phase. There is no easy option to install it, no install scripts, so you will need to do many things to make it running.
+</p>
+<p>
+<b>Set the proper time on your OS. Do it before you will start using akk@da!</b>  Or better install and run NTP daemon which will keep your OS time up to date. See <a href="http://www.ntp.org" target=ntp>www.ntp.org</a> for details.
+</p>
+<p>
+Make sure your RRDtools was compiled with option --enable-perl-site-install (see ./configure --help from RRDtool sources).</p>
+<p>
+Make sure MySQL server is running.
+</p>
+<p>Install DBI perl module:</p>
+<pre>
+perl -MCPAN -e 'install DBI' &&
+perl -MCPAN -e 'install CGI' &&
+perl -MCPAN -e 'install CGI::Session' &&
+perl -MCPAN -e 'install Pod::Escapes' &&
+perl -MCPAN -e 'install Test::More' &&
+perl -MCPAN -e 'install Pod::Simple' &&
+perl -MCPAN -e 'install Test::Builder::Tester' &&
+perl -MCPAN -e 'install Test::Pod' &&
+perl -MCPAN -e 'install CGI::Compress::Gzip' &&
+perl -MCPAN -e 'install Bit::Vector'
+</pre><p>Manually install DBD::mysql perl module (<a target=cpan href="http://search.cpan.org/search?query=DBD%3A%3Amysql&amp;mode=all">http://search.cpan.org</a>).<br />
+Manually install Net::SSLeay perl module (<a target=cpan href="http://search.cpan.org/search?query=Net%3A%3ASSLeay&amp;mode=all">http://search.cpan.org</a>).<br />
+Manually install CGI::Session::ExpireSessions perl module (<a target=cpan href="http://search.cpan.org/search?query=CGI%3A%3ASession%3A%3AExpireSessions&amp;mode=all">http://search.cpan.org</a>).<br />
+Then install all other required perl modules:</p>
+<pre>
+perl -MCPAN -e 'install Math::RPN' &&
+perl -MCPAN -e 'install Cache::File' &&
+perl -MCPAN -e 'install Digest::MD5' &&
+perl -MCPAN -e 'install Error' &&
+perl -MCPAN -e 'install HTML::Table' &&
+perl -MCPAN -e 'install HTTP::Request::Common' &&
+perl -MCPAN -e 'install IO::Socket::INET' &&
+perl -MCPAN -e 'install IO::Socket::SSL' &&
+perl -MCPAN -e 'install IPC::Open3' &&
+perl -MCPAN -e 'install LWP::Parallel::UserAgent' &&
+perl -MCPAN -e 'install Digest::SHA1' &&
+perl -MCPAN -e 'install Digest::HMAC' &&
+perl -MCPAN -e 'install Crypt::DES' &&
+perl -MCPAN -e 'install Net::SNMP' &&
+perl -MCPAN -e 'install Number::Format' && 
+perl -MCPAN -e 'install Time::HiRes' &&
+perl -MCPAN -e 'install XML::Simple' &&
+perl -MCPAN -e 'install Net::IP' &&
+perl -MCPAN -e 'install Net::DNS' &&
+perl -MCPAN -e 'install Proc::ProcessTable' &&
+perl -MCPAN -e 'install NetAddr::IP'
+</pre><p>
+Install <a href="http://www.fping.com/download/fping.tar.gz">fping</a>. Install <a href="http://insecure.org/nmap/">nmap</a>. Set suid bit on fping and nmap binaries to make it useable for user akkada.</p>
+<pre>
+chmod +s `which fping`
+chmod +s `which nmap`
+</pre><p>Install <b>akk@da</b> scripts (it should be installed in /akkada directory; if you need to change it you will have to do a lot of changes in etc/* akkada configuratin files and some changes in scripts):</p>
+<pre>
+groupadd akkada
+useradd -g akkada -d /akkada akkada
+</pre><p>
+Set password for user akkada. Add user akkada to the main group of the user your Apache server use.
+</p>
+<p>
+Setup AKKADA env variable (e.g. in file /etc/profile):</p>
+<pre>
+export AKKADA=/akkada
+</pre></p>
+<pre>
+cd /
+wget <a href="http://akkada.tivi.net.pl/download/" target=_download>http://akkada.tivi.net.pl/download/akkada-current.tar.gz</a>
+gunzip < akkada-current.tar.gz | tar xvf –
+cd /akkada/bin
+rm -f perl
+ln -s `which perl` perl
+mysql < akkada_db_create.sql
+mysql akkada < akkada_db_dump.sql
+mysql akkada < akkada_db_init.sql
+</pre><p>
+Edit /akkada/etc/akkada.shell file and update variables:
+</p>
+<pre>
+OSLogin
+OSGroup
+ApacheLogin
+ApacheGroup
+MYSQL
+MYSQLDUMP
+</pre><p>
+Run post_install.sh script to set proper rights for <b>akk@da</b> files:
+</p>
+<pre>
+cd /akkada/bin
+./post_install.sh
+</pre><p>Update: mysqladmin, fping, nmap, ntpq paths in configuration files /akkada/etc/*. The easies way to do this is to use /akkada/bin/cfgcheck.pl for checking configuration syntax, cfgfindraw.sh for finding definition location and cfgdump.pl for displaying merged configuration on the screen. Problably this is the most difficult part of the startup procedure.</p>
+<p>
+Edit etc/conf.d/System.conf configuration file and configure probes counts best for your network. Please do not use section "Modules". In section "Probes" for each probe configure processes count. For quick startup set 1 to all probes.</p>
+<pre>
+cat ${AKKADA}/etc/conf.d/System.conf   
+{
+    'Probes' => {
+      'ucd_ext' => 1,
+      'nic' => 1,
+      'host_resources_process' => 0,
+      'host_resources_system' => 1,
+      'dns_server' => 1,
+      'cisco_css_content' => 0,
+      'softax_ima' => 0,
+      'softax_ping' => 0,
+      'node' => 1,
+      'ucd_process' => 1,
+      'hdd' => 1,
+      'cisco_css_service' => 0,
+      'ssl_generic' => 1,
+      'cpu' => 1,
+      'windows_service' => 0,
+      'route' => 0,
+      'cisco_css_owner' => 0,
+      'cisco_dial_peer_voice' => 1,
+      'dns_query' => 0,
+      'tcp_generic' => 1,
+      'snmp_generic' => 0,
+      'icmp_monitor' => 0,
+      'bgp_peer' => 0,
+      'tcpip' => 1,
+      'ram' => 1,
+      'ntp' => 1,
+    },
+    'Modules' => {
+      'tree_cache' => 1,
+      'status_calc' => 1,
+      'db_watch' => 1,
+      'discover' => 1,
+      'job_planner' => 1,
+      'available' => 1,
+      'icmp_monitor' => 1,
+    }
+}
+</pre><p>
+After this you should be able to start <b>akk@da</b> (must be done from root account):</p>
+<pre>
+/akkada/etc/init.d/akkada {start|stop|restart}
+</pre><p>
+Problems are reported in files:</p>
+<pre>
+/akkada/var/log/exc_text.log
+/akkada/var/log/exc_xml.log
+</pre><p>
+Now you need to configure Apache server httpd.conf file:</p>
+<pre>
+DocumentRoot "/akkada/htdocs"
+
+&ltDirectory "/akkada/htdocs"&gt
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+&lt/Directory&gt
+</pre><p>
+Add mod_perl configuration to httpd.conf file:</p>
+<pre>
+LoadModule perl_module modules/mod_perl.so
+PerlRequire "/akkada/bin/startup.pl"
+PerlPassEnv AKKADA
+PerlPassEnv REMOTE_ADDR
+
+PerlModule Runtime
+&ltLocation /gui&gt
+SetHandler perl-script
+PerlResponseHandler Runtime
+&lt/Location&gt
+
+PerlModule Graph
+&ltLocation /graph&gt
+SetHandler perl-script
+PerlResponseHandler Graph
+&lt/Location&gt
+
+# ContactsRuntime and CommentsRuntime works since version 0.70 - if you are installing
+# previous version, do not put this sections into your Apache configuration
+PerlModule ContactsRuntime
+&ltLocation /contacts&gt
+SetHandler perl-script
+PerlResponseHandler ContactsRuntime
+&lt/Location&gt
+PerlModule CommentsRuntime
+&ltLocation /comments&gt
+SetHandler perl-script
+PerlResponseHandler CommentsRuntime
+&lt/Location&gt
+
+PerlModule ImgsRuntime
+&ltLocation /imgs&gt
+SetHandler perl-script
+PerlResponseHandler ImgsRuntime
+&lt/Location&gt
+</pre><p>
+Make sure the owner of all directories in /akkada/var directory and all files in /akkada/var/log directory is user you are running Apache server. Make sure Apache server has right to read directory /akkada/htdocs. Start Apache server- DO NOT USE <b>service</b> command, use /etc/init.d/httpd script or apachectl directly.</p>
+<p>After this you should be able to access <b>akk@da</b> web GUI. In case there are problems with opening GUI check Apache error log file and <b>akk@da</b> log files described above.</p>
+<p>Predefined users:</p>
+<pre>
+Master user account:
+    username yoda
+    password upfs
+Operator user account:
+    username operator
+    password operator
+</pre><br />
+</div>
+    <div class="links">&raquo; <a href="index.html@q=user_login.html">login</a> to post comments</div>  </div>
+<!-- end content -->      </div>
+    </td>
+      </tr>
+</table>
+
+<div id="footer">
+  
+  <div class="block block-block" id="block-block-3">
+    <h2 class="title"></h2>
+    <div class="content"><p>© 2005-2007 <a href="mailto:piotr.kodzis@yahoo.pl">Kodzis</a>&nbsp;<a href="http://wwp.icq.com/scripts/contact.dll?msgto=384006935" target=_blank title="ICQ: 384006935"><img src="http://status.icq.com/online.gif?icq=384006935&amp;img=5"></a></p>
+</div>
+ </div>
+</div>
+</body>
+</html>

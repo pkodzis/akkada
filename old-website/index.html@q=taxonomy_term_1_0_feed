@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xml:base="http://akkada.tivi.net.pl/nms" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+ <title>akk@da - news</title>
+ <link>http://akkada.tivi.net.pl/nms/?q=taxonomy/term/1/0</link>
+ <description></description>
+ <language>en</language>
+<item>
+ <title>0.71 patch01 - major bug fixed</title>
+ <link>http://akkada.tivi.net.pl/nms/?q=node/98</link>
+ <description>&lt;p&gt;Patch available in download section. It needs AKK@DA at least version 0.71.&lt;br /&gt;
+It fixes major bug with a deadlock of tree_cache process. It adds support for Cisco HSRP protocol and APC UPS devices.&lt;/p&gt;
+</description>
+ <comments>http://akkada.tivi.net.pl/nms/?q=node/98#comment</comments>
+ <category domain="http://akkada.tivi.net.pl/nms/?q=taxonomy/term/1">news</category>
+ <pubDate>Tue, 13 Mar 2007 12:52:33 +0100</pubDate>
+ <dc:creator>Piotr Kodzis</dc:creator>
+ <guid isPermaLink="false">98 at http://akkada.tivi.net.pl/nms</guid>
+</item>
+<item>
+ <title>release 0.71 closed!</title>
+ <link>http://akkada.tivi.net.pl/nms/?q=node/96</link>
+ <description>&lt;p&gt;Some fixes, new features and performance improvements available. &lt;a href=&quot;http://akkada.tivi.net.pl/nms/?q=node/89&quot;&gt;More info&lt;/a&gt;. &lt;a href=&quot;http://akkada.tivi.net.pl/download/akkada-0.71.tar.gz&quot;&gt;Download new version&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://akkada.tivi.net.pl/nms/?q=node/96&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+ <comments>http://akkada.tivi.net.pl/nms/?q=node/96#comment</comments>
+ <category domain="http://akkada.tivi.net.pl/nms/?q=taxonomy/term/1">news</category>
+ <pubDate>Mon, 12 Mar 2007 08:37:15 +0100</pubDate>
+ <dc:creator>Piotr Kodzis</dc:creator>
+ <guid isPermaLink="false">96 at http://akkada.tivi.net.pl/nms</guid>
+</item>
+<item>
+ <title>probes documentation 0.67 ready</title>
+ <link>http://akkada.tivi.net.pl/nms/?q=node/66</link>
+ <description>&lt;p&gt;all probes have proper documentation for version 0.67. also documentation for the better part of core modules is ready :)&lt;/p&gt;
+</description>
+ <comments>http://akkada.tivi.net.pl/nms/?q=node/66#comment</comments>
+ <category domain="http://akkada.tivi.net.pl/nms/?q=taxonomy/term/1">news</category>
+ <pubDate>Sat, 04 Feb 2006 15:35:43 +0100</pubDate>
+ <dc:creator>Piotr Kodzis</dc:creator>
+ <guid isPermaLink="false">66 at http://akkada.tivi.net.pl/nms</guid>
+</item>
+<item>
+ <title>first public release v. 0.64 available!</title>
+ <link>http://akkada.tivi.net.pl/nms/?q=node/51</link>
+ <description>&lt;p&gt;Some fixes and new features available. &lt;a href=&quot;?q=node/49&quot;&gt;more info&lt;/a&gt;. This is the first public release :) See documentation how to install &lt;b&gt;akk@da&lt;/b&gt; on your network. &lt;/p&gt;
+</description>
+ <comments>http://akkada.tivi.net.pl/nms/?q=node/51#comment</comments>
+ <category domain="http://akkada.tivi.net.pl/nms/?q=taxonomy/term/1">news</category>
+ <pubDate>Thu, 24 Nov 2005 16:33:22 +0100</pubDate>
+ <dc:creator>Piotr Kodzis</dc:creator>
+ <guid isPermaLink="false">51 at http://akkada.tivi.net.pl/nms</guid>
+</item>
+</channel>
+</rss>

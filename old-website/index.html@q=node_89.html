@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <title>v 0.71 | akk@da home page</title>
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="files/akkada_ico.gif" type="image/x-icon" />
+  <style type="text/css" media="all">@import "modules/node/node.css";</style>
+<style type="text/css" media="all">@import "modules/system/defaults.css";</style>
+<style type="text/css" media="all">@import "modules/system/system.css";</style>
+<style type="text/css" media="all">@import "modules/user/user.css";</style>
+<style type="text/css" media="all">@import "themes/pushbutton/style.css";</style>
+  </head>
+
+<body bgcolor="#ffffff">
+
+<div class="hide"><a href="#content" title="Skip navigation." accesskey="2">Skip navigation</a>.</div>
+
+<table id="content" border="0" cellpadding="15" cellspacing="0" width="100%">
+  <tr>
+       
+    <td id="sidebar-left">
+      <div class="logo"></div>
+      <div class="block block-menu" id="block-menu-24">
+  <div class="title"><h3></h3></div>
+  <div class="content">
+<ul class="menu">
+<li class="leaf"><a href="index.html@q=node_2.html">overview</a></li>
+<li class="leaf"><a href="index.html@q=node_1.html">features</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_1.html">news</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_2.html">changes</a></li>
+<li class="leaf"><a href="index.html@q=node_83.html">support</a></li>
+<li class="leaf"><a href="index.html@q=node_6.html">documentation</a></li>
+<li class="leaf"><a href="index.html@q=node_58.html">download</a></li>
+<li class="leaf"><a href="index.html@q=node_80.html">screenshots</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_5.html">who&#039;s using akk@da</a></li>
+<li class="leaf"><a href="index.html@q=node_4.html">license</a></li>
+<li class="leaf"><a href="index.html@q=user_login.html">log in</a></li>
+
+</ul>
+</div>
+</div>    </td>
+    
+    <td valign="top">
+<div id="main">
+        <div class="breadcrumb"><a href="index.html">Home</a></div>        <h1 class="title">v 0.71</h1>
+        <div class="tabs"></div>
+                        <div class="node">
+        <span class="submitted">Submitted by Piotr Kodzis on Sun, 2006-09-24 11:01.</span>
+    <span class="taxonomy"><ul class="links inline"><li class="first last taxonomy_term_2"><a href="index.html@q=taxonomy_term_2.html" rel="tag" title="" class="taxonomy_term_2">changes</a></li>
+</ul></span>
+    <div class="content"><p>[* fixed; + added; - removed; @ changed]</p>
+<p>* GUI - error parser bug for messages from forms processor</p>
+<p>* snmp_generic - rittel templates threshold definitions syntax error</p>
+<p>@ snmp_generic - cisco_slb_reals template added new real server states definitions</p>
+<p>+ probe nic - possibility to disable discover of specified types of network interfaces</p>
+<p>+ GUI - find entities possibility</p>
+<p>+ probe node - a little linksys detection</p>
+<p>+ probe_node - microsens detection</p>
+<p>+ snmp_generic - added support for microsens CWDM modular system</p>
+<p>* a few modules - some cosmetic changes to fix "uninitialized value" warnings</p>
+<p>* probe host_resources_process - parameter host_resources_process_min didn't work well if set to 0</p>
+<p>+ GUI contacts - added field alias in contact definition</p>
+<p>+ GUI contacts - added option to integrate with external information system</p>
+<p>+ GUI login - added login persistence</p>
+<p>+ GUI added images chooser dialog box</p>
+<p>* GUI bugs in cookies persistence</p>
+<p>* tree_cache some data structure bugs with undef references</p>
+<p>* GUI after moving all nodes from location 1 to location 2, in location 1 delete option was unavailable</p>
+<p>+ GUI now it is possible to delete all branch of the tree with on click. in the past you had to delete manualy all nodes and locations from location you wished to delete</p>
+<p>@ GUI service check period change wasn't effective until system restart. not it is effective immediately</p>
+<p>@ probes data processing model was improved from the performance point of view</p>
+<p>* GUI button "add node" was available on the "location" level where this operation is not permited</p>
+<p>* GUI co-operation between tree and the main window. tree didn't focus on the right object when navigation source was from main window</p>
+<p>* GUI options tab, "with services" checkboxes for "monitor" and "check period" was available also in prohibited context</p>
+<p>+ GUI stat tab, "show/hide collected information" button session persistence added</p>
+<p>+ GUI stat tab, "show/hide node information" button added</p>
+<p>@ GUI context menus - selective load. till now all context menuses were loaded even if they wasn't needed</p>
+<p>+ GUI full context menus support in tree,view an find modes</p>
+<p>+ GUI two types of bouquet views of node services: list and detailed</p>
+<p>+ nodes configuration &amp;&amp; all SNMP probes - added support for hosts with multiple SNMP agents</p>
+<p>* probes tcp_generic &amp; ssl_generic used \n except \015\012 and for that reason scripts didn't work well against services tcp/ssl services located e.g. on Cisco content switches.</p>
+<p>* akkada.pl uninitialized value made broken pipe and stopped akkada.pl script from time to time</p>
+<p>@ icmp_monitor module added support for threads</p>
+<p>* probe nic discovery procedure has duplicated network interfaces entities in case of Cisco boxes with CISCO-STACK-MIB support implemented</p>
+<p>* mistaken tree cache directory definitions in some of the FormProcessor modules - due this sometimes changes done via GUI wasn't effective in a real time or until tree cache restart</p>
+<p>* GUI node add form, bulk parameters didn't catch parameter ip</p>
+<p>* GUI if group related to root has unreachable status, alarm was not presented</p>
+<p>* probe softax_ima didn't dispatch SNMP datetime type into human readable format</p>
+<p>@ GUI if node was in unreachable or nosnmp state, last check time information wasn't presented</p>
+<p>@ GUI utils tab, now buttons with utilities depends on the type of selected node</p>
+<p>* GUI log tab, GUI died if you tried to access log tab in empty view</p>
+<p>+ GUI added tab contacts in node/service context to allow easier contacts mgmt</p>
+<p>* GUI buttons "show alarm details", "show test result" didn't work well in views mode</p>
+<p>+ command line entity modification tool ${AKKADA}/bin/entitymod.pl</p>
+<p>@ GUI permissions subsystem, rights tab, now in column name is displaye full qualified (in the tree meaning) entity name</p>
+<p>+ GUI node add form, added option to force AKK@DA to check defined SNMP configuration before it will add new node; if the test failed node is not added and you can fix your configuration</p>
+<p>* GUI probe snmp_generic, bad defflation calculation if device report threshold == 0</p>
+<p>+ probes nic and windows_service possibility to invert alarm which means, it is possible to configure specifiedy service to raise alarm if it is ok, and be quiet if it is down (e.g. to raise alarm when the backup ISDN link is up)</p>
+<p>+ probe hdd, added option to disable low free i-nodes level alarms; resources mounted with CIFs shows 0 free i-nodes;</p>
+<p>* probes tcp_generic &amp; ssl_generic discover procedures protection agains firewall which defends from ports scan by showing all scaned ports as an open ports (e.g. CheckPoint NXG), which has made, AKK@DA tried to setup all those fake ports (thousands of ports...) in its configuration</p>
+<p>@ all probes test scheduler added randomizer and weighted fair queues based on test duration time</p>
+</div>
+        <div class="links">&raquo; <ul class="links inline"><li class="first last comment_forbidden"><span class="comment_forbidden"><a href="index.html@q=user_login.html">Login</a> to post comments</span></li>
+</ul></div>
+    </div>
+</div>
+    </td>
+      </tr>
+</table>
+
+
+<table id="footer-menu" summary="Navigation elements." border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="center" valign="middle">
+          <ul class="links primary-links"><li class="first menu-1-1-24"><a href="index.html@q=node_2.html" class="menu-1-1-24">overview</a></li>
+<li class="menu-1-2-24"><a href="index.html@q=node_1.html" class="menu-1-2-24">features</a></li>
+<li class="menu-1-3-24"><a href="index.html@q=taxonomy_term_1.html" class="menu-1-3-24">news</a></li>
+<li class="menu-1-4-24"><a href="index.html@q=taxonomy_term_2.html" class="menu-1-4-24">changes</a></li>
+<li class="menu-1-5-24"><a href="index.html@q=node_83.html" class="menu-1-5-24">support</a></li>
+<li class="menu-1-6-24"><a href="index.html@q=node_6.html" class="menu-1-6-24">documentation</a></li>
+<li class="menu-1-7-24"><a href="index.html@q=node_58.html" class="menu-1-7-24">download</a></li>
+<li class="menu-1-8-24"><a href="index.html@q=node_80.html" class="menu-1-8-24">screenshots</a></li>
+<li class="menu-1-9-24"><a href="index.html@q=taxonomy_term_5.html" class="menu-1-9-24">who&#039;s using akk@da</a></li>
+<li class="menu-1-10-24"><a href="index.html@q=node_4.html" class="menu-1-10-24">license</a></li>
+<li class="last menu-1-11-24"><a href="index.html@q=user_login.html" class="menu-1-11-24">log in</a></li>
+</ul>            </td>
+  </tr>
+</table>
+
+<div id="footer-message">
+    
+<div class="block block-block" id="block-block-3">
+  <div class="title"><h3></h3></div>
+  <div class="content"><p><font style="color: #000000;"><small>© 2005-2011 <a href="mailto:piotr.kodzis@yahoo.pl">Kodzis</a><br></font><br></p>
+</div>
+</div></div>
+</body>
+</html>

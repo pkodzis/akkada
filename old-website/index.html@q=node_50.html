@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+  <title>faq | akk@da</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css" media="all"></style><link rel="shortcut icon" href="files/akkada_ico.gif" type="image/x-icon" />
+  <style type="text/css" media="all"></style>  <script type="text/javascript"> </script>
+</head>
+
+<body>
+
+<table border="0" cellpadding="0" cellspacing="0" id="header">
+  <tr>
+    <td id="logo">
+      <a href="index.html" title="Home"><img src="files/logo.gif" alt="Home" /></a>                </td>
+    <td id="menu">
+      <div id="secondary"><a href="index.html@q=node_93.html" title="">command line tools</a> | <a href="index.html@q=node_59.html" title="">engine core modules</a> | <a href="index.html@q=node_50.html" title="" class="active">faq</a> | <a href="index.html@q=node_91.html" title="">GUI</a> | <a href="index.html@q=node_9.html" title="">installation</a> | <a href="index.html@q=node_13.html" title="">probes</a> | <a href="index.html@q=node_72.html" title="">requirements</a> | <a href="index.html@q=node_74.html" title="">rrd cache *</a> | <a href="index.html@q=node_63.html" title="">startup scripts</a> | <a href="index.html@q=node_75.html" title="">status calculation *</a></div>      <div id="primary"><a href="index.html@q=node_2.html" title="">introduction</a> | <a href="index.html@q=taxonomy_term_1.html" title="">news</a> | <a href="index.html@q=node_58.html" title="">download</a> | <a href="index.html@q=node_1.html" title="">features</a> | <a href="index.html@q=node_87.html" title="">live demo</a> | <a href="index.html@q=taxonomy_term_2.html" title="">changes</a> | <a href="index.html@q=node_80.html" title="">screenshots</a> | <a href="index.html@q=node_6.html" title="">documentation</a> | <a href="index.html@q=node_83.html" title="">support</a> | <a href="index.html@q=node_4.html" title="">license</a></div>          </td>
+  </tr>
+  <tr>
+    <td colspan="2"><div></div></td>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" id="content">
+  <tr>
+    <td id="sidebar-left">
+        <div class="block block-menu" id="block-menu-24">
+    <h2 class="title">akk@da</h2>
+    <div class="content">
+<ul class="menu">
+<li class="leaf"><a href="index.html@q=node_2.html" title="">introduction</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_1.html" title="">news</a></li>
+<li class="leaf"><a href="index.html@q=node_58.html" title="">download</a></li>
+<li class="leaf"><a href="index.html@q=node_1.html" title="">features</a></li>
+<li class="leaf"><a href="index.html@q=node_87.html" title="">live demo</a></li>
+<li class="leaf"><a href="index.html@q=taxonomy_term_2.html" title="">changes</a></li>
+<li class="leaf"><a href="index.html@q=node_80.html" title="">screenshots</a></li>
+<li class="expanded"><a href="index.html@q=node_6.html" title="">documentation</a>
+<ul class="menu">
+<li class="collapsed"><a href="index.html@q=node_93.html" title="">command line tools</a></li>
+<li class="collapsed"><a href="index.html@q=node_59.html" title="">engine core modules</a></li>
+<li class="leaf"><a href="index.html@q=node_50.html" title="" class="active">faq</a></li>
+<li class="collapsed"><a href="index.html@q=node_91.html" title="">GUI</a></li>
+<li class="leaf"><a href="index.html@q=node_9.html" title="">installation</a></li>
+<li class="collapsed"><a href="index.html@q=node_13.html" title="">probes</a></li>
+<li class="collapsed"><a href="index.html@q=node_72.html" title="">requirements</a></li>
+<li class="leaf"><a href="index.html@q=node_74.html" title="">rrd cache *</a></li>
+<li class="leaf"><a href="index.html@q=node_63.html" title="">startup scripts</a></li>
+<li class="leaf"><a href="index.html@q=node_75.html" title="">status calculation *</a></li>
+
+</ul>
+</li>
+<li class="leaf"><a href="index.html@q=node_83.html" title="">support</a></li>
+<li class="leaf"><a href="index.html@q=node_4.html" title="">license</a></li>
+
+</ul>
+</div>
+ </div>
+    </td>    <td valign="top">
+            <div id="main">
+        <div class="breadcrumb"><a href="index.html">Home</a> » <a href="index.html@q=node_6.html" title="">documentation</a></div>        <h1 class="title">faq</h1>
+        <div class="tabs"></div>
+                        <!-- begin content -->  <div class="node">
+            <span class="submitted">Submitted by Piotr Kodzis on Fri, 2005-11-04 09:44.</span>
+    <span class="taxonomy"></span>
+    <div class="content"><p>Q: in Mozilla browser I do not see "refresh in X sec..." information when I use teeny skin mode<br />
+A: in Mozilla go to menu Edit -> Preferences -> Content. then check "Enable JavaScript". then click button "Advanced" and check "Change status bar text"</p>
+<p>Q: discover process does not find any service of selected type<br />
+A: 1) check /etc/conf.d/System.conf, section "Probes", selected type must be > then 0 to make possible discover process<br />
+   2) it's possible your host SNMP agent does not provide expected information</p>
+<p>Q: cannot start Apapche with AKK@da:<br />
+tail -f /var/log/httpd/error_log<br />
+[Mon Sep 11 19:29:31 2006] [error] /akkada/var/log/exc_xml.log at /akkada/lib/MyException.pm line 105.\nPermission denied at /akkada/lib/MyException.pm line 104.\n<br />
+[Mon Sep 11 19:29:31 2006] [error] Can't load Perl module Runtime for server 127.0.0.1:0, exiting...</p>
+<p>check permissions to files ${AKKADA}/var/log/* - apache group should have RW rights to both log files. Also check dmesg - if thera are messages like:</p>
+<p>Sep 11 19:21:37 localhost kernel: audit(1157995290.842:9527): avc:  denied  { append } for  pid=13842 comm="httpd" name="exc_xml.log" dev=hda3 ino=777076 scontext=root:system_r:httpd_t:s0 tcontext=root:object_r:etc_runtime_t:s0 tclass=file<br />
+Sep 11 19:21:37 localhost da kernel: audit(1157995290.846:9528): avc:  denied  { append } for  pid=13842 comm="httpd" name="exc_xml.log" dev=hda3 ino=777076 scontext=root:system_r:httpd_t:s0 tcontext=root:object_r:etc_runtime_t:s0 tclass=file<br />
+Sep 11 19:21:37 localhost kernel: audit(1157995290.846:9529): avc:  denied  { append } for  pid=13842 comm="httpd" name="exc_xml.log" dev=hda3 ino=777076 scontext=root:system_r:httpd_t:s0 tcontext=root:object_r:etc_runtime_t:s0 tclass=file</p>
+<p>you need to set proper permissions in SELinux or disable SELinux.</p>
+<p><hr><br />
+Q: cannot start Apache with AKK@DA<br />
+[root@localhost~]# service httpd start<br />
+[root@localhost~]# Starting httpd:           [FAILED]<br />
+[root@localhost~]# tail /var/log/httpd/error_log<br />
+[Fri Feb 24 23:50:04 2006] [error] Can't locate Runtime.pm in @INC (@INC contains: /lib /usr/lib/perl5/site_perl/5.8.6/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.5/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.4/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.3/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.6 /usr/lib/perl5/site_perl/5.8.5 /usr/lib/perl5/site_perl/5.8.4 /usr/lib/perl5/site_perl/5.8.3 /usr/lib/perl5/site_perl /usr/lib/perl5/vendor_perl/5.8.6/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.5/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.4/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.3/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.6 /usr/lib/perl5/vendor_perl/5.8.5 /usr/lib/perl5/vendor_perl/5.8.4 /usr/lib/perl5/vendor_perl/5.8.3 /usr/lib/perl5/vendor_perl /usr/lib/perl5/5.8.6/i386-linux-thread-multi /usr/lib/perl5/5.8.6 . /etc/httpd) at (eval 5) line 3.\n<br />
+[Fri Feb 24 23:50:04 2006] [error] Can't load Perl module Runtime for server</p>
+<p>A: do not user "service" - start Apache with /etc/init.d/httpd script or apachectl binary directly<br />
+<hr><br />
+Q: Apache server does not start without any error information in log files<br />
+A: execure command: ipcs -s | grep apache | awk '{print $2}' | xargs ipcrm sem<br />
+<hr><br />
+Q: nm-job_planner.pl restarts all the time<br />
+A: check etc/akkada.conf definitions of ProbesMap and ProbesMapRev and System->{Probes} - probably you are tring to load np-* module which has missing ID map definition in ProbesMap and ProbesMapRev<br />
+<hr><br />
+Q: probe module does not start automatically with etc/init.d/akkada script but starts when manualy started with np-run.pl script<br />
+A: probe module during start prints some warnings on output - it cannot produce any output on STDOUT, STDERR to start automatically.<br />
+<hr><br />
+Q: I see in log file: Received tooBig(1) error-status at error-index 0<br />
+A: in host configuration try to set SNMP version to version 1<br />
+<hr><br />
+Q: when I use akk@da to monitor LAN switch its CPU utilization keeps over 80%; when I disable akk@da its ~ 3%<br />
+A: akk@da is quiet aggresive network monitoring software. e.g. np-nic.pl module, which is reponsible for network interface monitoring makes over 20 snmpgets eatch test on eatch monitored network interface; so if your device has a lot of network interfaces (e.g. modular HP ProCurve switch or Cisco Catalys 65xx) that is quite normal that device's CPU keeps high utilization; particulary if it's old device with old, not realy fast CPU; solution for that problem is to increase polling time of that device from default 60 seconds; the new value should be determine experimentally<br />
+<hr><br />
+Q: how much bandwidth needs akk@da?<br />
+A: it realy depend on type of monitored hosts; e.g. in my mixed environment with windows, linux, openvms servers and over 2.5k network interfaces in network devices akk@da monitors over 9k services and use for that ~1Mbps of bandwidth<br />
+<hr><br />
+Q: tcp_generic/ssl_generic - discovery process detects a lot of fake open TCP ports on hosts behind firewall. Observerd on hosts located befind CheckPoint Firewall with enabled SYNDefender.<br />
+A: add option "-T Pollite" to nmap definitions in AKK@DA configuration files (${AKKADA}/bin/cfgfindraw.sh nmap) and restart discover process<br />
+<hr><br />
+Q: I have a host with two SNMP agents - how to configure AKK@DA to read information from both agents?<br />
+A: possible since version 0.71. use syntax: xxx::yyy::zzz in snmp_% configuration options. count of agents is detected by snmp_version parameter. e.g.:</p>
+<p>host has standard net-snmpd agent configured to work in version 3 and squid agent working in version 2c. do:</p>
+<p>snmp_version=3::2<br />
+snmp_community=::public<br />
+snmp_user=userX::<br />
+snmp_authpassword=password::<br />
+snmp_privprotocol=des::</p>
+<p>which will mean for AKK@DA:</p>
+<p>I'v got 2 SNMP instances on the host - instance 0 -> version 3, and instance 1 -> version 2<br />
+In instance 0 host is using authPriv security model, both passowrds the same, user ak47, authentication protocol md5 (by default) and the private protocol des<br />
+In instance 1 host is using community publc</p>
+<p>and another sample - host with 2 snmpv3 agents:</p>
+<p>snmp_version=3::3<br />
+snmp_user=userX::userY<br />
+snmp_authpassword=passwordX::passwordY<br />
+snmp_privprotocol=des::des<br />
+<hr><br />
+Q: AKK@DA against Cisco CSS 110xx series device shows all network interfaces in status UNKNOWN.<br />
+A: there is some strange implementation of SNMP on those boxes. You need manualy modify perl module Net/SNMP/Message.pm:<br />
+find string: 'OBJECT IDENTIFIER length equal to zero' and rem that line:</p>
+<pre>
+   if ($length < 1) {
+      #return $this->_error('OBJECT IDENTIFIER length equal to zero');
+   }
+</pre><p>
+<hr><br />
+Q: prome module stestarts all the time. if you try to start it manualy there is a error message like:</p>
+<p>Use of uninitialized value in concatenation (.) or string at ./np-run.pl line 11.</p>
+<p>Can't locate Entity.pm in @INC (@INC contains: /lib /usr/lib/perl5/site_perl/5.8.8/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.7/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.6/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.5/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.4/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.3/i386-linux-thread-multi /usr/lib/perl5/site_perl/5.8.8 /usr/lib/perl5/site_perl/5.8.7 /usr/lib/perl5/site_perl/5.8.6 /usr/lib/perl5/site_perl/5.8.5 /usr/lib/perl5/site_perl/5.8.4 /usr/lib/perl5/site_perl/5.8.3 /usr/lib/perl5/site_perl /usr/lib/perl5/vendor_perl/5.8.8/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.7/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.6/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.5/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.4/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.3/i386-linux-thread-multi /usr/lib/perl5/vendor_perl/5.8.8 /usr/lib/perl5/vendor_perl/5.8.7 /usr/lib/perl5/vendor_perl/5.8.6 /usr/lib/perl5/vendor_perl/5.8.5 /usr/lib/perl5/vendor_perl/5.8.4 /usr/lib/perl5/vendor_perl/5.8.3 /usr/lib/perl5/vendor_perl /usr/lib/perl5/5.8.8/i386-linux-thread-multi /usr/lib/perl5/5.8.8 .) at ./np-run.pl line 13.</p>
+<p>BEGIN failed--compilation aborted at ./np-run.pl line 13.</p>
+<p>A: check, does the akkada user see env variable AKKADA and does it points to the propoer directory</p>
+</div>
+    <div class="links">&raquo; <a href="index.html@q=user_login.html">login</a> to post comments</div>  </div>
+<!-- end content -->      </div>
+    </td>
+      </tr>
+</table>
+
+<div id="footer">
+  
+  <div class="block block-block" id="block-block-3">
+    <h2 class="title">Copyright:</h2>
+    <div class="content"><p>© 2005-2007 <a href="mailto:piotr.kodzis@inteligo.pl">Kodzis</a></p>
+</div>
+ </div>
+</div>
+</body>
+</html>
